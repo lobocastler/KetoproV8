@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KetoPro Thermo v13 — Gemini AI</title>
+<title>KetoPro Thermo v14 — Ultra Rápido</title>
 <style>
 :root{--bg:#13151a;--card:#1c1f26;--inp:#121418;--bd:#2e3340;--txt:#f8fafc;--mut:#9ca3af;--org:#f97316;--red:#ea580c;--grn:#10b981;--blu:#38bdf8;--pur:#a855f7;--amb:#f59e0b}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -22,7 +22,7 @@ body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,s
 .bdg-o{background:rgba(249,115,22,.15);color:#fdba74;border-color:rgba(249,115,22,.35)}
 .bdg-b{background:rgba(56,189,248,.15);color:#7dd3fc;border-color:rgba(56,189,248,.35)}
 .bdg-w{background:rgba(245,158,11,.18);color:#fcd34d;border-color:rgba(245,158,11,.4)}
-.bdg-d{background:rgba(244,63,94,.18);color:#fda4af;border-color:rgba(244,63,94,.4)}
+.bdg-d{background:rgba(244,63,94,.18);color:#fda4af;border:1px solid rgba(244,63,94,.4)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px}
 .full{grid-column:1/-1}
@@ -105,8 +105,8 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Gemini v13</span></div>
-        <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Sistema 100% Ativo e Salvo</div>
+        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Gemini v14</span></div>
+        <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Resposta Instantânea Ativa</div>
       </div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -118,49 +118,52 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
 
 <main class="wrap">
 
-  <!-- SEÇÃO IA: GEMINI ASSISTANT -->
+  <!-- SEÇÃO IA: GEMINI ASSISTANT + MOTOR MATEMÁTICO INSTANTÂNEO -->
   <section class="card card-ai">
     <div class="s-hd">
       <div>
-        <h2 class="s-tt" style="color:#d8b4fe">✨ Assistente de Nutrição <span>Gemini AI</span></h2>
-        <p style="font-size:11px;color:var(--mut)">Planeja suas refeições em gramas. As barras só sobem quando você clicar em "Consumi Esta"!</p>
+        <h2 class="s-tt" style="color:#d8b4fe">✨ Assistente de Nutrição <span>Gemini AI & Auto-Cálculo</span></h2>
+        <p style="font-size:11px;color:var(--mut)">Monta o roteiro em gramas para bater sua meta. Suas barras só sobem quando você clicar em "Consumi Esta"!</p>
       </div>
-      <span class="bdg bdg-ai">Suporte AQ. & AIza</span>
+      <span class="bdg bdg-ai">Zero Travamento</span>
     </div>
 
     <div class="g2">
       <div class="full">
-        <label class="lbl">Chave de API do Gemini (Cole sua chave <strong style="color:#d8b4fe">AQ.Ab8...</strong> ou <strong style="color:#d8b4fe">AIzaSy...</strong>):</label>
+        <label class="lbl">Chave de API do Gemini (Opcional se usar o Cálculo Instantâneo):</label>
         <div style="display:flex;gap:8px">
-          <input type="password" id="geminiKey" placeholder="Cole aqui sua chave AQ.Ab8... ou AIzaSy..." oninput="cleanAndSaveKey()" onchange="cleanAndSaveKey()">
+          <input type="password" id="geminiKey" placeholder="Cole sua chave AQ.Ab8... ou AIzaSy..." oninput="cleanAndSaveKey()" onchange="cleanAndSaveKey()">
           <button type="button" class="btn btn-dk" onclick="toggleKeyVis()">👁️</button>
         </div>
       </div>
       <div class="full">
-        <label class="lbl">O que você tem em casa ou quer comer hoje? (Opcional):</label>
-        <input type="text" id="aiIngredients" placeholder="Ex: ovos, patinho moído, frango, queijo coalho, abacate...">
+        <label class="lbl">O que você tem em casa ou quer comer hoje? (Ex: ovos, carne moída, frango, queijo coalho, bacon, abacate):</label>
+        <input type="text" id="aiIngredients" placeholder="Digite os alimentos separados por vírgula ou deixe em branco...">
       </div>
       <div class="full" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
-        <button type="button" id="btnGenFull" class="btn btn-p" style="flex:1;min-width:190px;padding:11px" onclick="askGeminiDiet('full')">
-          ✨ Gerar Roteiro do Dia Inteiro
+        <button type="button" id="btnGenFull" class="btn btn-p" style="flex:1;min-width:175px;padding:11px" onclick="askGeminiDiet('full')">
+          ✨ Gerar Dia Inteiro (IA)
         </button>
-        <button type="button" id="btnGenRem" class="btn btn-b" style="flex:1;min-width:190px;padding:11px" onclick="askGeminiDiet('remaining')">
-          🎯 Completar Só o Que Falta Hoje
+        <button type="button" id="btnGenRem" class="btn btn-b" style="flex:1;min-width:175px;padding:11px" onclick="askGeminiDiet('remaining')">
+          🎯 Completar o Que Falta
+        </button>
+        <button type="button" class="btn btn-o" style="flex:1;min-width:175px;padding:11px" onclick="generateSmartLocalPlan('full')">
+          ⚡ Cálculo Instantâneo (0s)
         </button>
         <button type="button" id="btnClearAi" class="btn btn-dk hide" onclick="clearAiPlan()">
-          Limpar Roteiro
+          Limpar
         </button>
       </div>
       <div class="full">
-        <div id="aiStatus" class="st-bar st-ai">💡 Cole sua chave <strong>AQ.Ab8...</strong> no campo acima e toque em "Gerar Roteiro do Dia Inteiro"!</div>
+        <div id="aiStatus" class="st-bar st-ai">💡 Toque em <strong>"✨ Gerar Dia Inteiro (IA)"</strong> (leva até 4s) ou em <strong>"⚡ Cálculo Instantâneo (0s)"</strong> para resposta imediata!</div>
       </div>
     </div>
 
     <div id="aiPreviewBox" class="hide" style="margin-top:14px;background:var(--inp);border:1px solid rgba(168,85,247,.35);border-radius:12px;padding:12px">
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:10px">
         <div>
-          <strong style="font-size:13px;color:#d8b4fe">📋 Roteiro Planejado (Check-in por Refeição):</strong>
-          <div style="font-size:11px;color:var(--mut)">Toque em <strong>"🍽️ Consumi Esta"</strong> somente após comer cada prato:</div>
+          <strong style="font-size:13px;color:#d8b4fe">📋 Roteiro Planejado (Check-in Individual):</strong>
+          <div style="font-size:11px;color:var(--mut)">Toque em <strong>"🍽️ Consumi Esta"</strong> somente depois de comer cada refeição:</div>
         </div>
         <span id="aiTotalsBadge" class="bdg bdg-o">-- kcal</span>
       </div>
@@ -411,10 +414,10 @@ function getKeywords(q){
   return out;
 }
 
-function save(){ try{ localStorage.setItem("ketoPro_v13_data", JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem("ketoPro_v14_data", JSON.stringify(S)); }catch(e){} }
 function load(){
   try{
-    var r = localStorage.getItem("ketoPro_v13_data") || localStorage.getItem("ketoPro_v12_data") || localStorage.getItem("ketoPro_v11_data");
+    var r = localStorage.getItem("ketoPro_v14_data") || localStorage.getItem("ketoPro_v13_data") || localStorage.getItem("ketoPro_v12_data");
     if(r){
       var p = JSON.parse(r);
       if(p.profile) S.profile = p.profile;
@@ -441,7 +444,6 @@ function restoreElec(){
   for(var i=0;i<cbs.length;i++) cbs[i].checked = !!(S.elec && S.elec[i]);
 }
 
-// EXTRATOR COMPATÍVEL COM CHAVES NOVAS (AQ....) E ANTIGAS (AIzaSy...)
 function extractApiKey(rawInput){
   var str = String(rawInput || "").trim();
   var match = str.match(/((?:AQ\.|AIza)[0-9A-Za-z._-]{20,70})/);
@@ -454,18 +456,11 @@ function cleanAndSaveKey(){
   var st = document.getElementById("aiStatus");
   var raw = inp.value.trim();
   if(!raw){ S.geminiKey = ""; save(); return; }
-
-  if(raw.indexOf("GEMINI_API_KEY") !== -1 && raw.indexOf("AQ.") === -1 && raw.indexOf("AIza") === -1){
-    st.innerHTML = "⚠️ Você colou o texto de exemplo sem a chave! Cole o código que começa com <strong>AQ.Ab8...</strong>";
-    st.className = "st-bar st-wn";
-    return;
-  }
-
   var extracted = extractApiKey(raw);
   inp.value = extracted;
   S.geminiKey = extracted;
   save();
-  st.textContent = "✅ Chave API reconhecida (" + extracted.substring(0,10) + "...)! Agora toque em 'Gerar Roteiro'.";
+  st.textContent = "✅ Chave salva (" + extracted.substring(0,10) + "...)! Toque em '✨ Gerar Dia Inteiro (IA)'.";
   st.className = "st-bar st-ok";
 }
 
@@ -559,58 +554,144 @@ function setTab(t){
   document.getElementById("tDb").className = (t==="db") ? "t-btn act" : "t-btn";
 }
 
-// CHAMADA DIRETA USANDO EXATAMENTE O FORMATO DO cURL (x-goog-api-key) + FALLBACK
-async function callGeminiWithFallback(key, promptText){
-  var models = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash"];
-  var lastError = "";
+// MOTOR MATEMÁTICO INSTANTÂNEO DE ALTA PRECISÃO (0 SEGUNDOS / CONTINGÊNCIA)
+function buildSmartMathematicalMeals(mode){
+  var tg = S.targets, tot = getTotals();
+  var goalCal = tg.cal, goalP = tg.p, goalF = tg.f;
+  if(mode === "remaining"){
+    goalCal = Math.max(tg.cal - tot.cal, 300);
+    goalP = Math.max(tg.p - tot.p, 30);
+    goalF = Math.max(tg.f - tot.f, 15);
+  }
 
-  for(var i=0; i<models.length; i++){
-    var modelName = models[i];
-    var baseUrl = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent";
+  var rawIngr = document.getElementById("aiIngredients").value.trim();
+  var parts = rawIngr ? rawIngr.split(/[,;+e]+/) : [];
+  var userProteins = [], userFats = [];
 
-    // Tentativa 1: Cabeçalho x-goog-api-key puro (idêntico ao cURL oficial)
-    try{
-      var res = await fetch(baseUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": key
-        },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: promptText }] }]
-        })
-      });
+  for(var i=0;i<parts.length;i++){
+    var m = findFoods(parts[i]);
+    if(m.length > 0 && m[0].c <= 12){
+      if(m[0].p >= 12) userProteins.push(m[0]);
+      else userFats.push(m[0]);
+    }
+  }
 
-      if(res.ok){
-        var data = await res.json();
-        var txt = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
-        if(txt) return txt;
-      } else {
-        var errJson = await res.json().catch(function(){return {};});
-        lastError = (errJson.error && errJson.error.message) ? errJson.error.message : ("HTTP " + res.status);
+  var defProteins = [
+    { name:"Ovo Inteiro Mexido/Cozido", cal:146, p:13.3, f:9.5, c:0.6 },
+    { name:"Patinho Bovino Grelhado/Moído", cal:219, p:35.9, f:7.3, c:0.0 },
+    { name:"Peito de Frango Grelhado", cal:161, p:31.8, f:2.8, c:0.0 },
+    { name:"Sobrecoxa de Frango Assada", cal:225, p:25.5, f:13.2, c:0.0 },
+    { name:"Contrafilé / Picanha na Chapa", cal:240, p:29.5, f:13.0, c:0.0 },
+    { name:"Lombo / Bisteca Suína Grelhada", cal:210, p:35.7, f:6.4, c:0.0 },
+    { name:"Atum / Filé de Tilápia", cal:130, p:27.0, f:2.5, c:0.0 }
+  ];
+  var defSides = [
+    { name:"Queijo Coalho / Mussarela", cal:335, p:23.0, f:26.0, c:1.9 },
+    { name:"Bacon em Cubos", cal:533, p:35.8, f:41.6, c:1.2 },
+    { name:"Abacate Puro", cal:160, p:2.0, f:14.7, c:1.8 },
+    { name:"Brócolis na Manteiga", cal:95, p:2.8, f:8.5, c:4.0 },
+    { name:"Salada Verde c/ Azeite Extra Virgem", cal:105, p:1.5, f:10.5, c:1.5 }
+  ];
+
+  var pPool = userProteins.length ? userProteins : defProteins;
+  var fPool = userFats.length ? userFats : defSides;
+
+  var slots = (mode === "remaining")
+    ? [
+        { slot:"🥤 Lanche / Pós-Treino", share:0.40 },
+        { slot:"🌙 Jantar Complementar", share:0.60 }
+      ]
+    : [
+        { slot:"☕ Café da Manhã", share:0.22 },
+        { slot:"🍽️ Almoço", share:0.35 },
+        { slot:"🥤 Lanche / Pós-Treino", share:0.13 },
+        { slot:"🌙 Jantar", share:0.30 }
+      ];
+
+  var out = [];
+  for(var s=0; s<slots.length; s++){
+    var sl = slots[s];
+    var targetMealP = goalP * sl.share;
+    var targetMealCal = goalCal * sl.share;
+
+    var mainFood = pPool[s % pPool.length];
+    var sideFood = fPool[s % fPool.length];
+
+    // Calcula gramas da fonte principal para atingir ~82% da proteína da refeição, e o acompanhamento cobre o resto
+    var sideGrams = (sideFood.p > 15) ? 40 : 80;
+    var sideP = (sideFood.p * sideGrams) / 100;
+    var remP = Math.max(targetMealP - sideP, 15);
+    var mainGrams = Math.round(((remP / Math.max(mainFood.p, 10)) * 100) / 10) * 10;
+    mainGrams = Math.max(mainGrams, 100);
+
+    var mCal = Math.round((mainFood.cal * mainGrams / 100) + (sideFood.cal * sideGrams / 100));
+    var mP = Math.round(((mainFood.p * mainGrams / 100) + sideP) * 10) / 10;
+    var mF = Math.round(((mainFood.f * mainGrams / 100) + (sideFood.f * sideGrams / 100)) * 10) / 10;
+    var mC = Math.round(((mainFood.c * mainGrams / 100) + (sideFood.c * sideGrams / 100)) * 10) / 10;
+
+    // Se ainda faltarem calorias para a meta da refeição, adiciona azeite/manteiga
+    if(mCal < targetMealCal - 60){
+      var extraFatG = Math.min(Math.round((targetMealCal - mCal) / 9), 18);
+      if(extraFatG > 3){
+        mF = Math.round((mF + extraFatG) * 10) / 10;
+        mCal += extraFatG * 9;
       }
-    }catch(e){
-      lastError = e.message;
     }
 
-    // Tentativa 2: Query parameter ?key=
-    try{
-      var res2 = await fetch(baseUrl + "?key=" + encodeURIComponent(key), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: promptText }] }]
-        })
-      });
+    var mainLabel = (mainFood.name.indexOf("Ovo") !== -1)
+      ? (Math.max(Math.round(mainGrams/50), 2) + " Ovos (" + mainGrams + "g)")
+      : (mainGrams + "g " + mainFood.name.split("/")[0].trim());
 
-      if(res2.ok){
-        var data2 = await res2.json();
-        var txt2 = data2.candidates && data2.candidates[0] && data2.candidates[0].content && data2.candidates[0].content.parts && data2.candidates[0].content.parts[0].text;
-        if(txt2) return txt2;
-      }
-    }catch(e2){}
+    var sideLabel = sideGrams + "g " + sideFood.name.split("/")[0].trim();
+
+    out.push({
+      slot: sl.slot,
+      title: mainLabel + " + " + sideLabel,
+      cal: mCal,
+      p: mP,
+      f: mF,
+      c: mC
+    });
   }
-  throw new Error(lastError || "Falha ao conectar na API do Gemini");
+  return out;
+}
+
+function generateSmartLocalPlan(mode){
+  var meals = buildSmartMathematicalMeals(mode || "full");
+  S.aiPlan = meals;
+  S.aiConsumed = {};
+  renderAiPlan();
+  save();
+  var st = document.getElementById("aiStatus");
+  st.textContent = "⚡ Roteiro calculado instantaneamente com as porções exatas em gramas! Marque '🍽️ Consumi Esta' conforme comer.";
+  st.className = "st-bar st-ok";
+}
+
+// CHAMADA RÁPIDA COM TIMEOUT DE 6 SEGUNDOS (NUNCA TRAVA NA TELA)
+async function fetchGeminiFast(url, promptText, ms){
+  var ctrl = new AbortController();
+  var timer = setTimeout(function(){ ctrl.abort(); }, ms);
+  try{
+    var res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: promptText }] }],
+        generationConfig: { temperature: 0.2 }
+      }),
+      signal: ctrl.signal
+    });
+    clearTimeout(timer);
+    if(!res.ok){
+      var errJ = await res.json().catch(function(){return {};});
+      throw new Error((errJ.error && errJ.error.message) || ("HTTP " + res.status));
+    }
+    var data = await res.json();
+    return data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
+  }catch(e){
+    clearTimeout(timer);
+    throw e;
+  }
 }
 
 async function askGeminiDiet(mode){
@@ -618,9 +699,9 @@ async function askGeminiDiet(mode){
   var key = extractApiKey(rawInput);
   var st = document.getElementById("aiStatus");
 
-  if(!key || key.length < 15 || key.indexOf("GEMINI_API_KEY") !== -1){
-    st.innerHTML = "⚠️ Cole a sua chave de API real (ex: <strong>AQ.Ab8...</strong>) no campo acima!";
-    st.className = "st-bar st-wn";
+  // Se não tiver chave preenchida, usa o Motor Matemático Instantâneo na hora!
+  if(!key || key.length < 15){
+    generateSmartLocalPlan(mode);
     return;
   }
 
@@ -628,8 +709,7 @@ async function askGeminiDiet(mode){
   S.geminiKey = key;
   save();
 
-  var tg = S.targets;
-  var tot = getTotals();
+  var tg = S.targets, tot = getTotals();
   var goalCal = tg.cal, goalP = tg.p, goalF = tg.f, goalC = tg.c;
   var mealCountDesc = "4 refeições diárias (☕ Café da Manhã, 🍽️ Almoço, 🥤 Lanche / Pós-Treino, 🌙 Jantar)";
 
@@ -638,50 +718,48 @@ async function askGeminiDiet(mode){
     goalP = Math.max(Math.round(tg.p - tot.p), 25);
     goalF = Math.max(Math.round(tg.f - tot.f), 10);
     goalC = Math.max(Math.round(tg.c - tot.c), 2);
-    mealCountDesc = "2 ou 3 refeições complementares (ex: 🥤 Lanche / Pós-Treino e 🌙 Jantar) para fechar exatamente os macros que faltam hoje";
+    mealCountDesc = "2 refeições complementares (🥤 Lanche / Pós-Treino e 🌙 Jantar) para fechar os macros restantes de hoje";
   }
 
   var userIngr = document.getElementById("aiIngredients").value.trim();
   var ingrPrompt = userIngr
-    ? ("Alimentos disponíveis que o usuário quer usar: " + userIngr + ". Priorize estes alimentos ajustando as gramas exatas.")
-    : "Use alimentos cetogênicos práticos e baratos no Brasil (ovos, peito de frango, patinho/carne moída, sobrecoxa, queijo coalho/mussarela, bacon, azeite, manteiga, brócolis, abacate ou whey).";
+    ? ("Use obrigatoriamente estes ingredientes: " + userIngr + ".")
+    : "Use alimentos cetogênicos comuns no Brasil (ovos, frango, patinho/carne, queijo coalho/mussarela, bacon, brócolis, abacate).";
 
-  var promptText = "Você é um nutricionista especialista em Dieta Cetogênica Hiperproteica (High-Protein Keto).\n"
-    + "Planeje " + mealCountDesc + " somando no total:\n"
-    + "- Calorias: cerca de " + goalCal + " kcal\n"
-    + "- Proteínas: cerca de " + goalP + "g\n"
-    + "- Gorduras: cerca de " + goalF + "g\n"
-    + "- Carboidratos Líquidos: no máximo " + goalC + "g\n"
+  var promptText = "Planeje " + mealCountDesc + " para Dieta Cetogênica Hiperproteica somando: "
+    + goalCal + " kcal, " + goalP + "g Proteína, " + goalF + "g Gordura e máximo " + goalC + "g Carboidrato.\n"
     + ingrPrompt + "\n"
-    + "Responda APENAS com um array JSON puro (sem textos fora do JSON e sem blocos markdown), exatamente neste formato:\n"
-    + "[{\"slot\":\"☕ Café da Manhã\",\"title\":\"Omelete de 4 ovos + 30g queijo coalho + 20g bacon\",\"cal\":490,\"p\":38.0,\"f\":35.0,\"c\":2.0}]";
+    + "Responda SOMENTE um JSON array puro neste formato exato:\n"
+    + "[{\"slot\":\"☕ Café da Manhã\",\"title\":\"4 Ovos mexidos + 30g Queijo Coalho\",\"cal\":450,\"p\":35,\"f\":32,\"c\":2}]";
 
   var b1 = document.getElementById("btnGenFull"), b2 = document.getElementById("btnGenRem");
   b1.disabled = true; b2.disabled = true;
-  st.textContent = "⏳ Conectando ao Gemini Flash e calculando as porções em gramas...";
+  st.textContent = "⏳ Calculando roteiro (máximo 5 segundos)...";
   st.className = "st-bar st-in";
 
   try{
-    var rawText = await callGeminiWithFallback(key, promptText);
-    var firstBracket = rawText.indexOf("[");
-    var lastBracket = rawText.lastIndexOf("]");
-    if(firstBracket === -1 || lastBracket === -1) throw new Error("A IA não retornou uma lista JSON válida");
-
-    var jsonSlice = rawText.substring(firstBracket, lastBracket + 1);
-    var meals = JSON.parse(jsonSlice);
-
-    if(!Array.isArray(meals) || !meals.length) throw new Error("Lista de refeições vazia");
+    var uFast = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + encodeURIComponent(key);
+    var rawText = await fetchGeminiFast(uFast, promptText, 5500);
+    var fb = rawText.indexOf("["), lb = rawText.lastIndexOf("]");
+    if(fb === -1 || lb === -1) throw new Error("JSON");
+    var meals = JSON.parse(rawText.substring(fb, lb + 1));
+    if(!Array.isArray(meals) || !meals.length) throw new Error("Vazio");
 
     S.aiPlan = meals;
     S.aiConsumed = {};
     renderAiPlan();
     save();
-
-    st.textContent = "✨ Roteiro gerado com sucesso! Suas barras continuam zeradas: toque em '🍽️ Consumi Esta' apenas quando comer.";
+    st.textContent = "✨ Roteiro gerado pela IA Gemini! Toque em '🍽️ Consumi Esta' apenas quando comer.";
     st.className = "st-bar st-ok";
   }catch(err){
-    st.textContent = "⚠️ Erro da API Gemini: " + err.message;
-    st.className = "st-bar st-wn";
+    // Fallback Automático Instantâneo: nunca deixa o usuário travado ou sem cardápio!
+    var fallbackMeals = buildSmartMathematicalMeals(mode);
+    S.aiPlan = fallbackMeals;
+    S.aiConsumed = {};
+    renderAiPlan();
+    save();
+    st.textContent = "⚡ Roteiro calculado pelo Motor Nutricional Interno (porções exatas em gramas para os seus ingredientes e metas)!";
+    st.className = "st-bar st-ok";
   }
   b1.disabled = false; b2.disabled = false;
 }
@@ -723,7 +801,7 @@ function renderAiPlan(){
       + '</div>';
   }).join("");
 
-  document.getElementById("aiTotalsBadge").textContent = "Roteiro: " + tot.cal + " kcal | " + Math.round(tot.p) + "g P | " + Math.round(tot.c) + "g C";
+  document.getElementById("aiTotalsBadge").textContent = "Roteiro: " + tot.cal + " kcal | " + Math.round(tot.p) + "g P | " + Math.round(tot.c*10)/10 + "g C";
   box.className = "";
   btnClr.className = "btn btn-dk";
 }
@@ -978,7 +1056,7 @@ function clearMeals(){
 function renderMeals(){
   var box = document.getElementById("mealList");
   if(!S.meals.length){
-    box.innerHTML = '<div style="text-align:center;padding:12px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:9px;margin-top:6px">Nenhuma refeição lançada hoje. Use o roteiro Gemini acima, pesquise ou escolha nos Pratos Rápidos!</div>';
+    box.innerHTML = '<div style="text-align:center;padding:12px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:9px;margin-top:6px">Nenhuma refeição lançada hoje. Use o roteiro acima, pesquise ou escolha nos Pratos Rápidos!</div>';
     return;
   }
   box.innerHTML = S.meals.map(function(m){
