@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KetoPro Thermo v11 — Edição Completa</title>
+<title>KetoPro Thermo v12 — Gemini AI Blindado</title>
 <style>
 :root{--bg:#13151a;--card:#1c1f26;--inp:#121418;--bd:#2e3340;--txt:#f8fafc;--mut:#9ca3af;--org:#f97316;--red:#ea580c;--grn:#10b981;--blu:#38bdf8;--pur:#a855f7;--amb:#f59e0b}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -105,7 +105,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Gemini v11</span></div>
+        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Gemini v12</span></div>
         <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Sistema 100% Ativo e Salvo</div>
       </div>
     </div>
@@ -125,14 +125,14 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
         <h2 class="s-tt" style="color:#d8b4fe">✨ Assistente de Nutrição <span>Gemini AI</span></h2>
         <p style="font-size:11px;color:var(--mut)">Planeja suas refeições em gramas. As barras só sobem quando você clicar em "Consumi Esta"!</p>
       </div>
-      <span class="bdg bdg-ai">gemini-flash-latest</span>
+      <a href="https://aistudio.google.com/apikey" target="_blank" class="bdg bdg-ai" style="text-decoration:none">🔑 Pegar Chave Grátis Aqui</a>
     </div>
 
     <div class="g2">
       <div class="full">
-        <label class="lbl">Chave API do Gemini (Google AI Studio) — Salva no seu aparelho:</label>
+        <label class="lbl">Chave API do Gemini (Código de 39 letras que começa com <strong style="color:#d8b4fe">AIzaSy...</strong>):</label>
         <div style="display:flex;gap:8px">
-          <input type="password" id="geminiKey" placeholder="Cole aqui sua chave AIzaSy..." onchange="saveKey()">
+          <input type="password" id="geminiKey" placeholder="Cole aqui apenas o código AIzaSy..." oninput="cleanAndSaveKey()" onchange="cleanAndSaveKey()">
           <button type="button" class="btn btn-dk" onclick="toggleKeyVis()">👁️</button>
         </div>
       </div>
@@ -152,7 +152,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
         </button>
       </div>
       <div class="full">
-        <div id="aiStatus" class="st-bar st-ai">💡 Cole sua chave API acima e gere o roteiro completo ou recalcule apenas os macros que faltam hoje!</div>
+        <div id="aiStatus" class="st-bar st-ai">💡 Toque em "🔑 Pegar Chave Grátis Aqui" acima, crie sua chave que começa com <strong>AIzaSy...</strong> e cole no campo!</div>
       </div>
     </div>
 
@@ -411,10 +411,10 @@ function getKeywords(q){
   return out;
 }
 
-function save(){ try{ localStorage.setItem("ketoPro_v11_data", JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem("ketoPro_v12_data", JSON.stringify(S)); }catch(e){} }
 function load(){
   try{
-    var r = localStorage.getItem("ketoPro_v11_data") || localStorage.getItem("ketoPro_v10_data") || localStorage.getItem("ketoPro_v9_data");
+    var r = localStorage.getItem("ketoPro_v12_data") || localStorage.getItem("ketoPro_v11_data") || localStorage.getItem("ketoPro_v10_data");
     if(r){
       var p = JSON.parse(r);
       if(p.profile) S.profile = p.profile;
@@ -441,9 +441,31 @@ function restoreElec(){
   for(var i=0;i<cbs.length;i++) cbs[i].checked = !!(S.elec && S.elec[i]);
 }
 
-function saveKey(){
-  S.geminiKey = document.getElementById("geminiKey").value.trim();
-  save();
+// EXTRATOR AUTOMÁTICO DE CHAVE API (Se o usuário colar um comando cURL inteiro, extrai só o código AIzaSy...)
+function extractApiKey(rawInput){
+  var str = String(rawInput || "").trim();
+  var match = str.match(/AIza[0-9A-Za-z_-]{30,45}/);
+  if(match) return match[0];
+  return str;
+}
+
+function cleanAndSaveKey(){
+  var inp = document.getElementById("geminiKey");
+  var st = document.getElementById("aiStatus");
+  var raw = inp.value.trim();
+  if(!raw){ S.geminiKey = ""; save(); return; }
+
+  var extracted = extractApiKey(raw);
+  if(extracted.indexOf("AIza") === 0){
+    inp.value = extracted;
+    S.geminiKey = extracted;
+    save();
+    st.textContent = "✅ Chave API válida detectada (" + extracted.substring(0,8) + "...)! Agora toque em 'Gerar Roteiro'.";
+    st.className = "st-bar st-ok";
+  } else if(raw.indexOf("GEMINI_API_KEY") !== -1 || raw.indexOf("curl ") !== -1){
+    st.innerHTML = "⚠️ Você colou o comando de exemplo sem a chave! Acesse <strong>aistudio.google.com/apikey</strong>, clique em <strong>Create API key</strong> e copie o código que começa com <strong>AIzaSy...</strong>";
+    st.className = "st-bar st-wn";
+  }
 }
 
 function toggleKeyVis(){
@@ -451,7 +473,6 @@ function toggleKeyVis(){
   f.type = (f.type==="password") ? "text" : "password";
 }
 
-// CRONÔMETRO DE DESCANSO ENTRE SÉRIES
 function startRest(sec){
   if(restTimer) clearInterval(restTimer);
   var rem = sec;
@@ -537,16 +558,60 @@ function setTab(t){
   document.getElementById("tDb").className = (t==="db") ? "t-btn act" : "t-btn";
 }
 
-// INTEGRAÇÃO NATIVA GEMINI FLASH (DIA INTEIRO OU RECALCULAR O QUE FALTA)
+// CHAMADA DIRETA USANDO EXATAMENTE O FORMATO DO cURL + FALLBACK AUTOMÁTICO DE MODELOS
+async function callGeminiWithFallback(key, promptText){
+  var models = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash"];
+  var lastError = "";
+
+  for(var i=0; i<models.length; i++){
+    var modelName = models[i];
+    var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(key);
+
+    try{
+      var res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": key
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{ text: promptText }]
+          }]
+        })
+      });
+
+      if(res.ok){
+        var data = await res.json();
+        var txt = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
+        if(txt) return txt;
+      } else {
+        var errJson = await res.json().catch(function(){return {};});
+        lastError = (errJson.error && errJson.error.message) ? errJson.error.message : ("HTTP " + res.status);
+        // Se a chave for inválida (400 API_KEY_INVALID ou 403), interrompe na hora para avisar
+        if(res.status === 400 && lastError.toLowerCase().indexOf("key") !== -1) break;
+      }
+    }catch(e){
+      lastError = e.message;
+    }
+  }
+  throw new Error(lastError || "Falha ao conectar na API do Gemini");
+}
+
 async function askGeminiDiet(mode){
-  var key = document.getElementById("geminiKey").value.trim();
+  var rawInput = document.getElementById("geminiKey").value.trim();
+  var key = extractApiKey(rawInput);
   var st = document.getElementById("aiStatus");
-  if(!key){
-    st.textContent = "⚠️ Cole a sua chave de API do Gemini no campo acima para gerar o cardápio!";
+
+  if(!key || key.indexOf("AIza") !== 0){
+    st.innerHTML = "⚠️ Chave inválida! Não cole o comando <code>curl</code>. Clique em <strong>'🔑 Pegar Chave Grátis Aqui'</strong> acima, toque em <strong>Create API key</strong> e cole apenas o código que começa com <strong>AIzaSy...</strong>";
     st.className = "st-bar st-wn";
     return;
   }
-  saveKey();
+
+  document.getElementById("geminiKey").value = key;
+  S.geminiKey = key;
+  save();
 
   var tg = S.targets;
   var tot = getTotals();
@@ -563,8 +628,8 @@ async function askGeminiDiet(mode){
 
   var userIngr = document.getElementById("aiIngredients").value.trim();
   var ingrPrompt = userIngr
-    ? ("Alimentos que o usuário tem disponíveis ou quer usar hoje: " + userIngr + ". Priorize estes alimentos ajustando as gramas exatas.")
-    : "Use alimentos cetogênicos práticos e acessíveis no Brasil (ovos, peito de frango, patinho/carne moída, sobrecoxa, queijo coalho/mussarela, bacon, azeite, manteiga, brócolis, abacate ou whey).";
+    ? ("Alimentos disponíveis que o usuário quer usar: " + userIngr + ". Priorize estes alimentos ajustando as gramas exatas.")
+    : "Use alimentos cetogênicos práticos e baratos no Brasil (ovos, peito de frango, patinho/carne moída, sobrecoxa, queijo coalho/mussarela, bacon, azeite, manteiga, brócolis, abacate ou whey).";
 
   var promptText = "Você é um nutricionista especialista em Dieta Cetogênica Hiperproteica (High-Protein Keto).\n"
     + "Planeje " + mealCountDesc + " somando no total:\n"
@@ -573,51 +638,34 @@ async function askGeminiDiet(mode){
     + "- Gorduras: cerca de " + goalF + "g\n"
     + "- Carboidratos Líquidos: no máximo " + goalC + "g\n"
     + ingrPrompt + "\n"
-    + "Responda SOMENTE com um array JSON válido neste formato exato:\n"
-    + "[{\"slot\":\"🍽️ Almoço\",\"title\":\"Descrição com gramas (ex: 220g Patinho grelhado + 100g Brócolis na manteiga)\",\"cal\":600,\"p\":72.0,\"f\":28.0,\"c\":4.0}]";
+    + "Responda APENAS com um array JSON puro (sem textos fora do JSON e sem blocos markdown), exatamente neste formato:\n"
+    + "[{\"slot\":\"☕ Café da Manhã\",\"title\":\"Omelete de 4 ovos + 30g queijo coalho + 20g bacon\",\"cal\":490,\"p\":38.0,\"f\":35.0,\"c\":2.0}]";
 
   var b1 = document.getElementById("btnGenFull"), b2 = document.getElementById("btnGenRem");
   b1.disabled = true; b2.disabled = true;
-  st.textContent = "⏳ O Gemini está calculando as porções em gramas para atingir sua meta...";
+  st.textContent = "⏳ Conectando ao Gemini Flash e calculando as porções em gramas...";
   st.className = "st-bar st-in";
 
-  var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=" + encodeURIComponent(key);
-
   try{
-    var res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: promptText }] }],
-        generationConfig: { temperature: 0.2, responseMimeType: "application/json" }
-      })
-    });
+    var rawText = await callGeminiWithFallback(key, promptText);
+    var firstBracket = rawText.indexOf("[");
+    var lastBracket = rawText.lastIndexOf("]");
+    if(firstBracket === -1 || lastBracket === -1) throw new Error("A IA não retornou uma lista JSON válida");
 
-    if(!res.ok){
-      var errData = await res.json().catch(function(){return {};});
-      var errMsg = (errData.error && errData.error.message) ? errData.error.message : ("Erro HTTP " + res.status);
-      st.textContent = "⚠️ Erro da API Gemini: " + errMsg;
-      st.className = "st-bar st-wn";
-      b1.disabled = false; b2.disabled = false;
-      return;
-    }
+    var jsonSlice = rawText.substring(firstBracket, lastBracket + 1);
+    var meals = JSON.parse(jsonSlice);
 
-    var data = await res.json();
-    var rawText = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
-    var cleanJson = String(rawText || "").replace(/```json/g,"").replace(/```/g,"").trim();
-    var meals = JSON.parse(cleanJson);
-
-    if(!Array.isArray(meals) || !meals.length) throw new Error("Formato inválido");
+    if(!Array.isArray(meals) || !meals.length) throw new Error("Lista de refeições vazia");
 
     S.aiPlan = meals;
     S.aiConsumed = {};
     renderAiPlan();
     save();
 
-    st.textContent = "✨ Roteiro calculado! Suas barras continuam intactas: toque em '🍽️ Consumi Esta' apenas quando comer.";
+    st.textContent = "✨ Roteiro gerado com sucesso! Suas barras continuam zeradas: toque em '🍽️ Consumi Esta' apenas quando comer.";
     st.className = "st-bar st-ok";
   }catch(err){
-    st.textContent = "⚠️ Falha ao processar resposta da IA (" + err.message + "). Tente novamente.";
+    st.textContent = "⚠️ Erro da API Gemini: " + err.message;
     st.className = "st-bar st-wn";
   }
   b1.disabled = false; b2.disabled = false;
@@ -986,7 +1034,6 @@ function buildReport(){
   return { id:Date.now(), dateStr:dt, weight:num(document.getElementById("weight").value,105), tot:tot, targets:{cal:tg.cal,p:tg.p,f:tg.f,c:tg.c}, wk:wk, elec:elCnt, meals:S.meals.slice(), wins:wins, fails:fails, tips:tips };
 }
 
-// Quebra de linha automática no Canvas para não cortar textos longos
 function wrapText(ctx, text, x, y, maxW, lh){
   var words = String(text).split(" "), line = "";
   for(var n=0;n<words.length;n++){
