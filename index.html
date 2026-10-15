@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KetoPro Thermo v12 — Gemini AI Blindado</title>
+<title>KetoPro Thermo v13 — Gemini AI</title>
 <style>
 :root{--bg:#13151a;--card:#1c1f26;--inp:#121418;--bd:#2e3340;--txt:#f8fafc;--mut:#9ca3af;--org:#f97316;--red:#ea580c;--grn:#10b981;--blu:#38bdf8;--pur:#a855f7;--amb:#f59e0b}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -105,7 +105,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Gemini v12</span></div>
+        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Gemini v13</span></div>
         <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Sistema 100% Ativo e Salvo</div>
       </div>
     </div>
@@ -125,14 +125,14 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
         <h2 class="s-tt" style="color:#d8b4fe">✨ Assistente de Nutrição <span>Gemini AI</span></h2>
         <p style="font-size:11px;color:var(--mut)">Planeja suas refeições em gramas. As barras só sobem quando você clicar em "Consumi Esta"!</p>
       </div>
-      <a href="https://aistudio.google.com/apikey" target="_blank" class="bdg bdg-ai" style="text-decoration:none">🔑 Pegar Chave Grátis Aqui</a>
+      <span class="bdg bdg-ai">Suporte AQ. & AIza</span>
     </div>
 
     <div class="g2">
       <div class="full">
-        <label class="lbl">Chave API do Gemini (Código de 39 letras que começa com <strong style="color:#d8b4fe">AIzaSy...</strong>):</label>
+        <label class="lbl">Chave de API do Gemini (Cole sua chave <strong style="color:#d8b4fe">AQ.Ab8...</strong> ou <strong style="color:#d8b4fe">AIzaSy...</strong>):</label>
         <div style="display:flex;gap:8px">
-          <input type="password" id="geminiKey" placeholder="Cole aqui apenas o código AIzaSy..." oninput="cleanAndSaveKey()" onchange="cleanAndSaveKey()">
+          <input type="password" id="geminiKey" placeholder="Cole aqui sua chave AQ.Ab8... ou AIzaSy..." oninput="cleanAndSaveKey()" onchange="cleanAndSaveKey()">
           <button type="button" class="btn btn-dk" onclick="toggleKeyVis()">👁️</button>
         </div>
       </div>
@@ -152,7 +152,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
         </button>
       </div>
       <div class="full">
-        <div id="aiStatus" class="st-bar st-ai">💡 Toque em "🔑 Pegar Chave Grátis Aqui" acima, crie sua chave que começa com <strong>AIzaSy...</strong> e cole no campo!</div>
+        <div id="aiStatus" class="st-bar st-ai">💡 Cole sua chave <strong>AQ.Ab8...</strong> no campo acima e toque em "Gerar Roteiro do Dia Inteiro"!</div>
       </div>
     </div>
 
@@ -411,10 +411,10 @@ function getKeywords(q){
   return out;
 }
 
-function save(){ try{ localStorage.setItem("ketoPro_v12_data", JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem("ketoPro_v13_data", JSON.stringify(S)); }catch(e){} }
 function load(){
   try{
-    var r = localStorage.getItem("ketoPro_v12_data") || localStorage.getItem("ketoPro_v11_data") || localStorage.getItem("ketoPro_v10_data");
+    var r = localStorage.getItem("ketoPro_v13_data") || localStorage.getItem("ketoPro_v12_data") || localStorage.getItem("ketoPro_v11_data");
     if(r){
       var p = JSON.parse(r);
       if(p.profile) S.profile = p.profile;
@@ -441,11 +441,11 @@ function restoreElec(){
   for(var i=0;i<cbs.length;i++) cbs[i].checked = !!(S.elec && S.elec[i]);
 }
 
-// EXTRATOR AUTOMÁTICO DE CHAVE API (Se o usuário colar um comando cURL inteiro, extrai só o código AIzaSy...)
+// EXTRATOR COMPATÍVEL COM CHAVES NOVAS (AQ....) E ANTIGAS (AIzaSy...)
 function extractApiKey(rawInput){
   var str = String(rawInput || "").trim();
-  var match = str.match(/AIza[0-9A-Za-z_-]{30,45}/);
-  if(match) return match[0];
+  var match = str.match(/((?:AQ\.|AIza)[0-9A-Za-z._-]{20,70})/);
+  if(match) return match[1];
   return str;
 }
 
@@ -455,17 +455,18 @@ function cleanAndSaveKey(){
   var raw = inp.value.trim();
   if(!raw){ S.geminiKey = ""; save(); return; }
 
-  var extracted = extractApiKey(raw);
-  if(extracted.indexOf("AIza") === 0){
-    inp.value = extracted;
-    S.geminiKey = extracted;
-    save();
-    st.textContent = "✅ Chave API válida detectada (" + extracted.substring(0,8) + "...)! Agora toque em 'Gerar Roteiro'.";
-    st.className = "st-bar st-ok";
-  } else if(raw.indexOf("GEMINI_API_KEY") !== -1 || raw.indexOf("curl ") !== -1){
-    st.innerHTML = "⚠️ Você colou o comando de exemplo sem a chave! Acesse <strong>aistudio.google.com/apikey</strong>, clique em <strong>Create API key</strong> e copie o código que começa com <strong>AIzaSy...</strong>";
+  if(raw.indexOf("GEMINI_API_KEY") !== -1 && raw.indexOf("AQ.") === -1 && raw.indexOf("AIza") === -1){
+    st.innerHTML = "⚠️ Você colou o texto de exemplo sem a chave! Cole o código que começa com <strong>AQ.Ab8...</strong>";
     st.className = "st-bar st-wn";
+    return;
   }
+
+  var extracted = extractApiKey(raw);
+  inp.value = extracted;
+  S.geminiKey = extracted;
+  save();
+  st.textContent = "✅ Chave API reconhecida (" + extracted.substring(0,10) + "...)! Agora toque em 'Gerar Roteiro'.";
+  st.className = "st-bar st-ok";
 }
 
 function toggleKeyVis(){
@@ -558,26 +559,25 @@ function setTab(t){
   document.getElementById("tDb").className = (t==="db") ? "t-btn act" : "t-btn";
 }
 
-// CHAMADA DIRETA USANDO EXATAMENTE O FORMATO DO cURL + FALLBACK AUTOMÁTICO DE MODELOS
+// CHAMADA DIRETA USANDO EXATAMENTE O FORMATO DO cURL (x-goog-api-key) + FALLBACK
 async function callGeminiWithFallback(key, promptText){
   var models = ["gemini-flash-latest", "gemini-2.5-flash", "gemini-2.0-flash"];
   var lastError = "";
 
   for(var i=0; i<models.length; i++){
     var modelName = models[i];
-    var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(key);
+    var baseUrl = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent";
 
+    // Tentativa 1: Cabeçalho x-goog-api-key puro (idêntico ao cURL oficial)
     try{
-      var res = await fetch(url, {
+      var res = await fetch(baseUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "x-goog-api-key": key
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{ text: promptText }]
-          }]
+          contents: [{ parts: [{ text: promptText }] }]
         })
       });
 
@@ -588,12 +588,27 @@ async function callGeminiWithFallback(key, promptText){
       } else {
         var errJson = await res.json().catch(function(){return {};});
         lastError = (errJson.error && errJson.error.message) ? errJson.error.message : ("HTTP " + res.status);
-        // Se a chave for inválida (400 API_KEY_INVALID ou 403), interrompe na hora para avisar
-        if(res.status === 400 && lastError.toLowerCase().indexOf("key") !== -1) break;
       }
     }catch(e){
       lastError = e.message;
     }
+
+    // Tentativa 2: Query parameter ?key=
+    try{
+      var res2 = await fetch(baseUrl + "?key=" + encodeURIComponent(key), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }]
+        })
+      });
+
+      if(res2.ok){
+        var data2 = await res2.json();
+        var txt2 = data2.candidates && data2.candidates[0] && data2.candidates[0].content && data2.candidates[0].content.parts && data2.candidates[0].content.parts[0].text;
+        if(txt2) return txt2;
+      }
+    }catch(e2){}
   }
   throw new Error(lastError || "Falha ao conectar na API do Gemini");
 }
@@ -603,8 +618,8 @@ async function askGeminiDiet(mode){
   var key = extractApiKey(rawInput);
   var st = document.getElementById("aiStatus");
 
-  if(!key || key.indexOf("AIza") !== 0){
-    st.innerHTML = "⚠️ Chave inválida! Não cole o comando <code>curl</code>. Clique em <strong>'🔑 Pegar Chave Grátis Aqui'</strong> acima, toque em <strong>Create API key</strong> e cole apenas o código que começa com <strong>AIzaSy...</strong>";
+  if(!key || key.length < 15 || key.indexOf("GEMINI_API_KEY") !== -1){
+    st.innerHTML = "⚠️ Cole a sua chave de API real (ex: <strong>AQ.Ab8...</strong>) no campo acima!";
     st.className = "st-bar st-wn";
     return;
   }
