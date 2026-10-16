@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KetoPro Thermo v15 — Scanner de Fotos & IA</title>
+<title>KetoPro Thermo v16 — Scanner Vision & IA</title>
 <style>
 :root{--bg:#13151a;--card:#1c1f26;--inp:#121418;--bd:#2e3340;--txt:#f8fafc;--mut:#9ca3af;--org:#f97316;--red:#ea580c;--grn:#10b981;--blu:#38bdf8;--pur:#a855f7;--amb:#f59e0b}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -22,7 +22,7 @@ body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,s
 .bdg-o{background:rgba(249,115,22,.15);color:#fdba74;border-color:rgba(249,115,22,.35)}
 .bdg-b{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.35)}
 .bdg-w{background:rgba(245,158,11,.18);color:#fcd34d;border-color:rgba(245,158,11,.4)}
-.bdg-d{background:rgba(244,63,94,.18);color:#fda4af;border-color:rgba(244,63,94,.4)}
+.bdg-d{background:rgba(244,63,94,.18);color:#fda4af;border:1px solid rgba(244,63,94,.4)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px}
 .full{grid-column:1/-1}
@@ -108,8 +108,8 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Vision v15</span></div>
-        <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Scanner de Fotos & IA Ativos</div>
+        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Vision v16</span></div>
+        <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Auto-ListModels & Vision Ativos</div>
       </div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -128,7 +128,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
         <h2 class="s-tt" style="color:#d8b4fe">✨ Assistente de Nutrição <span>Gemini AI & Auto-Cálculo</span></h2>
         <p style="font-size:11px;color:var(--mut)">Monta o roteiro em gramas para bater sua meta. Suas barras só sobem quando você clicar em "Consumi Esta"!</p>
       </div>
-      <span class="bdg bdg-ai">Roteiro + Visão</span>
+      <span id="activeModelBadge" class="bdg bdg-ai">Auto-Detect v1beta</span>
     </div>
 
     <div class="g2">
@@ -265,7 +265,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
 
     <div id="pMan" class="p-man">
 
-      <!-- NOVO SCANNER DE FOTOS (PRATOS FEITOS E RÓTULOS NUTRICIONAIS) -->
+      <!-- SCANNER DE FOTOS (PRATOS FEITOS E RÓTULOS NUTRICIONAIS) -->
       <div class="cam-box">
         <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
           <div>
@@ -284,7 +284,6 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
           </div>
         </div>
 
-        <!-- Miniatura da foto analisada -->
         <div id="photoPreviewWrap" class="hide" style="display:flex;align-items:center;gap:10px;margin-top:10px;background:var(--inp);padding:8px;border-radius:9px;border:1px solid var(--bd)">
           <img id="photoThumb" style="width:64px;height:64px;object-fit:cover;border-radius:7px;border:1px solid var(--pur)" alt="Foto">
           <div style="flex:1">
@@ -436,6 +435,7 @@ var S = {
 };
 
 var WEB_CACHE = [];
+var DISCOVERED_MODELS = null; // Guarda os modelos ativos retornados pelo ListModels da chave do usuário
 var lastRep = null;
 var restTimer = null;
 
@@ -450,10 +450,10 @@ function getKeywords(q){
   return out;
 }
 
-function save(){ try{ localStorage.setItem("ketoPro_v15_data", JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem("ketoPro_v16_data", JSON.stringify(S)); }catch(e){} }
 function load(){
   try{
-    var r = localStorage.getItem("ketoPro_v15_data") || localStorage.getItem("ketoPro_v14_data") || localStorage.getItem("ketoPro_v13_data");
+    var r = localStorage.getItem("ketoPro_v16_data") || localStorage.getItem("ketoPro_v15_data") || localStorage.getItem("ketoPro_v14_data");
     if(r){
       var p = JSON.parse(r);
       if(p.profile) S.profile = p.profile;
@@ -491,12 +491,13 @@ function cleanAndSaveKey(){
   var inp = document.getElementById("geminiKey");
   var st = document.getElementById("aiStatus");
   var raw = inp.value.trim();
-  if(!raw){ S.geminiKey = ""; save(); return; }
+  if(!raw){ S.geminiKey = ""; DISCOVERED_MODELS = null; save(); return; }
   var extracted = extractApiKey(raw);
   inp.value = extracted;
   S.geminiKey = extracted;
+  DISCOVERED_MODELS = null;
   save();
-  st.textContent = "✅ Chave salva (" + extracted.substring(0,10) + "...)! Pronta para o Roteiro IA e para o Scanner de Fotos.";
+  st.textContent = "✅ Chave salva (" + extracted.substring(0,10) + "...)! Pronta para o Scanner de Fotos e Roteiro IA.";
   st.className = "st-bar st-ok";
 }
 
@@ -525,7 +526,68 @@ function startRest(sec){
 }
 
 // ============================================================================
-// SCANNER DE FOTOS (PRATOS FEITOS E TABELAS NUTRICIONAIS COM COMPRESSÃO RÁPIDA)
+// DESCOBERTA AUTOMÁTICA DE MODELOS ATIVOS (ListModels v1beta)
+// ============================================================================
+async function getAvailableGeminiModels(key){
+  if(DISCOVERED_MODELS && DISCOVERED_MODELS.length > 0) return DISCOVERED_MODELS;
+
+  var defaultList = [
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-2.5-pro"
+  ];
+
+  try{
+    var url = "https://generativelanguage.googleapis.com/v1beta/models?key=" + encodeURIComponent(key);
+    var res = await fetch(url);
+    if(!res.ok) return defaultList;
+    var data = await res.json();
+    if(!data || !Array.isArray(data.models)) return defaultList;
+
+    var valid = [];
+    for(var i=0; i<data.models.length; i++){
+      var m = data.models[i];
+      var methods = m.supportedGenerationMethods || [];
+      if(methods.indexOf("generateContent") === -1) continue;
+      var shortName = String(m.name || "").replace("models/", "");
+      var low = shortName.toLowerCase();
+      // Filtra apenas modelos de texto/visão Gemini (ignora embedding, tts, audio, imagen, veo, aqa)
+      if(low.indexOf("gemini") === -1) continue;
+      if(low.indexOf("embedding") !== -1 || low.indexOf("tts") !== -1 || low.indexOf("audio") !== -1 || low.indexOf("imagen") !== -1 || low.indexOf("veo") !== -1 || low.indexOf("aqa") !== -1 || low.indexOf("thinking") !== -1) continue;
+      valid.push(shortName);
+    }
+
+    if(valid.length === 0) return defaultList;
+
+    // Ordena priorizando os modelos Flash 2.5 / 3 / latest (mais rápidos para visão e JSON)
+    valid.sort(function(a, b){
+      function score(n){
+        var s = 0;
+        if(n === "gemini-2.5-flash") s += 100;
+        if(n === "gemini-flash-latest") s += 90;
+        if(n.indexOf("2.5-flash") !== -1) s += 80;
+        if(n.indexOf("3-flash") !== -1 || n.indexOf("3.0-flash") !== -1) s += 75;
+        if(n.indexOf("flash") !== -1) s += 50;
+        if(n.indexOf("pro") !== -1) s += 30;
+        if(n.indexOf("1.5") !== -1) s -= 50;
+        return s;
+      }
+      return score(b) - score(a);
+    });
+
+    DISCOVERED_MODELS = valid;
+    var bdg = document.getElementById("activeModelBadge");
+    if(bdg) bdg.textContent = "Ativo: " + valid[0];
+    return valid;
+  }catch(e){
+    return defaultList;
+  }
+}
+
+// ============================================================================
+// SCANNER DE FOTOS (PRATOS FEITOS E TABELAS NUTRICIONAIS COM ListModels + inlineData)
 // ============================================================================
 function closePhotoPreview(){
   document.getElementById("photoPreviewWrap").className = "hide";
@@ -548,7 +610,7 @@ function compressImageToBase64(file, maxDim, quality){
         cv.width = w; cv.height = h;
         var ctx = cv.getContext("2d");
         ctx.drawImage(img, 0, 0, w, h);
-        var dataUrl = cv.toDataURL("image/jpeg", quality || 0.75);
+        var dataUrl = cv.toDataURL("image/jpeg", quality || 0.8);
         resolve({
           dataUrl: dataUrl,
           base64: dataUrl.split(",")[1],
@@ -564,13 +626,14 @@ function compressImageToBase64(file, maxDim, quality){
 }
 
 async function callGeminiVision(key, base64Data, mimeType, promptText){
-  var models = ["gemini-2.0-flash", "gemini-flash-latest", "gemini-1.5-flash"];
-  var lastErr = "";
+  var models = await getAvailableGeminiModels(key);
+  var firstRealError = "";
 
-  for(var i=0; i<models.length; i++){
-    var url = "https://generativelanguage.googleapis.com/v1beta/models/" + models[i] + ":generateContent?key=" + encodeURIComponent(key);
+  for(var i=0; i<Math.min(models.length, 4); i++){
+    var modelName = models[i];
+    var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(key);
     var ctrl = new AbortController();
-    var timer = setTimeout(function(){ ctrl.abort(); }, 12000);
+    var timer = setTimeout(function(){ ctrl.abort(); }, 14000);
 
     try{
       var res = await fetch(url, {
@@ -580,7 +643,7 @@ async function callGeminiVision(key, base64Data, mimeType, promptText){
           contents: [{
             parts: [
               { text: promptText },
-              { inline_data: { mime_type: mimeType, data: base64Data } }
+              { inlineData: { mimeType: mimeType, data: base64Data } }
             ]
           }],
           generationConfig: { temperature: 0.15 }
@@ -592,17 +655,24 @@ async function callGeminiVision(key, base64Data, mimeType, promptText){
       if(res.ok){
         var data = await res.json();
         var txt = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
-        if(txt) return txt;
+        if(txt){
+          var bdg = document.getElementById("activeModelBadge");
+          if(bdg) bdg.textContent = "Modelo: " + modelName;
+          return txt;
+        }
       } else {
         var ej = await res.json().catch(function(){return {};});
-        lastErr = (ej.error && ej.error.message) ? ej.error.message : ("HTTP " + res.status);
+        var msg = (ej.error && ej.error.message) ? ej.error.message : ("HTTP " + res.status);
+        if(!firstRealError && res.status !== 404) firstRealError = msg;
+        if(!firstRealError) firstRealError = msg;
       }
     }catch(e){
       clearTimeout(timer);
-      lastErr = e.name === "AbortError" ? "Tempo limite excedido" : e.message;
+      var em = e.name === "AbortError" ? "Tempo limite de leitura excedido" : e.message;
+      if(!firstRealError) firstRealError = em;
     }
   }
-  throw new Error(lastErr || "Não foi possível analisar a imagem");
+  throw new Error(firstRealError || "Não foi possível analisar a imagem");
 }
 
 async function handlePhotoUpload(inputEl){
@@ -625,34 +695,34 @@ async function handlePhotoUpload(inputEl){
   var btnCam = document.getElementById("btnCam"), btnGal = document.getElementById("btnGal");
 
   btnCam.disabled = true; btnGal.disabled = true;
-  setSt("📸 Comprimindo e analisando a foto (identificando alimentos ou tabela nutricional)...", "in");
+  setSt("📸 Detectando modelo Gemini ativo e lendo a imagem...", "in");
 
   try{
-    var imgObj = await compressImageToBase64(file, 800, 0.75);
+    var imgObj = await compressImageToBase64(file, 900, 0.8);
     thumb.src = imgObj.dataUrl;
     wrap.className = "";
     dTitle.textContent = "🔍 Lendo foto com Inteligência Artificial...";
-    dSub.textContent = "Calculando peso médio em gramas, calorias, proteínas, gorduras e carboidratos...";
+    dSub.textContent = "Extraindo tabela nutricional / alimentos e calculando gramas...";
 
     var visionPrompt = "Analise esta imagem com precisão nutricional. Ela pode ser:\n"
-      + "CASO 1 - UM PRATO DE COMIDA / REFEIÇÃO: Identifique todos os alimentos visíveis no prato, estime a quantidade média em gramas de cada item e calcule a soma total de peso (grams), calorias (cal), proteínas (p), gorduras (f) e carboidratos líquidos (c).\n"
-      + "CASO 2 - UM RÓTULO / TABELA NUTRICIONAL OU EMBALAGEM DE PRODUTO: Extraia o texto da informação nutricional da embalagem, identifique o nome do produto, o tamanho da porção em gramas/ml (grams) e os valores exatos de calorias (cal), proteínas (p), gorduras totais (f) e carboidratos (c) da porção.\n\n"
-      + "Responda EXCLUSIVAMENTE com um objeto JSON puro (sem markdown e sem texto extra) neste formato exato:\n"
-      + "{\"type\":\"prato ou rotulo\",\"name\":\"Descrição clara dos itens e gramas (ex: 180g Bife grelhado + 2 Ovos + Salada OU Iogurte Proteico Integral)\",\"grams\":320,\"cal\":520,\"p\":58.5,\"f\":28.0,\"c\":4.5,\"details\":\"Resumo curto dos elementos extraídos\"}";
+      + "CASO 1 - UM RÓTULO / TABELA NUTRICIONAL OU EMBALAGEM DE PRODUTO: Leia os textos e números da tabela de Informação Nutricional na imagem. Extraia o nome do alimento/produto, o peso da porção em gramas/ml (grams) e os valores de calorias (cal), proteínas (p), gorduras totais (f) e carboidratos (c) da porção.\n"
+      + "CASO 2 - UM PRATO DE COMIDA / REFEIÇÃO: Identifique todos os alimentos visíveis no prato, estime a quantidade média em gramas de cada item e calcule a soma total de peso (grams), calorias (cal), proteínas (p), gorduras (f) e carboidratos líquidos (c).\n\n"
+      + "Responda EXCLUSIVAMENTE com um objeto JSON puro (sem blocos markdown e sem comentários) neste formato exato:\n"
+      + "{\"type\":\"rotulo ou prato\",\"name\":\"Nome do Produto ou Itens do Prato\",\"grams\":100,\"cal\":250,\"p\":20.0,\"f\":12.0,\"c\":5.0,\"details\":\"Resumo curto do que foi lido na imagem\"}";
 
     var rawResp = await callGeminiVision(key, imgObj.base64, imgObj.mimeType, visionPrompt);
     var fb = rawResp.indexOf("{"), lb = rawResp.lastIndexOf("}");
-    if(fb === -1 || lb === -1) throw new Error("Formato de leitura inválido");
+    if(fb === -1 || lb === -1) throw new Error("Resposta da IA não veio em formato JSON");
 
     var parsed = JSON.parse(rawResp.substring(fb, lb + 1));
-    var g = Math.max(Math.round(num(parsed.grams, 150)), 1);
+    var g = Math.max(Math.round(num(parsed.grams, 100)), 1);
     var cal = Math.round(num(parsed.cal, 0));
     var p = Math.round(num(parsed.p, 0) * 10) / 10;
     var f = Math.round(num(parsed.f, 0) * 10) / 10;
     var c = Math.round(num(parsed.c, 0) * 10) / 10;
-    var itemName = String(parsed.name || "Refeição Analisada por Foto").trim();
+    if(cal === 0 && (p > 0 || f > 0 || c > 0)) cal = Math.round((p * 4) + (f * 9) + (c * 4));
+    var itemName = String(parsed.name || "Alimento Extraído da Foto").trim();
 
-    // Salva a base proporcional por 100g para que se o usuário ajustar os gramas, recalcule todos os macros!
     S.curBase = {
       name: "📸 " + itemName,
       cal: (cal * 100) / g,
@@ -669,10 +739,10 @@ async function handlePhotoUpload(inputEl){
     document.getElementById("mC").value = c;
     document.getElementById("mCal").value = cal;
 
-    dTitle.textContent = "✅ Extraído: " + itemName + " (~" + g + "g)";
+    dTitle.textContent = "✅ Extraído: " + itemName + " (" + g + "g)";
     dSub.textContent = "🔥 " + cal + " kcal | 🥩 " + p + "g Prot | 🥑 " + f + "g Gord | 🥦 " + c + "g Carbo" + (parsed.details ? (" — " + parsed.details) : "");
 
-    setSt("✅ Foto analisada e campos autopreenchidos! Confira abaixo e clique no botão verde '+ Somar Refeição no Diário de Hoje'!", "ok");
+    setSt("✅ Foto lida e campos autopreenchidos! Agora toque no botão verde '+ Somar Refeição no Diário de Hoje'!", "ok");
 
     var addBtn = document.getElementById("btnAddManualMain");
     addBtn.className = "btn btn-g pulse-ready";
@@ -681,7 +751,7 @@ async function handlePhotoUpload(inputEl){
   }catch(err){
     dTitle.textContent = "⚠️ Não foi possível extrair automaticamente da foto";
     dSub.textContent = "Motivo: " + err.message + ". Você pode digitar o nome do alimento abaixo para autopreencher!";
-    setSt("⚠️ Falha ao ler foto (" + err.message + "). Tente uma foto mais nítida ou use a busca abaixo.", "wn");
+    setSt("⚠️ Aviso na leitura da foto: " + err.message, "wn");
   }
 
   btnCam.disabled = false; btnGal.disabled = false;
@@ -929,12 +999,14 @@ async function askGeminiDiet(mode){
 
   var b1 = document.getElementById("btnGenFull"), b2 = document.getElementById("btnGenRem");
   b1.disabled = true; b2.disabled = true;
-  st.textContent = "⏳ Calculando roteiro (máximo 5 segundos)...";
+  st.textContent = "⏳ Conectando ao modelo Gemini ativo da sua conta...";
   st.className = "st-bar st-in";
 
   try{
-    var uFast = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + encodeURIComponent(key);
-    var rawText = await fetchGeminiFast(uFast, promptText, 5500);
+    var models = await getAvailableGeminiModels(key);
+    var activeModel = models[0] || "gemini-2.5-flash";
+    var uFast = "https://generativelanguage.googleapis.com/v1beta/models/" + activeModel + ":generateContent?key=" + encodeURIComponent(key);
+    var rawText = await fetchGeminiFast(uFast, promptText, 7000);
     var fb = rawText.indexOf("["), lb = rawText.lastIndexOf("]");
     if(fb === -1 || lb === -1) throw new Error("JSON");
     var meals = JSON.parse(rawText.substring(fb, lb + 1));
@@ -944,7 +1016,7 @@ async function askGeminiDiet(mode){
     S.aiConsumed = {};
     renderAiPlan();
     save();
-    st.textContent = "✨ Roteiro gerado pela IA Gemini! Toque em '🍽️ Consumi Esta' apenas quando comer.";
+    st.textContent = "✨ Roteiro gerado pela IA (" + activeModel + ")! Toque em '🍽️ Consumi Esta' apenas quando comer.";
     st.className = "st-bar st-ok";
   }catch(err){
     var fallbackMeals = buildSmartMathematicalMeals(mode);
