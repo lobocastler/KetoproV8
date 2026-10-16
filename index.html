@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KetoPro Thermo v16 — Scanner Vision & IA</title>
+<title>KetoPro Thermo v17 — Scanner Vision 3.8 & IA</title>
 <style>
 :root{--bg:#13151a;--card:#1c1f26;--inp:#121418;--bd:#2e3340;--txt:#f8fafc;--mut:#9ca3af;--org:#f97316;--red:#ea580c;--grn:#10b981;--blu:#38bdf8;--pur:#a855f7;--amb:#f59e0b}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -20,9 +20,9 @@ body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,s
 .bdg{font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.35)}
 .bdg-ai{background:rgba(168,85,247,.18);color:#d8b4fe;border:1px solid rgba(168,85,247,.4)}
 .bdg-o{background:rgba(249,115,22,.15);color:#fdba74;border-color:rgba(249,115,22,.35)}
-.bdg-b{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.35)}
+.bdg-b{background:rgba(56,189,248,.15);color:#7dd3fc;border-color:rgba(56,189,248,.35)}
 .bdg-w{background:rgba(245,158,11,.18);color:#fcd34d;border-color:rgba(245,158,11,.4)}
-.bdg-d{background:rgba(244,63,94,.18);color:#fda4af;border:1px solid rgba(244,63,94,.4)}
+.bdg-d{background:rgba(244,63,94,.18);color:#fda4af;border-color:rgba(244,63,94,.4)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px}
 .full{grid-column:1/-1}
@@ -108,8 +108,8 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Vision v16</span></div>
-        <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Auto-ListModels & Vision Ativos</div>
+        <div style="font-size:16px;font-weight:800;color:#fff">KetoPro <span style="color:var(--pur)">Vision v17</span></div>
+        <div id="jsStatus" style="font-size:11px;color:#6ee7b7">🟢 Gemini 3.8 / Latest Ativo</div>
       </div>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -128,7 +128,7 @@ input:focus,select:focus{outline:none;border-color:var(--org)}
         <h2 class="s-tt" style="color:#d8b4fe">✨ Assistente de Nutrição <span>Gemini AI & Auto-Cálculo</span></h2>
         <p style="font-size:11px;color:var(--mut)">Monta o roteiro em gramas para bater sua meta. Suas barras só sobem quando você clicar em "Consumi Esta"!</p>
       </div>
-      <span id="activeModelBadge" class="bdg bdg-ai">Auto-Detect v1beta</span>
+      <span id="activeModelBadge" class="bdg bdg-ai">Gemini 3.8 / Latest</span>
     </div>
 
     <div class="g2">
@@ -435,7 +435,7 @@ var S = {
 };
 
 var WEB_CACHE = [];
-var DISCOVERED_MODELS = null; // Guarda os modelos ativos retornados pelo ListModels da chave do usuário
+var DISCOVERED_MODELS = null;
 var lastRep = null;
 var restTimer = null;
 
@@ -450,10 +450,10 @@ function getKeywords(q){
   return out;
 }
 
-function save(){ try{ localStorage.setItem("ketoPro_v16_data", JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem("ketoPro_v17_data", JSON.stringify(S)); }catch(e){} }
 function load(){
   try{
-    var r = localStorage.getItem("ketoPro_v16_data") || localStorage.getItem("ketoPro_v15_data") || localStorage.getItem("ketoPro_v14_data");
+    var r = localStorage.getItem("ketoPro_v17_data") || localStorage.getItem("ketoPro_v16_data") || localStorage.getItem("ketoPro_v15_data");
     if(r){
       var p = JSON.parse(r);
       if(p.profile) S.profile = p.profile;
@@ -526,25 +526,46 @@ function startRest(sec){
 }
 
 // ============================================================================
-// DESCOBERTA AUTOMÁTICA DE MODELOS ATIVOS (ListModels v1beta)
+// MOTOR DE SELEÇÃO DE MODELOS ATUALIZADO (PRIORIDADE 3.8-flash / latest / 3.0-flash)
 // ============================================================================
+function rankModelScore(name){
+  var n = String(name || "").toLowerCase();
+  if(n === "gemini-flash-latest") return 950;
+  if(n === "gemini-3.8-flash") return 940;
+  if(n === "gemini-3.0-flash" || n === "gemini-3-flash") return 920;
+
+  // Extrai o número da versão (ex: gemini-3.8-flash -> 3.8 -> 380 pontos)
+  var verMatch = n.match(/gemini-(\d+(?:\.\d+)?)/);
+  var verNum = verMatch ? parseFloat(verMatch[1]) : 0;
+
+  // Penaliza fortemente modelos antigos 1.5, 2.0 e 2.5 que foram descontinuados para novas chaves
+  if(verNum > 0 && verNum < 3.0) return -100 + verNum;
+
+  var score = verNum * 100;
+  if(n.indexOf("flash") !== -1 && n.indexOf("lite") === -1) score += 40;
+  if(n.indexOf("pro") !== -1) score += 20;
+  if(n.indexOf("preview") === -1 && n.indexOf("exp") === -1) score += 10;
+  return score;
+}
+
 async function getAvailableGeminiModels(key){
   if(DISCOVERED_MODELS && DISCOVERED_MODELS.length > 0) return DISCOVERED_MODELS;
 
-  var defaultList = [
-    "gemini-2.5-flash",
+  var priorityDefaults = [
     "gemini-flash-latest",
-    "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
-    "gemini-2.5-pro"
+    "gemini-3.8-flash",
+    "gemini-3.0-flash",
+    "gemini-3-flash",
+    "gemini-3.8-pro",
+    "gemini-3.0-pro"
   ];
 
   try{
     var url = "https://generativelanguage.googleapis.com/v1beta/models?key=" + encodeURIComponent(key);
     var res = await fetch(url);
-    if(!res.ok) return defaultList;
+    if(!res.ok) return priorityDefaults;
     var data = await res.json();
-    if(!data || !Array.isArray(data.models)) return defaultList;
+    if(!data || !Array.isArray(data.models)) return priorityDefaults;
 
     var valid = [];
     for(var i=0; i<data.models.length; i++){
@@ -553,41 +574,45 @@ async function getAvailableGeminiModels(key){
       if(methods.indexOf("generateContent") === -1) continue;
       var shortName = String(m.name || "").replace("models/", "");
       var low = shortName.toLowerCase();
-      // Filtra apenas modelos de texto/visão Gemini (ignora embedding, tts, audio, imagen, veo, aqa)
       if(low.indexOf("gemini") === -1) continue;
-      if(low.indexOf("embedding") !== -1 || low.indexOf("tts") !== -1 || low.indexOf("audio") !== -1 || low.indexOf("imagen") !== -1 || low.indexOf("veo") !== -1 || low.indexOf("aqa") !== -1 || low.indexOf("thinking") !== -1) continue;
+      if(low.indexOf("embedding") !== -1 || low.indexOf("tts") !== -1 || low.indexOf("audio") !== -1 || low.indexOf("imagen") !== -1 || low.indexOf("veo") !== -1 || low.indexOf("aqa") !== -1 || low.indexOf("robotics") !== -1) continue;
+      // Ignora modelos 1.5, 2.0 e 2.5 desativados pela Google
+      if(low.indexOf("1.5") !== -1 || low.indexOf("2.0") !== -1 || low.indexOf("2.5") !== -1) continue;
       valid.push(shortName);
     }
 
-    if(valid.length === 0) return defaultList;
+    // Garante que gemini-flash-latest, gemini-3.8-flash e gemini-3.0-flash estejam sempre incluídos
+    for(var d=0; d<priorityDefaults.length; d++){
+      if(valid.indexOf(priorityDefaults[d]) === -1) valid.push(priorityDefaults[d]);
+    }
 
-    // Ordena priorizando os modelos Flash 2.5 / 3 / latest (mais rápidos para visão e JSON)
-    valid.sort(function(a, b){
-      function score(n){
-        var s = 0;
-        if(n === "gemini-2.5-flash") s += 100;
-        if(n === "gemini-flash-latest") s += 90;
-        if(n.indexOf("2.5-flash") !== -1) s += 80;
-        if(n.indexOf("3-flash") !== -1 || n.indexOf("3.0-flash") !== -1) s += 75;
-        if(n.indexOf("flash") !== -1) s += 50;
-        if(n.indexOf("pro") !== -1) s += 30;
-        if(n.indexOf("1.5") !== -1) s -= 50;
-        return s;
-      }
-      return score(b) - score(a);
-    });
+    valid.sort(function(a, b){ return rankModelScore(b) - rankModelScore(a); });
 
     DISCOVERED_MODELS = valid;
     var bdg = document.getElementById("activeModelBadge");
     if(bdg) bdg.textContent = "Ativo: " + valid[0];
     return valid;
   }catch(e){
-    return defaultList;
+    return priorityDefaults;
   }
 }
 
+// Se a mensagem de erro da Google sugerir um modelo específico (ex: "use gemini-3.8-flash"), extrai-o automaticamente!
+function extractSuggestedModelFromError(errMsg, failedModel){
+  var matches = String(errMsg || "").match(/(?:gemini-)?\d+\.\d+-flash(?:-[a-z0-9]+)?|gemini-flash-latest|gemini-\d+-flash/gi);
+  if(!matches) return null;
+  for(var i=0; i<matches.length; i++){
+    var candidate = matches[i].toLowerCase();
+    if(candidate.indexOf("gemini-") !== 0) candidate = "gemini-" + candidate;
+    if(candidate !== String(failedModel || "").toLowerCase() && candidate.indexOf("2.5") === -1 && candidate.indexOf("2.0") === -1 && candidate.indexOf("1.5") === -1){
+      return candidate;
+    }
+  }
+  return null;
+}
+
 // ============================================================================
-// SCANNER DE FOTOS (PRATOS FEITOS E TABELAS NUTRICIONAIS COM ListModels + inlineData)
+// SCANNER DE FOTOS (PRATOS FEITOS E RÓTULOS NUTRICIONAIS COM AUTO-CORREÇÃO)
 // ============================================================================
 function closePhotoPreview(){
   document.getElementById("photoPreviewWrap").className = "hide";
@@ -625,54 +650,72 @@ function compressImageToBase64(file, maxDim, quality){
   });
 }
 
+async function trySingleVisionCall(key, modelName, base64Data, mimeType, promptText){
+  var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(key);
+  var ctrl = new AbortController();
+  var timer = setTimeout(function(){ ctrl.abort(); }, 15000);
+  try{
+    var res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{
+          parts: [
+            { text: promptText },
+            { inlineData: { mimeType: mimeType, data: base64Data } }
+          ]
+        }],
+        generationConfig: { temperature: 0.15 }
+      }),
+      signal: ctrl.signal
+    });
+    clearTimeout(timer);
+    if(res.ok){
+      var data = await res.json();
+      var txt = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
+      if(txt) return { ok: true, text: txt, model: modelName };
+    }
+    var ej = await res.json().catch(function(){return {};});
+    var msg = (ej.error && ej.error.message) ? ej.error.message : ("HTTP " + res.status);
+    return { ok: false, error: msg };
+  }catch(e){
+    clearTimeout(timer);
+    return { ok: false, error: e.name === "AbortError" ? "Tempo limite excedido" : e.message };
+  }
+}
+
 async function callGeminiVision(key, base64Data, mimeType, promptText){
   var models = await getAvailableGeminiModels(key);
-  var firstRealError = "";
+  var lastErr = "";
+  var tried = {};
 
-  for(var i=0; i<Math.min(models.length, 4); i++){
-    var modelName = models[i];
-    var url = "https://generativelanguage.googleapis.com/v1beta/models/" + modelName + ":generateContent?key=" + encodeURIComponent(key);
-    var ctrl = new AbortController();
-    var timer = setTimeout(function(){ ctrl.abort(); }, 14000);
+  for(var i=0; i<Math.min(models.length, 6); i++){
+    var mName = models[i];
+    if(tried[mName]) continue;
+    tried[mName] = true;
 
-    try{
-      var res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: promptText },
-              { inlineData: { mimeType: mimeType, data: base64Data } }
-            ]
-          }],
-          generationConfig: { temperature: 0.15 }
-        }),
-        signal: ctrl.signal
-      });
-      clearTimeout(timer);
+    var attempt = await trySingleVisionCall(key, mName, base64Data, mimeType, promptText);
+    if(attempt.ok){
+      var bdg = document.getElementById("activeModelBadge");
+      if(bdg) bdg.textContent = "Ativo: " + attempt.model;
+      return attempt.text;
+    }
 
-      if(res.ok){
-        var data = await res.json();
-        var txt = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
-        if(txt){
-          var bdg = document.getElementById("activeModelBadge");
-          if(bdg) bdg.textContent = "Modelo: " + modelName;
-          return txt;
-        }
-      } else {
-        var ej = await res.json().catch(function(){return {};});
-        var msg = (ej.error && ej.error.message) ? ej.error.message : ("HTTP " + res.status);
-        if(!firstRealError && res.status !== 404) firstRealError = msg;
-        if(!firstRealError) firstRealError = msg;
+    lastErr = attempt.error;
+    // Se a Google recomendou um modelo específico na mensagem de erro (ex: 3.8-flash), chama-o imediatamente!
+    var suggested = extractSuggestedModelFromError(lastErr, mName);
+    if(suggested && !tried[suggested]){
+      tried[suggested] = true;
+      var retry = await trySingleVisionCall(key, suggested, base64Data, mimeType, promptText);
+      if(retry.ok){
+        DISCOVERED_MODELS = [suggested].concat(models);
+        var bdg2 = document.getElementById("activeModelBadge");
+        if(bdg2) bdg2.textContent = "Ativo: " + suggested;
+        return retry.text;
       }
-    }catch(e){
-      clearTimeout(timer);
-      var em = e.name === "AbortError" ? "Tempo limite de leitura excedido" : e.message;
-      if(!firstRealError) firstRealError = em;
     }
   }
-  throw new Error(firstRealError || "Não foi possível analisar a imagem");
+  throw new Error(lastErr || "Não foi possível analisar a imagem");
 }
 
 async function handlePhotoUpload(inputEl){
@@ -695,7 +738,7 @@ async function handlePhotoUpload(inputEl){
   var btnCam = document.getElementById("btnCam"), btnGal = document.getElementById("btnGal");
 
   btnCam.disabled = true; btnGal.disabled = true;
-  setSt("📸 Detectando modelo Gemini ativo e lendo a imagem...", "in");
+  setSt("📸 Analisando a imagem com Gemini Vision (3.8 / Latest)...", "in");
 
   try{
     var imgObj = await compressImageToBase64(file, 900, 0.8);
@@ -934,30 +977,44 @@ function generateSmartLocalPlan(mode){
   st.className = "st-bar st-ok";
 }
 
-async function fetchGeminiFast(url, promptText, ms){
-  var ctrl = new AbortController();
-  var timer = setTimeout(function(){ ctrl.abort(); }, ms);
-  try{
-    var res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: promptText }] }],
-        generationConfig: { temperature: 0.2 }
-      }),
-      signal: ctrl.signal
-    });
-    clearTimeout(timer);
-    if(!res.ok){
-      var errJ = await res.json().catch(function(){return {};});
-      throw new Error((errJ.error && errJ.error.message) || ("HTTP " + res.status));
+async function fetchGeminiTextWithAutoHeal(key, promptText){
+  var models = await getAvailableGeminiModels(key);
+  var tried = {};
+
+  for(var i=0; i<Math.min(models.length, 5); i++){
+    var mName = models[i];
+    if(tried[mName]) continue;
+    tried[mName] = true;
+
+    var url = "https://generativelanguage.googleapis.com/v1beta/models/" + mName + ":generateContent?key=" + encodeURIComponent(key);
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 8000);
+    try{
+      var res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: promptText }] }],
+          generationConfig: { temperature: 0.2 }
+        }),
+        signal: ctrl.signal
+      });
+      clearTimeout(timer);
+      if(res.ok){
+        var data = await res.json();
+        var txt = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
+        if(txt) return { text: txt, model: mName };
+      } else {
+        var ej = await res.json().catch(function(){return {};});
+        var errMsg = (ej.error && ej.error.message) || "";
+        var sug = extractSuggestedModelFromError(errMsg, mName);
+        if(sug && !tried[sug]) models.splice(i + 1, 0, sug);
+      }
+    }catch(e){
+      clearTimeout(timer);
     }
-    var data = await res.json();
-    return data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text;
-  }catch(e){
-    clearTimeout(timer);
-    throw e;
   }
+  throw new Error("Fallback");
 }
 
 async function askGeminiDiet(mode){
@@ -999,14 +1056,12 @@ async function askGeminiDiet(mode){
 
   var b1 = document.getElementById("btnGenFull"), b2 = document.getElementById("btnGenRem");
   b1.disabled = true; b2.disabled = true;
-  st.textContent = "⏳ Conectando ao modelo Gemini ativo da sua conta...";
+  st.textContent = "⏳ Conectando ao Gemini (3.8 / Latest)...";
   st.className = "st-bar st-in";
 
   try{
-    var models = await getAvailableGeminiModels(key);
-    var activeModel = models[0] || "gemini-2.5-flash";
-    var uFast = "https://generativelanguage.googleapis.com/v1beta/models/" + activeModel + ":generateContent?key=" + encodeURIComponent(key);
-    var rawText = await fetchGeminiFast(uFast, promptText, 7000);
+    var resObj = await fetchGeminiTextWithAutoHeal(key, promptText);
+    var rawText = resObj.text;
     var fb = rawText.indexOf("["), lb = rawText.lastIndexOf("]");
     if(fb === -1 || lb === -1) throw new Error("JSON");
     var meals = JSON.parse(rawText.substring(fb, lb + 1));
@@ -1016,7 +1071,7 @@ async function askGeminiDiet(mode){
     S.aiConsumed = {};
     renderAiPlan();
     save();
-    st.textContent = "✨ Roteiro gerado pela IA (" + activeModel + ")! Toque em '🍽️ Consumi Esta' apenas quando comer.";
+    st.textContent = "✨ Roteiro gerado pela IA (" + resObj.model + ")! Toque em '🍽️ Consumi Esta' apenas quando comer.";
     st.className = "st-bar st-ok";
   }catch(err){
     var fallbackMeals = buildSmartMathematicalMeals(mode);
