@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#090b10">
-<title>KetoPro Thermo v18 — Obsidian Pro</title>
+<title>KetoPro Thermo v19 — Obsidian Pro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -26,7 +27,7 @@ body{
   color:var(--txt);
   font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
   line-height:1.45;
-  padding-bottom:96px;
+  padding-bottom:104px;
   overflow-x:hidden;
 }
 .wrap{max-width:920px;margin:0 auto;padding:14px}
@@ -72,6 +73,10 @@ body{
   background:linear-gradient(160deg,rgba(168,85,247,0.13) 0%,rgba(21,26,38,0.9) 65%);
   border:1px solid rgba(168,85,247,0.35);
 }
+.card-sim{
+  background:linear-gradient(160deg,rgba(56,189,248,0.12) 0%,rgba(21,26,38,0.92) 65%);
+  border:1px solid rgba(56,189,248,0.35);
+}
 .s-hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:15px}
 .s-tt{font-size:15.5px;font-weight:800;color:#fff;letter-spacing:-0.3px}.s-tt span{color:var(--org)}
 
@@ -86,6 +91,7 @@ body{
 /* GRIDS */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .full{grid-column:1/-1}
 
 /* HERO DASHBOARD: RING + MACROS */
@@ -148,6 +154,7 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
 .btn-p{background:linear-gradient(135deg,#a855f7,#7e22ce);color:#fff;box-shadow:0 4px 14px rgba(168,85,247,0.3)}
 .btn-b{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff;box-shadow:0 4px 14px rgba(14,165,233,0.3)}
 .btn-dk{background:var(--inp);color:#e2e8f0;border:1px solid var(--bd-hl)}
+.btn-ed{background:rgba(56,189,248,.14);color:#7dd3fc;border:1px solid rgba(56,189,248,.35);padding:6px 10px;font-size:11px}
 .btn-x{background:rgba(244,63,94,.14);color:#fda4af;border:1px solid rgba(244,63,94,.3);padding:6px 10px;font-size:11px}
 
 /* TABS & PANELS */
@@ -172,19 +179,30 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
 .st-wn{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.35)}
 .st-ai{background:rgba(168,85,247,.15);color:#e9d5ff;border:1px solid rgba(168,85,247,.4)}
 
-/* MEAL ITEMS & IDEA CARDS */
+/* MEAL ITEMS & INLINE EDITOR */
 .m-it{
   background:var(--inp);border:1px solid var(--bd);border-left:4px solid var(--org);
-  border-radius:11px;padding:11px 13px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;
-  transition:transform .15s;
+  border-radius:11px;padding:11px 13px;margin-top:8px;
+  transition:transform .15s, border-color .15s;
 }
-.m-it:hover{transform:translateX(2px)}
+.m-it-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.m-it:hover{border-color:rgba(255,255,255,0.16)}
+.m-edit-box{
+  margin-top:11px;padding-top:11px;border-top:1px dashed rgba(255,255,255,0.14);
+  background:rgba(13,16,23,0.65);border-radius:10px;padding:11px;
+}
+
+/* IDEA CARDS */
 .id-card{
   background:var(--inp);border:1px solid var(--bd);border-radius:13px;padding:13px;
   display:flex;flex-direction:column;justify-content:space-between;gap:10px;transition:all .18s;
 }
-.id-card:hover{border-color:rgba(255,107,43,0.4);transform:translateY(-2px)}
-.id-ft{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--bd);padding-top:9px}
+.id-card.saved-mem{
+  border-color:rgba(168,85,247,0.45);
+  background:linear-gradient(160deg,rgba(168,85,247,0.10) 0%,rgba(13,16,23,0.95) 75%);
+}
+.id-card:hover{border-color:rgba(255,107,43,0.45);transform:translateY(-2px)}
+.id-ft{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;border-top:1px solid var(--bd);padding-top:9px}
 
 /* WORKOUT CARDS */
 .wk-card{background:var(--inp);border:1px solid var(--bd);border-radius:14px;padding:14px}
@@ -210,24 +228,32 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
 /* FLOATING BOTTOM NAVIGATION DOCK */
 .bottom-dock{
   position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
-  width:calc(100% - 24px);max-width:560px;
-  background:rgba(15,19,28,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  width:calc(100% - 20px);max-width:640px;
+  background:rgba(15,19,28,0.90);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border:1px solid rgba(255,255,255,0.14);border-radius:20px;
-  padding:6px;display:flex;justify-content:space-around;gap:4px;
+  padding:6px;display:flex;justify-content:space-around;gap:3px;
   z-index:60;box-shadow:0 14px 40px rgba(0,0,0,0.65);
 }
 .dock-btn{
   flex:1;background:transparent;border:none;color:var(--mut);
-  padding:8px 4px;border-radius:14px;cursor:pointer;
+  padding:7px 3px;border-radius:13px;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;gap:3px;
-  font-size:10.5px;font-weight:700;font-family:inherit;transition:all .2s;
+  font-size:10px;font-weight:700;font-family:inherit;transition:all .2s;
 }
-.dock-btn span.ico{font-size:17px;line-height:1;transition:transform .2s}
+.dock-btn span.ico{font-size:16px;line-height:1;transition:transform .2s}
 .dock-btn.active{
   background:linear-gradient(135deg,rgba(255,107,43,0.22),rgba(168,85,247,0.22));
   color:#fff;border:1px solid rgba(255,107,43,0.4);
 }
 .dock-btn.active span.ico{transform:translateY(-1px) scale(1.1)}
+
+/* INGREDIENT CHIPS */
+.ingr-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ingr-chip{
+  font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;
+  background:rgba(16,185,129,0.14);color:#6ee7b7;border:1px solid rgba(16,185,129,0.35);
+  display:inline-flex;align-items:center;gap:5px;
+}
 
 /* MODAL */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:center;padding:12px}
@@ -271,8 +297,8 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div class="title-main">KetoPro <span style="color:var(--org)">Thermo</span> <span class="title-tag">PRO v18</span></div>
-        <div id="jsStatus" style="font-size:11px;color:#6ee7b7;font-weight:600">🟢 Vision 3.8 • TACO BR • Dados Salvos</div>
+        <div class="title-main">KetoPro <span style="color:var(--org)">Thermo</span> <span class="title-tag">PRO v19</span></div>
+        <div id="jsStatus" style="font-size:11px;color:#6ee7b7;font-weight:600">🟢 Vision 3.8 • Memória de Pratos • Simulador</div>
       </div>
     </div>
     <div style="display:flex;gap:7px;flex-wrap:wrap">
@@ -367,7 +393,7 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
       <div class="s-hd">
         <div>
           <h2 class="s-tt">🍳 Diário de <span>Refeições & Scanner Vision</span></h2>
-          <p style="font-size:11px;color:var(--mut)">Fotografe seu prato/rótulo ou pesquise na base brasileira</p>
+          <p style="font-size:11px;color:var(--mut)">Fotografe seu prato/rótulo, pesquise na base BR ou edite refeições lançadas</p>
         </div>
         <button type="button" class="btn btn-x" onclick="clearMeals()">Limpar Diário</button>
       </div>
@@ -418,18 +444,22 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
             <input type="text" id="mName" placeholder="Ex: Picanha, Frango, Ovo, Queijo coalho, Refrigerante..." oninput="onNameInput()" autocomplete="off">
             <div id="sugBox" class="sug-box hide"></div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
-              <button type="button" class="btn btn-o" style="flex:1;min-width:155px" onclick="autoFillNow()">⚡ Autopreencher p/ Nome</button>
-              <button type="button" class="btn btn-b" style="flex:1;min-width:155px" onclick="searchWeb()">🌐 Buscar Marca na Web (BR)</button>
+              <button type="button" class="btn btn-o" style="flex:1;min-width:145px" onclick="autoFillNow()">⚡ Autopreencher p/ Nome</button>
+              <button type="button" class="btn btn-b" style="flex:1;min-width:145px" onclick="searchWeb()">🌐 Buscar Marca na Web (BR)</button>
+              <button type="button" class="btn btn-p" style="flex:1;min-width:145px" onclick="saveCurrentSearchToIdeas()">📌 Salvar em Pratos Feitos</button>
             </div>
-            <div id="stBox" class="st-bar st-in">💡 Tire uma foto acima ou digite o nome do alimento para preencher tudo!</div>
+            <div id="stBox" class="st-bar st-in">💡 Pesquise ou fotografe acima! Tudo que você pesquisar e lançar também fica salvo em "Pratos Feitos" para reusar!</div>
           </div>
           <div><label class="lbl">🥩 Proteínas (g)</label><input type="number" id="mP" step="0.1" placeholder="Auto"></div>
           <div><label class="lbl">🥑 Gorduras (g)</label><input type="number" id="mF" step="0.1" placeholder="Auto"></div>
           <div><label class="lbl">🥦 Carboidratos (g)</label><input type="number" id="mC" step="0.1" placeholder="Auto"></div>
           <div><label class="lbl">🔥 Calorias (kcal)</label><input type="number" id="mCal" step="1" placeholder="Auto"></div>
-          <div class="full">
-            <button type="button" id="btnAddManualMain" class="btn btn-g" style="width:100%;padding:13px;font-size:13.5px" onclick="addManual()">
-              ✅ + Somar Refeição no Diário de Hoje
+          <div class="full" style="display:flex;flex-wrap:wrap;gap:8px">
+            <button type="button" id="btnAddManualMain" class="btn btn-g" style="flex:2;min-width:200px;padding:13px;font-size:13.5px" onclick="addManual()">
+              ✅ + Somar no Diário de Hoje (e Salvar nos Pratos)
+            </button>
+            <button type="button" class="btn btn-b" style="flex:1;min-width:160px;padding:13px;font-size:12.5px" onclick="addManualToSimulator()">
+              🔮 Enviar p/ Simulador Amanhã
             </button>
           </div>
         </div>
@@ -440,7 +470,10 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
           <div><label class="lbl">Refeição</label><select id="dbSlot"><option>☕ Café da Manhã</option><option selected>🍽️ Almoço</option><option>🥤 Lanche / Pós-Treino</option><option>🌙 Jantar</option></select></div>
           <div><label class="lbl">Qtd (g ou ml)</label><input type="number" id="dbGrams" value="100" step="10"></div>
           <div class="full"><label class="lbl">Alimento da Base Brasileira</label><select id="dbSelect"></select></div>
-          <div class="full"><button type="button" class="btn btn-o" style="width:100%" onclick="addFromDb()">+ Adicionar ao Diário</button></div>
+          <div class="full" style="display:flex;gap:8px;flex-wrap:wrap">
+            <button type="button" class="btn btn-o" style="flex:2;min-width:180px" onclick="addFromDb()">+ Adicionar ao Diário (e Salvar)</button>
+            <button type="button" class="btn btn-b" style="flex:1;min-width:150px" onclick="addFromDbToSim()">🔮 Enviar p/ Simulador</button>
+          </div>
         </div>
       </div>
 
@@ -449,14 +482,106 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
   </div>
 
   <!-- ================================================================= -->
-  <!-- ABA 2: ASSISTENTE GEMINI AI + IDEIAS DE PRATOS RÁPIDOS            -->
+  <!-- ABA NOVA: SIMULADOR PARA O DIA SEGUINTE (SÓ LANÇA NO CHECK)       -->
+  <!-- ================================================================= -->
+  <div id="secSim">
+    <section class="card card-sim">
+      <div class="s-hd">
+        <div>
+          <h2 class="s-tt" style="color:#7dd3fc">🔮 Simulador <span>do Dia Seguinte (Planejamento c/ Check)</span></h2>
+          <p style="font-size:11px;color:var(--mut)">Monte e teste suas refeições de amanhã livremente. Elas só entram no Diário Oficial quando você clicar em "✅ Check"!</p>
+        </div>
+        <span id="simStatusBadge" class="bdg bdg-b">0 planejadas • 0 no Check</span>
+      </div>
+
+      <!-- BARRAS DE PREVIEW DO SIMULADOR -->
+      <div class="g4" style="margin-bottom:14px">
+        <div class="m-box">
+          <div class="m-top"><span style="color:#fb923c">🔥 Calorias Simuladas</span></div>
+          <div style="font-size:16px;font-weight:800;color:#fff"><span id="simCal">0</span> <small style="font-size:11px;color:var(--mut)">/ <span id="simGCal">2067</span> kcal</small></div>
+          <div class="b-bg" style="margin-top:6px"><div id="simBCal" class="b-fl" style="width:0%;background:linear-gradient(90deg,#ff6b2b,#ea580c)"></div></div>
+          <div id="simRCal" style="font-size:10.5px;color:var(--mut);margin-top:4px">Livre: 2067 kcal</div>
+        </div>
+        <div class="m-box">
+          <div class="m-top"><span style="color:#38bdf8">🥩 Proteínas</span></div>
+          <div style="font-size:16px;font-weight:800;color:#fff"><span id="simP">0</span>g <small style="font-size:11px;color:var(--mut)">/ <span id="simGP">221</span>g</small></div>
+          <div class="b-bg" style="margin-top:6px"><div id="simBP" class="b-fl" style="width:0%;background:linear-gradient(90deg,#0284c7,#38bdf8)"></div></div>
+          <div id="simRP" style="font-size:10.5px;color:var(--mut);margin-top:4px">Faltam 221g</div>
+        </div>
+        <div class="m-box">
+          <div class="m-top"><span style="color:#f59e0b">🥑 Gorduras</span></div>
+          <div style="font-size:16px;font-weight:800;color:#fff"><span id="simF">0</span>g <small style="font-size:11px;color:var(--mut)">/ <span id="simGF">120</span>g</small></div>
+          <div class="b-bg" style="margin-top:6px"><div id="simBF" class="b-fl" style="width:0%;background:linear-gradient(90deg,#d97706,#fbbf24)"></div></div>
+          <div style="font-size:10.5px;color:var(--mut);margin-top:4px">Energia Keto</div>
+        </div>
+        <div class="m-box">
+          <div class="m-top"><span style="color:#10b981">🥦 Carbo Líquido</span></div>
+          <div style="font-size:16px;font-weight:800;color:#fff"><span id="simC">0</span>g <small style="font-size:11px;color:var(--mut)">/ <span id="simGC">25</span>g</small></div>
+          <div class="b-bg" style="margin-top:6px"><div id="simBC" class="b-fl" style="width:0%;background:linear-gradient(90deg,#059669,#34d399)"></div></div>
+          <div id="simRC" style="font-size:10.5px;color:#6ee7b7;margin-top:4px">Cetose OK</div>
+        </div>
+      </div>
+
+      <!-- ADICIONAR REFEIÇÃO NO SIMULADOR -->
+      <div class="p-db" style="border-color:rgba(56,189,248,0.35);background:rgba(13,16,23,0.75)">
+        <div style="font-size:12.5px;font-weight:800;color:#7dd3fc;margin-bottom:10px">➕ Registrar Refeição no Simulador do Dia Seguinte</div>
+        <div class="g2">
+          <div>
+            <label class="lbl">Refeição do Dia Seguinte</label>
+            <select id="simSlot">
+              <option>☕ Café da Manhã</option>
+              <option selected>🍽️ Almoço</option>
+              <option>🥤 Lanche / Pós-Treino</option>
+              <option>🌙 Jantar</option>
+            </select>
+          </div>
+          <div>
+            <label class="lbl">Peso / Volume (g ou ml)</label>
+            <input type="number" id="simGrams" value="150" min="1" step="5" oninput="onSimGramsChange()">
+          </div>
+          <div class="full">
+            <label class="lbl">Pesquisar Alimento ou Prato Salvo (Autopreenchimento Instantâneo):</label>
+            <input type="text" id="simName" placeholder="Digite ex: Ovos, Patinho, Frango, Queijo coalho, Abacate..." oninput="onSimNameInput()" autocomplete="off">
+            <div id="simSugBox" class="sug-box hide"></div>
+          </div>
+          <div><label class="lbl">🥩 Proteínas (g)</label><input type="number" id="simInP" step="0.1" placeholder="Auto"></div>
+          <div><label class="lbl">🥑 Gorduras (g)</label><input type="number" id="simInF" step="0.1" placeholder="Auto"></div>
+          <div><label class="lbl">🥦 Carboidratos (g)</label><input type="number" id="simInC" step="0.1" placeholder="Auto"></div>
+          <div><label class="lbl">🔥 Calorias (kcal)</label><input type="number" id="simInCal" step="1" placeholder="Auto"></div>
+          <div class="full" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+            <button type="button" class="btn btn-b" style="flex:2;min-width:190px;padding:12px" onclick="addSimMealManual()">
+              🔮 + Registrar no Simulador (Sem Lançar Hoje)
+            </button>
+            <button type="button" class="btn btn-p" style="flex:1;min-width:170px;padding:12px" onclick="generateSimFromIngredients()">
+              ⚡ Montar Dia Seguinte Automático
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AÇÕES RÁPIDAS DO SIMULADOR -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin:12px 0 8px">
+        <strong style="font-size:13px;color:#fff">📋 Refeições Planejadas no Simulador (Clique em ✅ Check para lançar):</strong>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button type="button" class="btn btn-g" style="padding:7px 11px;font-size:11px" onclick="checkAllSimMeals()">✅ Check em Todas</button>
+          <button type="button" class="btn btn-dk" style="padding:7px 11px;font-size:11px" onclick="uncheckAllSimMeals()">↩️ Desmarcar Checks</button>
+          <button type="button" class="btn btn-x" style="padding:7px 11px;font-size:11px" onclick="clearSimMeals()">🧹 Limpar Simulador</button>
+        </div>
+      </div>
+
+      <div id="simMealList"></div>
+    </section>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- ABA 2: ASSISTENTE GEMINI AI + IDEIAS E PRATOS SALVOS NA MEMÓRIA   -->
   <!-- ================================================================= -->
   <div id="secAI">
     <section class="card card-ai">
       <div class="s-hd">
         <div>
           <h2 class="s-tt" style="color:#e9d5ff">✨ Assistente <span>Gemini AI & Roteiro do Dia</span></h2>
-          <p style="font-size:11px;color:var(--mut)">Planeja suas porções em gramas. As barras só sobem quando você clicar em "Consumi Esta"!</p>
+          <p style="font-size:11px;color:var(--mut)">Usa <strong>estritamente</strong> os alimentos que você informar abaixo. As barras só sobem quando clicar em "Consumi Esta"!</p>
         </div>
         <span id="activeModelBadge" class="bdg bdg-ai">Gemini 3.8 / Latest</span>
       </div>
@@ -470,25 +595,29 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
           </div>
         </div>
         <div class="full">
-          <label class="lbl">O que você tem em casa ou quer comer hoje? (Ex: ovos, carne moída, frango, queijo coalho, bacon, abacate):</label>
-          <input type="text" id="aiIngredients" placeholder="Digite os alimentos separados por vírgula ou deixe em branco...">
+          <label class="lbl">O que você tem em casa ou quer comer hoje? (Usa SOMENTE os alimentos descritos aqui):</label>
+          <input type="text" id="aiIngredients" placeholder="Ex: ovos, carne moída, frango, queijo coalho, bacon, abacate..." oninput="previewRecognizedIngredients()">
+          <div id="recognizedIngrBox" class="ingr-chips"></div>
         </div>
         <div class="full" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
-          <button type="button" id="btnGenFull" class="btn btn-p" style="flex:1;min-width:175px;padding:11px" onclick="askGeminiDiet('full')">
+          <button type="button" id="btnGenFull" class="btn btn-p" style="flex:1;min-width:170px;padding:11px" onclick="askGeminiDiet('full')">
             ✨ Gerar Dia Inteiro (IA)
           </button>
-          <button type="button" id="btnGenRem" class="btn btn-b" style="flex:1;min-width:175px;padding:11px" onclick="askGeminiDiet('remaining')">
+          <button type="button" id="btnGenRem" class="btn btn-b" style="flex:1;min-width:170px;padding:11px" onclick="askGeminiDiet('remaining')">
             🎯 Completar o Que Falta
           </button>
-          <button type="button" class="btn btn-o" style="flex:1;min-width:175px;padding:11px" onclick="generateSmartLocalPlan('full')">
+          <button type="button" class="btn btn-o" style="flex:1;min-width:170px;padding:11px" onclick="generateSmartLocalPlan('full')">
             ⚡ Cálculo Instantâneo (0s)
+          </button>
+          <button type="button" class="btn btn-dk" style="flex:1;min-width:150px;padding:11px" onclick="sendAiPlanToSimulator()">
+            🔮 Enviar Roteiro p/ Simulador
           </button>
           <button type="button" id="btnClearAi" class="btn btn-dk hide" onclick="clearAiPlan()">
             Limpar
           </button>
         </div>
         <div class="full">
-          <div id="aiStatus" class="st-bar st-ai">💡 Toque em <strong>"✨ Gerar Dia Inteiro (IA)"</strong> ou em <strong>"⚡ Cálculo Instantâneo (0s)"</strong> para montar seu roteiro!</div>
+          <div id="aiStatus" class="st-bar st-ai">💡 Digite o que você tem em casa acima: o gerador usará <strong>exclusivamente</strong> os alimentos descritos por você e salvará os pratos na memória!</div>
         </div>
       </div>
 
@@ -507,9 +636,10 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
     <section class="card">
       <div class="s-hd">
         <div>
-          <h2 class="s-tt">💡 Ideias de <span>Refeições Simples & Pratos Feitos</span></h2>
-          <p style="font-size:11px;color:var(--mut)">Pratos cetogênicos hiperproteicos prontos para lançar com 1 toque</p>
+          <h2 class="s-tt">💡 Pratos Feitos & <span>Memória de Pesquisas</span></h2>
+          <p style="font-size:11px;color:var(--mut)">Os pratos gerados na pesquisa, no scanner e na IA ficam salvos aqui na memória para você reutilizar com 1 toque!</p>
         </div>
+        <button type="button" id="btnClearSavedIdeas" class="btn btn-x hide" onclick="clearSavedIdeas()">Limpar Memória</button>
       </div>
       <div id="ideasGrid" class="g3"></div>
     </section>
@@ -611,6 +741,9 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
   <button type="button" id="navBtn_diary" class="dock-btn" onclick="switchView('diary')">
     <span class="ico">🏠</span><span>Diário</span>
   </button>
+  <button type="button" id="navBtn_sim" class="dock-btn" onclick="switchView('sim')">
+    <span class="ico">🔮</span><span>Simulador</span>
+  </button>
   <button type="button" id="navBtn_ai" class="dock-btn" onclick="switchView('ai')">
     <span class="ico">✨</span><span>IA & Pratos</span>
   </button>
@@ -623,9 +756,9 @@ input:focus,select:focus{outline:none;border-color:var(--org);box-shadow:0 0 0 3
 </nav>
 
 <script>
-var STOP_WORDS = {"de":1,"da":1,"do":1,"das":1,"dos":1,"com":1,"sem":1,"em":1,"no":1,"na":1,"para":1,"por":1,"um":1,"uma":1,"ao":1,"a":1,"o":1,"e":1,"ou":1};
+var STOP_WORDS = {"de":1,"da":1,"do":1,"das":1,"dos":1,"com":1,"sem":1,"em":1,"no":1,"na":1,"para":1,"por":1,"um":1,"uma":1,"ao":1,"a":1,"o":1,"e":1,"ou":1,"as":1,"os":1,"uns":1,"umas":1};
 
-var RAW_DB = "Refrigerante de Guaraná Comum (Antarctica/Kuat)|41|0|0|10.2;Refrigerante de Guaraná Zero Açúcar|0|0|0|0;Refrigerante de Cola Comum (Coca-Cola/Pepsi)|42|0|0|10.6;Refrigerante de Cola Zero (Coca-Cola Zero/Pepsi Black)|0|0|0|0;Refrigerante de Limão/Laranja/Uva Comum|44|0|0|11.0;Refrigerante Zero/H2OH!/Aquarius Fresh|0|0|0|0;Água com Gás / Água Mineral|0|0|0|0;Água Tônica Tradicional|34|0|0|8.5;Água Tônica Zero|0|0|0|0;Água de Coco Natural/Caixinha|21|0.2|0.1|5.0;Suco de Laranja Natural/Integral|45|0.7|0.1|10.5;Suco de Uva Integral|60|0.5|0.1|14.8;Suco de Limão/Maracujá/Acerola s/ Açúcar|18|0.4|0.1|4.0;Suco em Pó Zero (Clight/Tang Zero)|5|0|0|1.0;Chá Gelado Zero (Matte Leão/Ice Tea Zero)|0|0|0|0;Energético Tradicional (Monster/Red Bull/Baly)|45|0.3|0|11.0;Energético Zero Açúcar (Monster Ultra/Red Bull Zero)|3|0.2|0|0.5;Cerveja Pilsen/Lager Comum|43|0.5|0|3.5;Cerveja Puro Malte (Heineken/Spaten/Stella)|42|0.5|0|3.2;Cerveja Low Carb/Zero Carbo|28|0.3|0|1.5;Vinho Tinto/Branco Seco|83|0.1|0|2.6;Destilados (Whisky/Vodka/Gin/Cachaça)|231|0|0|0;Patinho Bovino Grelhado/Moído|219|35.9|7.3|0;Acém Bovino Cozido/Moído|215|27.3|10.9|0;Contrafilé Grelhado|240|29.5|13.0|0;Picanha na Chapa/Assada|289|27.2|19.5|0;Alcatra Grelhada|241|31.9|11.6|0;Maminha Assada|205|30.7|8.1|0;Fraldinha Assada|266|27.6|16.5|0;Costela Bovina Assada|373|28.8|27.7|0;Coxão Mole/Duro Cozido|218|32.0|8.9|0;Filé Mignon Grelhado|220|32.8|8.8|0;Carne de Sol/Seca/Charque|263|31.2|14.5|0;Fígado Bovino Grelhado|225|29.9|9.0|4.2;Hambúrguer Bovino Grelhado (Só a Carne)|245|24.0|16.0|0.5;Cupim Assado|330|28.5|23.0|0;Estrogonofe de Carne/Frango|185|19.5|10.5|3.2;Almôndega Bovina|230|21.0|14.5|3.5;Kibe Frito/Assado|210|14.5|11.0|14.0;Peito de Frango Grelhado/Desfiado|161|31.8|2.8|0;Sobrecoxa de Frango Assada|225|25.5|13.2|0;Coxa de Frango Assada|215|27.0|11.0|0;Asa/Tulipa de Frango Assada|275|23.8|19.4|0;Coração de Frango Grelhado|207|22.4|12.1|0.6;Moela de Frango Cozida|145|28.2|2.7|0;Frango a Passarinho/Empanado|255|25.5|15.5|4.0;Lombo Suíno Assado/Grelhado|210|35.7|6.4|0;Bisteca Suína Grelhada|246|28.9|13.5|0;Pernil Suíno Assado|262|32.1|13.9|0;Costelinha Suína Assada|320|26.5|23.0|0;Panceta/Torresmo/Barriga Porco|460|21.0|41.0|0;Bacon Frito|533|35.8|41.6|1.2;Linguiça Toscana Grelhada|280|19.5|22.0|1.0;Linguiça Calabresa|315|18.0|26.5|1.5;Linguiça de Frango|215|18.5|15.0|1.0;Presunto Cozido|112|18.5|3.5|1.5;Peito de Peru|105|21.0|1.8|1.2;Mortadela|285|12.5|25.0|2.5;Salame|398|25.5|32.0|1.8;Salsicha|250|12.0|21.0|3.2;Filé de Tilápia Grelhado|128|26.2|2.7|0;Salmão Grelhado/Cru (Sashimi)|229|23.9|14.0|0;Atum em Lata (Drenado)|132|28.0|2.1|0;Sardinha em Lata/Assada|195|26.0|9.5|0;Merluza/Pescada/Cação|122|24.5|2.2|0;Bacalhau Desfiado|136|29.0|1.5|0;Camarão Cozido/Grelhado|90|19.0|1.1|0;Ovo Inteiro Cozido/Mexido (1 un=~50g)|146|13.3|9.5|0.6;Ovo Frito na Manteiga|196|13.6|15.0|0.8;Clara de Ovo|52|11.0|0.1|0.7;Omelete Simples c/ Queijo|195|15.0|14.5|1.0;Crepioca (Ovo + Tapioca)|195|9.5|6.5|24.0;Pão de Queijo|335|7.5|18.0|35.0;Queijo Mussarela|330|22.6|25.2|2.2;Queijo Prato|360|22.7|29.1|1.9;Queijo Coalho|345|23.5|27.0|1.8;Queijo Minas Frescal|264|17.4|20.2|3.2;Queijo Minas Padrão/Canastra|321|21.6|25.4|1.6;Queijo Parmesão|453|35.6|33.5|1.7;Queijo Provolone/Gorgonzola|352|23.5|27.6|2.2;Queijo Cheddar|402|24.9|33.1|1.3;Queijo Cottage/Ricota|115|12.0|6.0|3.5;Requeijão Cremoso|257|9.6|23.4|2.4;Requeijão Light|165|12.0|11.5|3.5;Cream Cheese|342|6.0|34.0|4.1;Creme de Leite|220|2.0|22.0|3.5;Iogurte Natural s/ Açúcar|65|4.5|3.5|4.2;Iogurte Grego Zero|90|9.5|4.0|3.8;Iogurte Proteico (YoPRO/Itambé Pro)|62|10.0|0.5|4.5;Leite Integral|61|3.2|3.3|4.7;Leite Desnatado|35|3.4|0.2|4.9;Leite em Pó Integral|496|25.8|26.7|38.0;Leite de Coco/Amêndoas|45|0.8|4.2|1.2;Manteiga/Ghee|726|0.4|82.4|0.1;Margarina|590|0.2|65.0|0.5;Maionese Tradicional (Hellmanns)|680|1.0|75.0|1.5;Catchup/Mostarda/Barbecue|110|1.2|0.3|25.0;Abacate Puro|160|2.0|14.7|1.8;Azeite de Oliva Extra Virgem|884|0|100|0;Óleo de Coco/Banha de Porco|880|0|100|0;Pasta de Amendoim s/ Açúcar|588|28.0|49.0|11.0;Amendoim Torrado|567|25.8|49.2|8.5;Castanha-do-Pará/Nozes|655|14.8|65.8|5.5;Castanha de Caju|553|18.2|43.8|26.9;Amêndoas/Macadâmia|579|21.2|49.9|9.5;Semente de Chia/Linhaça/Abóbora|505|17.4|36.0|4.5;Coco Seco/Ralado|354|3.3|33.5|6.2;Azeitona|145|1.0|15.3|0.5;Brócolis Cozido|34|2.8|0.4|4.0;Couve-Flor Cozida|25|1.9|0.3|3.0;Abobrinha/Berinjela|22|1.1|0.3|2.6;Couve/Espinafre Refogado|29|2.9|0.5|1.9;Alface/Rúcula/Folhas Verdes|16|1.5|0.2|1.2;Repolho/Pepino/Tomate|19|1.0|0.2|2.7;Cebola/Alho/Pimentão|32|1.1|0.2|6.5;Cenoura/Beterraba|40|1.0|0.2|8.5;Abóbora Cabotiá|48|1.4|0.5|10.2;Vagem/Quiabo/Palmito/Aspargo|30|2.0|0.2|3.8;Cogumelo Shimeji/Champignon|22|3.1|0.3|2.3;Whey Protein Concentrado|400|80.0|5.0|6.7;Whey Protein Isolado|375|90.0|1.0|2.0;Albumina/Caseína|360|82.0|0|4.0;Creatina Pura|0|0|0|0;Barra de Proteína|340|32.0|14.0|18.0;Cacau 100%|228|19.6|13.7|10.9;Chocolate Amargo 70-85%|580|8.5|46.0|22.0;Chocolate ao Leite/Branco|540|6.5|31.0|58.0;Morango/Mirtilo/Framboesa|35|0.8|0.3|6.0;Limão/Maracujá|32|0.8|0.2|6.5;Melancia/Melão|31|0.7|0.1|7.5;Maçã/Pera/Laranja|52|0.4|0.1|13.0;Mamão/Manga/Abacaxi|50|0.5|0.1|12.0;Uva|68|0.7|0.2|17.0;Banana Prata/Nanica|92|1.3|0.1|23.8;Açaí Zero/Puro|70|1.5|5.0|4.0;Açaí Tradicional c/ Xarope|145|1.2|3.5|28.0;Arroz Branco/Integral Cozido|126|2.5|0.5|27.0;Feijão Carioca/Preto Cozido|76|4.8|0.5|13.6;Feijoada|152|12.5|9.5|4.5;Lentilha/Grão de Bico Cozido|115|8.5|1.2|18.5;Macarrão Cozido|135|4.8|0.6|28.0;Macarrão Instantâneo (Miojo)|440|9.0|18.0|60.0;Batata Doce Cozida|77|0.6|0.1|18.4;Batata Inglesa Cozida|52|1.2|0|11.9;Batata Frita/Airfryer|245|3.5|11.0|32.0;Mandioca/Aipim Cozido|125|0.6|0.3|30.1;Farofa/Farinha Mandioca|380|2.0|6.0|80.0;Aveia em Flocos|394|13.9|8.5|66.6;Pão Francês/Pão de Forma|290|8.5|3.2|56.0;Pão Integral|250|11.0|3.5|44.0;Tapioca|240|0|0|60.0;Cuscuz de Milho|113|2.2|0.7|25.3;Milho Verde|98|3.2|1.2|19.0;Pipoca|400|10.0|12.0|63.0;Pizza Mussarela/Calabresa|265|11.5|10.5|30.0;Coxinha/Salgado Frito|285|9.5|14.0|31.0;Pastel Frito|310|8.5|17.5|30.0;Hambúrguer no Pão (X-Burger/X-Salada)|250|13.5|12.0|22.0;Misto Quente|280|13.0|11.5|31.0;Doce de Leite/Leite Condensado|318|7.0|7.5|55.0;Brigadeiro/Beijinho|380|4.5|13.0|60.0;Creme de Avelã (Nutella)|539|6.3|30.9|57.5;Paçoca de Amendoim|495|16.0|26.0|50.0;Sorvete de Massa|205|3.5|11.0|24.0;Biscoito Recheado/Bolacha|470|5.5|19.0|68.0;Biscoito Água e Sal/Cream Cracker|430|10.0|12.0|70.0;Café c/ Leite s/ Açúcar|35|2.0|1.8|2.8;Café Preto/Chá s/ Açúcar|2|0.1|0|0.3";
+var RAW_DB = "Refrigerante de Guaraná Comum (Antarctica/Kuat)|41|0|0|10.2;Refrigerante de Guaraná Zero Açúcar|0|0|0|0;Refrigerante de Cola Comum (Coca-Cola/Pepsi)|42|0|0|10.6;Refrigerante de Cola Zero (Coca-Cola Zero/Pepsi Black)|0|0|0|0;Refrigerante de Limão/Laranja/Uva Comum|44|0|0|11.0;Refrigerante Zero/H2OH!/Aquarius Fresh|0|0|0|0;Água com Gás / Água Mineral|0|0|0|0;Água Tônica Tradicional|34|0|0|8.5;Água Tônica Zero|0|0|0|0;Água de Coco Natural/Caixinha|21|0.2|0.1|5.0;Suco de Laranja Natural/Integral|45|0.7|0.1|10.5;Suco de Uva Integral|60|0.5|0.1|14.8;Suco de Limão/Maracujá/Acerola s/ Açúcar|18|0.4|0.1|4.0;Suco em Pó Zero (Clight/Tang Zero)|5|0|0|1.0;Chá Gelado Zero (Matte Leão/Ice Tea Zero)|0|0|0|0;Energético Tradicional (Monster/Red Bull/Baly)|45|0.3|0|11.0;Energético Zero Açúcar (Monster Ultra/Red Bull Zero)|3|0.2|0|0.5;Cerveja Pilsen/Lager Comum|43|0.5|0|3.5;Cerveja Puro Malte (Heineken/Spaten/Stella)|42|0.5|0|3.2;Cerveja Low Carb/Zero Carbo|28|0.3|0|1.5;Vinho Tinto/Branco Seco|83|0.1|0|2.6;Destilados (Whisky/Vodka/Gin/Cachaça)|231|0|0|0;Patinho Bovino Grelhado/Moído|219|35.9|7.3|0;Acém Bovino Cozido/Moído|215|27.3|10.9|0;Contrafilé Grelhado|240|29.5|13.0|0;Picanha na Chapa/Assada|289|27.2|19.5|0;Alcatra Grelhada|241|31.9|11.6|0;Maminha Assada|205|30.7|8.1|0;Fraldinha Assada|266|27.6|16.5|0;Costela Bovina Assada|373|28.8|27.7|0;Coxão Mole/Duro Cozido|218|32.0|8.9|0;Filé Mignon Grelhado|220|32.8|8.8|0;Carne de Sol/Seca/Charque|263|31.2|14.5|0;Fígado Bovino Grelhado|225|29.9|9.0|4.2;Hambúrguer Bovino Grelhado (Só a Carne)|245|24.0|16.0|0.5;Cupim Assado|330|28.5|23.0|0;Estrogonofe de Carne/Frango|185|19.5|10.5|3.2;Almôndega Bovina|230|21.0|14.5|3.5;Kibe Frito/Assado|210|14.5|11.0|14.0;Peito de Frango Grelhado/Desfiado|161|31.8|2.8|0;Sobrecoxa de Frango Assada|225|25.5|13.2|0;Coxa de Frango Assada|215|27.0|11.0|0;Asa/Tulipa de Frango Assada|275|23.8|19.4|0;Coração de Frango Grelhado|207|22.4|12.1|0.6;Moela de Frango Cozida|145|28.2|2.7|0;Frango a Passarinho/Empanado|255|25.5|15.5|4.0;Lombo Suíno Assado/Grelhado|210|35.7|6.4|0;Bisteca Suína Grelhada|246|28.9|13.5|0;Pernil Suíno Assado|262|32.1|13.9|0;Costelinha Suína Assada|320|26.5|23.0|0;Panceta/Torresmo/Barriga Porco|460|21.0|41.0|0;Bacon Frito|533|35.8|41.6|1.2;Linguiça Toscana Grelhada|280|19.5|22.0|1.0;Linguiça Calabresa|315|18.0|26.5|1.5;Linguiça de Frango|215|18.5|15.0|1.0;Presunto Cozido|112|18.5|3.5|1.5;Peito de Peru|105|21.0|1.8|1.2;Mortadela|285|12.5|25.0|2.5;Salame|398|25.5|32.0|1.8;Salsicha|250|12.0|21.0|3.2;Filé de Tilápia Grelhado|128|26.2|2.7|0;Salmão Grelhado/Cru (Sashimi)|229|23.9|14.0|0;Atum em Lata (Drenado)|132|28.0|2.1|0;Sardinha em Lata/Assada|195|26.0|9.5|0;Merluza/Pescada/Cação|122|24.5|2.2|0;Bacalhau Desfiado|136|29.0|1.5|0;Camarão Cozido/Grelhado|90|19.0|1.1|0;Ovo Inteiro Cozido/Mexido (1 un=~50g)|146|13.3|9.5|0.6;Ovo Frito na Manteiga|196|13.6|15.0|0.8;Clara de Ovo|52|11.0|0.1|0.7;Omelete Simples c/ Queijo|195|15.0|14.5|1.0;Crepioca (Ovo + Tapioca)|195|9.5|6.5|24.0;Pão de Queijo|335|7.5|18.0|35.0;Queijo Mussarela|330|22.6|25.2|1.9;Queijo Prato|360|22.7|29.1|1.9;Queijo Coalho|345|23.5|27.0|1.8;Queijo Minas Frescal|264|17.4|20.2|3.2;Queijo Minas Padrão/Canastra|321|21.6|25.4|1.6;Queijo Parmesão|453|35.6|33.5|1.7;Queijo Provolone/Gorgonzola|352|23.5|27.6|2.2;Queijo Cheddar|402|24.9|33.1|1.3;Queijo Cottage/Ricota|115|12.0|6.0|3.5;Requeijão Cremoso|257|9.6|23.4|2.4;Requeijão Light|165|12.0|11.5|3.5;Cream Cheese|342|6.0|34.0|4.1;Creme de Leite|220|2.0|22.0|3.5;Iogurte Natural s/ Açúcar|65|4.5|3.5|4.2;Iogurte Grego Zero|90|9.5|4.0|3.8;Iogurte Proteico (YoPRO/Itambé Pro)|62|10.0|0.5|4.5;Leite Integral|61|3.2|3.3|4.7;Leite Desnatado|35|3.4|0.2|4.9;Leite em Pó Integral|496|25.8|26.7|38.0;Leite de Coco/Amêndoas|45|0.8|4.2|1.2;Manteiga/Ghee|726|0.4|82.4|0.1;Margarina|590|0.2|65.0|0.5;Maionese Tradicional (Hellmanns)|680|1.0|75.0|1.5;Catchup/Mostarda/Barbecue|110|1.2|0.3|25.0;Abacate Puro|160|2.0|14.7|1.8;Azeite de Oliva Extra Virgem|884|0|100|0;Óleo de Coco/Banha de Porco|880|0|100|0;Pasta de Amendoim s/ Açúcar|588|28.0|49.0|11.0;Amendoim Torrado|567|25.8|49.2|8.5;Castanha-do-Pará/Nozes|655|14.8|65.8|5.5;Castanha de Caju|553|18.2|43.8|26.9;Amêndoas/Macadâmia|579|21.2|49.9|9.5;Semente de Chia/Linhaça/Abóbora|505|17.4|36.0|4.5;Coco Seco/Ralado|354|3.3|33.5|6.2;Azeitona|145|1.0|15.3|0.5;Brócolis Cozido|34|2.8|0.4|4.0;Couve-Flor Cozida|25|1.9|0.3|3.0;Abobrinha/Berinjela|22|1.1|0.3|2.6;Couve/Espinafre Refogado|29|2.9|0.5|1.9;Alface/Rúcula/Folhas Verdes|16|1.5|0.2|1.2;Repolho/Pepino/Tomate|19|1.0|0.2|2.7;Cebola/Alho/Pimentão|32|1.1|0.2|6.5;Cenoura/Beterraba|40|1.0|0.2|8.5;Abóbora Cabotiá|48|1.4|0.5|10.2;Vagem/Quiabo/Palmito/Aspargo|30|2.0|0.2|3.8;Cogumelo Shimeji/Champignon|22|3.1|0.3|2.3;Whey Protein Concentrado|400|80.0|5.0|6.7;Whey Protein Isolado|375|90.0|1.0|2.0;Albumina/Caseína|360|82.0|0|4.0;Creatina Pura|0|0|0|0;Barra de Proteína|340|32.0|14.0|18.0;Cacau 100%|228|19.6|13.7|10.9;Chocolate Amargo 70-85%|580|8.5|46.0|22.0;Chocolate ao Leite/Branco|540|6.5|31.0|58.0;Morango/Mirtilo/Framboesa|35|0.8|0.3|6.0;Limão/Maracujá|32|0.8|0.2|6.5;Melancia/Melão|31|0.7|0.1|7.5;Maçã/Pera/Laranja|52|0.4|0.1|13.0;Mamão/Manga/Abacaxi|50|0.5|0.1|12.0;Uva|68|0.7|0.2|17.0;Banana Prata/Nanica|92|1.3|0.1|23.8;Açaí Zero/Puro|70|1.5|5.0|4.0;Açaí Tradicional c/ Xarope|145|1.2|3.5|28.0;Arroz Branco/Integral Cozido|126|2.5|0.5|27.0;Feijão Carioca/Preto Cozido|76|4.8|0.5|13.6;Feijoada|152|12.5|9.5|4.5;Lentilha/Grão de Bico Cozido|115|8.5|1.2|18.5;Macarrão Cozido|135|4.8|0.6|28.0;Macarrão Instantâneo (Miojo)|440|9.0|18.0|60.0;Batata Doce Cozida|77|0.6|0.1|18.4;Batata Inglesa Cozida|52|1.2|0|11.9;Batata Frita/Airfryer|245|3.5|11.0|32.0;Mandioca/Aipim Cozido|125|0.6|0.3|30.1;Farofa/Farinha Mandioca|380|2.0|6.0|80.0;Aveia em Flocos|394|13.9|8.5|66.6;Pão Francês/Pão de Forma|290|8.5|3.2|56.0;Pão Integral|250|11.0|3.5|44.0;Tapioca|240|0|0|60.0;Cuscuz de Milho|113|2.2|0.7|25.3;Milho Verde|98|3.2|1.2|19.0;Pipoca|400|10.0|12.0|63.0;Pizza Mussarela/Calabresa|265|11.5|10.5|30.0;Coxinha/Salgado Frito|285|9.5|14.0|31.0;Pastel Frito|310|8.5|17.5|30.0;Hambúrguer no Pão (X-Burger/X-Salada)|250|13.5|12.0|22.0;Misto Quente|280|13.0|11.5|31.0;Doce de Leite/Leite Condensado|318|7.0|7.5|55.0;Brigadeiro/Beijinho|380|4.5|13.0|60.0;Creme de Avelã (Nutella)|539|6.3|30.9|57.5;Paçoca de Amendoim|495|16.0|26.0|50.0;Sorvete de Massa|205|3.5|11.0|24.0;Biscoito Recheado/Bolacha|470|5.5|19.0|68.0;Biscoito Água e Sal/Cream Cracker|430|10.0|12.0|70.0;Café c/ Leite s/ Açúcar|35|2.0|1.8|2.8;Café Preto/Chá s/ Açúcar|2|0.1|0|0.3";
 
 var DB = RAW_DB.split(";").map(function(s){
   var p = s.split("|");
@@ -660,10 +793,13 @@ var S = {
   profile: { gender:"M", age:31, weight:105, height:190, activity:1.375, deficit:0.28, protFac:2.1 },
   targets: { cal:2067, p:221, f:120, c:25 },
   meals: [],
+  simMeals: [],
+  savedIdeas: [],
   mode: "3x",
   wkDone: {},
   elec: [false, false, false],
   curBase: null,
+  simCurBase: null,
   history: [],
   geminiKey: "",
   aiPlan: [],
@@ -672,10 +808,13 @@ var S = {
 };
 
 var WEB_CACHE = [];
+var SIM_CACHE = [];
 var DISCOVERED_MODELS = null;
 var lastRep = null;
 var restTimer = null;
 var toastTimer = null;
+var editingMealId = null;
+var editingSimId = null;
 
 function notify(msg){
   var t = document.getElementById("toastBox");
@@ -688,8 +827,8 @@ function notify(msg){
 
 function switchView(v){
   S.view = v;
-  var map = { diary:"secDiary", ai:"secAI", workout:"secWorkout", profile:"secProfile" };
-  var keys = ["diary","ai","workout","profile"];
+  var map = { diary:"secDiary", sim:"secSim", ai:"secAI", workout:"secWorkout", profile:"secProfile" };
+  var keys = ["diary","sim","ai","workout","profile"];
   for(var i=0;i<keys.length;i++){
     var k = keys[i], el = document.getElementById(map[k]);
     if(el) el.className = (v==="all" || v===k) ? "" : "hide";
@@ -705,32 +844,213 @@ function switchView(v){
 function num(v, d){ if(v===undefined||v===null||v==="")return d||0; var n=parseFloat(String(v).replace(",",".")); return isNaN(n)?(d||0):n; }
 function norm(s){ return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim(); }
 
+// Normaliza plural/singular em português para evitar falha ao buscar "ovos", "carnes", "queijos", etc.
+function stemPt(w){
+  if(!w || w.length <= 3) return w;
+  if(w.slice(-3) === "oes" || w.slice(-3) === "aes") return w.slice(0,-3) + "ao";
+  if(w.slice(-2) === "ns") return w.slice(0,-2) + "m";
+  if(w.slice(-2) === "is" && w.length > 4) return w.slice(0,-2) + "l";
+  if(w.slice(-1) === "s" && w !== "lapis" && w !== "ananis" && w !== "cais"){
+    return w.slice(0,-1);
+  }
+  return w;
+}
+
 function getKeywords(q){
   var parts = norm(q).split(" "), out = [];
   for(var i=0;i<parts.length;i++){
-    if(parts[i].length > 1 && !STOP_WORDS[parts[i]]) out.push(parts[i]);
+    var w = parts[i];
+    if(w.length > 1 && !STOP_WORDS[w]){
+      out.push(stemPt(w));
+    }
   }
   return out;
 }
 
-function save(){ try{ localStorage.setItem("ketoPro_v18_data", JSON.stringify(S)); }catch(e){} }
+function save(){ try{ localStorage.setItem("ketoPro_v19_data", JSON.stringify(S)); }catch(e){} }
 function load(){
   try{
-    var r = localStorage.getItem("ketoPro_v18_data") || localStorage.getItem("ketoPro_v17_data") || localStorage.getItem("ketoPro_v16_data") || localStorage.getItem("ketoPro_v15_data");
+    var r = localStorage.getItem("ketoPro_v19_data") || localStorage.getItem("ketoPro_v18_data") || localStorage.getItem("ketoPro_v17_data") || localStorage.getItem("ketoPro_v16_data");
     if(r){
       var p = JSON.parse(r);
       if(p.profile) S.profile = p.profile;
-      if(p.meals) S.meals = p.meals;
+      if(Array.isArray(p.meals)) S.meals = p.meals;
+      if(Array.isArray(p.simMeals)) S.simMeals = p.simMeals;
+      if(Array.isArray(p.savedIdeas)) S.savedIdeas = p.savedIdeas;
       if(p.mode) S.mode = p.mode;
       if(p.wkDone) S.wkDone = p.wkDone;
       if(Array.isArray(p.elec)) S.elec = p.elec;
-      if(p.history) S.history = p.history;
+      if(Array.isArray(p.history)) S.history = p.history;
       if(p.geminiKey) S.geminiKey = p.geminiKey;
       if(Array.isArray(p.aiPlan)) S.aiPlan = p.aiPlan;
       if(p.aiConsumed) S.aiConsumed = p.aiConsumed;
       if(p.view) S.view = p.view;
     }
   }catch(e){}
+}
+
+// ============================================================================
+// MEMÓRIA DE PRATOS FEITOS & PESQUISADOS (SALVOS AUTOMATICAMENTE E REUSÁVEIS)
+// ============================================================================
+function rememberDishInIdeas(dishObj){
+  if(!dishObj || !dishObj.title) return;
+  var cleanTitle = String(dishObj.title).replace(/^✨\s*/, "").trim();
+  if(!cleanTitle) return;
+  var normT = norm(cleanTitle);
+
+  for(var j=0; j<IDEAS.length; j++){
+    if(norm(IDEAS[j].title) === normT) return;
+  }
+  if(!Array.isArray(S.savedIdeas)) S.savedIdeas = [];
+  for(var i=0; i<S.savedIdeas.length; i++){
+    if(norm(S.savedIdeas[i].title) === normT){
+      S.savedIdeas[i].cal = Math.round(num(dishObj.cal, S.savedIdeas[i].cal));
+      S.savedIdeas[i].p = Math.round(num(dishObj.p, S.savedIdeas[i].p)*10)/10;
+      S.savedIdeas[i].f = Math.round(num(dishObj.f, S.savedIdeas[i].f)*10)/10;
+      S.savedIdeas[i].c = Math.round(num(dishObj.c, S.savedIdeas[i].c)*10)/10;
+      S.savedIdeas[i].slot = dishObj.slot || S.savedIdeas[i].slot || "🍽️ Almoço";
+      var item = S.savedIdeas.splice(i, 1)[0];
+      S.savedIdeas.unshift(item);
+      renderIdeasGrid();
+      save();
+      return;
+    }
+  }
+
+  S.savedIdeas.unshift({
+    id: Date.now() + Math.random(),
+    slot: dishObj.slot || "🍽️ Almoço",
+    title: cleanTitle,
+    desc: dishObj.desc || "Salvo na memória pela sua pesquisa / geração para reutilizar com 1 toque.",
+    cal: Math.round(num(dishObj.cal, 0)),
+    p: Math.round(num(dishObj.p, 0)*10)/10,
+    f: Math.round(num(dishObj.f, 0)*10)/10,
+    c: Math.round(num(dishObj.c, 0)*10)/10,
+    custom: true
+  });
+
+  if(S.savedIdeas.length > 36) S.savedIdeas = S.savedIdeas.slice(0, 36);
+  renderIdeasGrid();
+  save();
+}
+
+function saveCurrentSearchToIdeas(){
+  var slot = document.getElementById("mSlot").value;
+  var name = document.getElementById("mName").value.trim();
+  var g = num(document.getElementById("mGrams").value, 100);
+  var p = num(document.getElementById("mP").value, 0);
+  var f = num(document.getElementById("mF").value, 0);
+  var c = num(document.getElementById("mC").value, 0);
+  var calRaw = document.getElementById("mCal").value.trim();
+
+  if(!name){
+    setSt("⚠️ Digite ou pesquise um alimento primeiro para salvar em Pratos Feitos!", "wn");
+    return;
+  }
+  if(p===0 && f===0 && c===0 && calRaw===""){
+    var m = findFoods(name);
+    if(m.length > 0){
+      var it = m[0], mult = g/100;
+      name = it.name;
+      p = Math.round(it.p*mult*10)/10;
+      f = Math.round(it.f*mult*10)/10;
+      c = Math.round(it.c*mult*10)/10;
+      calRaw = String(Math.round(it.cal*mult));
+    }
+  }
+  var cal = calRaw !== "" ? Math.round(num(calRaw, 0)) : Math.round((p*4)+(f*9)+(c*4));
+  var fullTitle = name.indexOf("(") !== -1 && name.indexOf("g") !== -1 ? name : (name + " (" + g + "g/ml)");
+
+  rememberDishInIdeas({
+    slot: slot,
+    title: fullTitle,
+    desc: "Prato salvo da sua pesquisa (" + g + "g/ml).",
+    cal: cal,
+    p: p,
+    f: f,
+    c: c
+  });
+  setSt("📌 '" + fullTitle + "' foi salvo na seção Pratos Feitos para usar sempre que quiser!", "ok");
+  notify("📌 Salvo na memória de Pratos Feitos!");
+}
+
+function renderIdeasGrid(){
+  var box = document.getElementById("ideasGrid");
+  var btnClr = document.getElementById("btnClearSavedIdeas");
+  if(!box) return;
+
+  var saved = Array.isArray(S.savedIdeas) ? S.savedIdeas : [];
+  if(btnClr) btnClr.className = saved.length ? "btn btn-x" : "btn btn-x hide";
+
+  var htmlSaved = saved.map(function(id, idx){
+    return '<div class="id-card saved-mem">'
+      + '<div>'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px">'
+      + '<span class="bdg bdg-ai" style="font-size:10px">🧠 Memória • ' + id.slot + '</span>'
+      + '<button type="button" class="btn btn-x" style="padding:3px 7px;font-size:10px" onclick="delSavedIdea(' + idx + ')" title="Remover da memória">✕</button>'
+      + '</div>'
+      + '<h4 style="font-size:13px;font-weight:700;color:#fff;margin-top:6px">' + id.title + '</h4>'
+      + '<p style="font-size:11px;color:var(--mut);margin-top:4px">🔥 ' + id.cal + ' kcal • 🥩 ' + id.p + 'g P • 🥑 ' + id.f + 'g G • 🥦 ' + id.c + 'g C</p>'
+      + '</div>'
+      + '<div class="id-ft">'
+      + '<button type="button" class="btn btn-o" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addSavedIdeaToDiary(' + idx + ')">+ Lançar Hoje</button>'
+      + '<button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addSavedIdeaToSim(' + idx + ')">🔮 Simulador</button>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+
+  var htmlDefault = IDEAS.map(function(id, i){
+    return '<div class="id-card">'
+      + '<div>'
+      + '<span class="bdg bdg-o" style="font-size:10px">' + id.slot + '</span>'
+      + '<h4 style="font-size:13px;font-weight:700;color:#fff;margin-top:6px">' + id.title + '</h4>'
+      + '<p style="font-size:11px;color:var(--mut);margin-top:4px">' + id.desc + '</p>'
+      + '</div>'
+      + '<div class="id-ft">'
+      + '<span style="font-size:11px;color:#cbd5e1;width:100%;margin-bottom:4px">🔥 ' + id.cal + ' kcal • <strong style="color:#38bdf8">' + id.p + 'g P</strong> • 🥑 ' + id.f + 'g G • 🥦 ' + id.c + 'g C</span>'
+      + '<button type="button" class="btn btn-o" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addIdea(' + i + ')">+ Lançar Hoje</button>'
+      + '<button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addDefaultIdeaToSim(' + i + ')">🔮 Simulador</button>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+
+  box.innerHTML = htmlSaved + htmlDefault;
+}
+
+function addSavedIdeaToDiary(idx){
+  var id = S.savedIdeas[idx];
+  if(!id) return;
+  S.meals.push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c });
+  renderMeals(); refreshBars(); save();
+  notify("✅ Prato da memória lançado: +" + id.p + "g Proteína!");
+}
+
+function addSavedIdeaToSim(idx){
+  var id = S.savedIdeas[idx];
+  if(!id) return;
+  S.simMeals.push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c, checked:false });
+  renderSimMeals(); save();
+  notify("🔮 Adicionado ao Simulador do Dia Seguinte!");
+}
+
+function addDefaultIdeaToSim(idx){
+  var id = IDEAS[idx];
+  if(!id) return;
+  S.simMeals.push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c, checked:false });
+  renderSimMeals(); save();
+  notify("🔮 Ideia enviada para o Simulador!");
+}
+
+function delSavedIdea(idx){
+  S.savedIdeas.splice(idx, 1);
+  renderIdeasGrid(); save();
+  notify("🗑️ Prato removido da memória");
+}
+
+function clearSavedIdeas(){
+  S.savedIdeas = [];
+  renderIdeasGrid(); save();
+  notify("🧹 Memória de pratos pesquisados limpa!");
 }
 
 function saveElec(){
@@ -1036,11 +1356,17 @@ async function handlePhotoUpload(inputEl){
     document.getElementById("mC").value = c;
     document.getElementById("mCal").value = cal;
 
+    rememberDishInIdeas({
+      slot: document.getElementById("mSlot").value,
+      title: "📸 " + itemName + " (" + g + "g)",
+      cal: cal, p: p, f: f, c: c
+    });
+
     dTitle.textContent = "✅ Extraído: " + itemName + " (" + g + "g)";
     dSub.textContent = "🔥 " + cal + " kcal | 🥩 " + p + "g Prot | 🥑 " + f + "g Gord | 🥦 " + c + "g Carbo" + (parsed.details ? (" — " + parsed.details) : "");
 
-    setSt("✅ Foto lida e autopreenchida! Toque no botão verde '+ Somar Refeição no Diário de Hoje'!", "ok");
-    notify("📸 Foto analisada: " + itemName + "!");
+    setSt("✅ Foto lida, autopreenchida e salva nos Pratos Feitos! Toque no botão verde para somar no diário!", "ok");
+    notify("📸 Foto analisada e salva nos Pratos Feitos!");
 
     var addBtn = document.getElementById("btnAddManualMain");
     addBtn.className = "btn btn-g pulse-ready";
@@ -1079,6 +1405,7 @@ function calcAll(){
   document.getElementById("tdeeVal").textContent = Math.round(tdee)+" kcal";
   document.getElementById("targetCalText").textContent = tCal+" kcal";
   refreshBars();
+  refreshSimBars();
   save();
 }
 
@@ -1094,7 +1421,6 @@ function refreshBars(){
   document.getElementById("cCal").textContent = tot.cal;
   document.getElementById("gCal").textContent = tg.cal;
 
-  // Atualiza o Anel Circular SVG (Circunferência = 2 * PI * 60 = 377)
   var calRatio = tg.cal > 0 ? Math.min(tot.cal / tg.cal, 1) : 0;
   var ringEl = document.getElementById("calRing");
   if(ringEl) ringEl.style.strokeDashoffset = String(Math.round(377 - (377 * calRatio)));
@@ -1133,46 +1459,87 @@ function setTab(t){
   document.getElementById("tDb").className = (t==="db") ? "t-btn act" : "t-btn";
 }
 
+// ============================================================================
+// PARSER ESTRITO DE INGREDIENTES ("O QUE VOCÊ TEM EM CASA")
+// Corrige o bug do split(/[,;+e]+/) que cortava a letra 'e' e impede alimentos não descritos
+// ============================================================================
+function parseUserIngredientsList(rawText){
+  var raw = String(rawText || "").trim();
+  if(!raw) return [];
+  var chunks = raw.split(/\s*(?:,|;|\+|\/|\n|\s+e\s+)\s*/i);
+  var resolved = [];
+  var seen = {};
+
+  for(var i=0; i<chunks.length; i++){
+    var term = chunks[i].trim();
+    if(!term || term.length < 2) continue;
+    var matches = findFoods(term);
+    var chosen = null;
+    if(matches.length > 0){
+      chosen = {
+        name: matches[0].name,
+        userLabel: term,
+        cal: matches[0].cal,
+        p: matches[0].p,
+        f: matches[0].f,
+        c: matches[0].c
+      };
+    } else {
+      chosen = {
+        name: term.charAt(0).toUpperCase() + term.slice(1),
+        userLabel: term,
+        cal: 200,
+        p: 22.0,
+        f: 12.0,
+        c: 1.5
+      };
+    }
+    var key = norm(chosen.name);
+    if(!seen[key]){
+      seen[key] = true;
+      resolved.push(chosen);
+    }
+  }
+  return resolved;
+}
+
+function previewRecognizedIngredients(){
+  var box = document.getElementById("recognizedIngrBox");
+  if(!box) return;
+  var raw = document.getElementById("aiIngredients").value.trim();
+  if(!raw){
+    box.innerHTML = "";
+    return;
+  }
+  var list = parseUserIngredientsList(raw);
+  if(!list.length){
+    box.innerHTML = "";
+    return;
+  }
+  box.innerHTML = list.map(function(it){
+    return '<span class="ingr-chip">✅ ' + it.name.split("/")[0].trim() + '</span>';
+  }).join("");
+}
+
+function formatFoodPortionLabel(food, grams){
+  var baseName = food.name.split("/")[0].replace(/\(1 un=~50g\)/i, "").trim();
+  if(norm(baseName).indexOf("ovo") !== -1 && norm(baseName).indexOf("clara") === -1){
+    var units = Math.max(Math.round(grams / 50), 1);
+    return units + (units === 1 ? " Ovo (" : " Ovos (") + grams + "g)";
+  }
+  return grams + "g " + baseName;
+}
+
 function buildSmartMathematicalMeals(mode){
   var tg = S.targets, tot = getTotals();
-  var goalCal = tg.cal, goalP = tg.p, goalF = tg.f;
+  var goalCal = tg.cal, goalP = tg.p;
   if(mode === "remaining"){
     goalCal = Math.max(tg.cal - tot.cal, 300);
     goalP = Math.max(tg.p - tot.p, 30);
-    goalF = Math.max(tg.f - tot.f, 15);
   }
 
   var rawIngr = document.getElementById("aiIngredients").value.trim();
-  var parts = rawIngr ? rawIngr.split(/[,;+e]+/) : [];
-  var userProteins = [], userFats = [];
-
-  for(var i=0;i<parts.length;i++){
-    var m = findFoods(parts[i]);
-    if(m.length > 0 && m[0].c <= 12){
-      if(m[0].p >= 12) userProteins.push(m[0]);
-      else userFats.push(m[0]);
-    }
-  }
-
-  var defProteins = [
-    { name:"Ovo Inteiro Mexido/Cozido", cal:146, p:13.3, f:9.5, c:0.6 },
-    { name:"Patinho Bovino Grelhado/Moído", cal:219, p:35.9, f:7.3, c:0.0 },
-    { name:"Peito de Frango Grelhado", cal:161, p:31.8, f:2.8, c:0.0 },
-    { name:"Sobrecoxa de Frango Assada", cal:225, p:25.5, f:13.2, c:0.0 },
-    { name:"Contrafilé / Picanha na Chapa", cal:240, p:29.5, f:13.0, c:0.0 },
-    { name:"Lombo / Bisteca Suína Grelhada", cal:210, p:35.7, f:6.4, c:0.0 },
-    { name:"Atum / Filé de Tilápia", cal:130, p:27.0, f:2.5, c:0.0 }
-  ];
-  var defSides = [
-    { name:"Queijo Coalho / Mussarela", cal:335, p:23.0, f:26.0, c:1.9 },
-    { name:"Bacon em Cubos", cal:533, p:35.8, f:41.6, c:1.2 },
-    { name:"Abacate Puro", cal:160, p:2.0, f:14.7, c:1.8 },
-    { name:"Brócolis na Manteiga", cal:95, p:2.8, f:8.5, c:4.0 },
-    { name:"Salada Verde c/ Azeite Extra Virgem", cal:105, p:1.5, f:10.5, c:1.5 }
-  ];
-
-  var pPool = userProteins.length ? userProteins : defProteins;
-  var fPool = userFats.length ? userFats : defSides;
+  var userItems = parseUserIngredientsList(rawIngr);
 
   var slots = (mode === "remaining")
     ? [
@@ -1182,66 +1549,156 @@ function buildSmartMathematicalMeals(mode){
     : [
         { slot:"☕ Café da Manhã", share:0.22 },
         { slot:"🍽️ Almoço", share:0.35 },
-        { slot:"🥤 Lanche / Pós-Treino", share:0.13 },
-        { slot:"🌙 Jantar", share:0.30 }
+        { slot:"🥤 Lanche / Pós-Treino", share:0.15 },
+        { slot:"🌙 Jantar", share:0.28 }
       ];
 
   var out = [];
-  for(var s=0; s<slots.length; s++){
-    var sl = slots[s];
-    var targetMealP = goalP * sl.share;
-    var targetMealCal = goalCal * sl.share;
 
-    var mainFood = pPool[s % pPool.length];
-    var sideFood = fPool[s % fPool.length];
-
-    var sideGrams = (sideFood.p > 15) ? 40 : 80;
-    var sideP = (sideFood.p * sideGrams) / 100;
-    var remP = Math.max(targetMealP - sideP, 15);
-    var mainGrams = Math.round(((remP / Math.max(mainFood.p, 10)) * 100) / 10) * 10;
-    mainGrams = Math.max(mainGrams, 100);
-
-    var mCal = Math.round((mainFood.cal * mainGrams / 100) + (sideFood.cal * sideGrams / 100));
-    var mP = Math.round(((mainFood.p * mainGrams / 100) + sideP) * 10) / 10;
-    var mF = Math.round(((mainFood.f * mainGrams / 100) + (sideFood.f * sideGrams / 100)) * 10) / 10;
-    var mC = Math.round(((mainFood.c * mainGrams / 100) + (sideFood.c * sideGrams / 100)) * 10) / 10;
-
-    if(mCal < targetMealCal - 60){
-      var extraFatG = Math.min(Math.round((targetMealCal - mCal) / 9), 18);
-      if(extraFatG > 3){
-        mF = Math.round((mF + extraFatG) * 10) / 10;
-        mCal += extraFatG * 9;
-      }
+  if(userItems.length > 0){
+    var uProteins = [], uOthers = [];
+    for(var u=0; u<userItems.length; u++){
+      if(userItems[u].p >= 10) uProteins.push(userItems[u]);
+      else uOthers.push(userItems[u]);
     }
 
-    var mainLabel = (mainFood.name.indexOf("Ovo") !== -1)
-      ? (Math.max(Math.round(mainGrams/50), 2) + " Ovos (" + mainGrams + "g)")
-      : (mainGrams + "g " + mainFood.name.split("/")[0].trim());
+    for(var s=0; s<slots.length; s++){
+      var sl = slots[s];
+      var targetMealP = goalP * sl.share;
+      var targetMealCal = goalCal * sl.share;
 
-    var sideLabel = sideGrams + "g " + sideFood.name.split("/")[0].trim();
+      if(userItems.length === 1){
+        var onlyFood = userItems[0];
+        var grams1 = onlyFood.p >= 5
+          ? Math.round(((targetMealP / onlyFood.p) * 100) / 10) * 10
+          : Math.round(((targetMealCal / Math.max(onlyFood.cal, 50)) * 100) / 10) * 10;
+        grams1 = Math.max(grams1, 60);
+        out.push({
+          slot: sl.slot,
+          title: formatFoodPortionLabel(onlyFood, grams1),
+          cal: Math.round(onlyFood.cal * grams1 / 100),
+          p: Math.round((onlyFood.p * grams1 / 100) * 10) / 10,
+          f: Math.round((onlyFood.f * grams1 / 100) * 10) / 10,
+          c: Math.round((onlyFood.c * grams1 / 100) * 10) / 10
+        });
+      } else {
+        var mainFood = uProteins.length > 0
+          ? uProteins[s % uProteins.length]
+          : userItems[s % userItems.length];
+
+        var sideFood = null;
+        if(uOthers.length > 0){
+          sideFood = uOthers[s % uOthers.length];
+        } else {
+          for(var k=1; k<userItems.length; k++){
+            var cand = userItems[(s + k) % userItems.length];
+            if(norm(cand.name) !== norm(mainFood.name)){
+              sideFood = cand;
+              break;
+            }
+          }
+        }
+
+        if(!sideFood){
+          var gSingle = Math.max(Math.round(((targetMealP / Math.max(mainFood.p, 8)) * 100) / 10) * 10, 80);
+          out.push({
+            slot: sl.slot,
+            title: formatFoodPortionLabel(mainFood, gSingle),
+            cal: Math.round(mainFood.cal * gSingle / 100),
+            p: Math.round((mainFood.p * gSingle / 100) * 10) / 10,
+            f: Math.round((mainFood.f * gSingle / 100) * 10) / 10,
+            c: Math.round((mainFood.c * gSingle / 100) * 10) / 10
+          });
+        } else {
+          var sideGrams = (sideFood.cal >= 300 || sideFood.p >= 18) ? 50 : 80;
+          var sideP = (sideFood.p * sideGrams) / 100;
+          var remP = Math.max(targetMealP - sideP, 12);
+          var mainGrams = Math.round(((remP / Math.max(mainFood.p, 8)) * 100) / 10) * 10;
+          mainGrams = Math.max(mainGrams, 80);
+
+          var mCal = Math.round((mainFood.cal * mainGrams / 100) + (sideFood.cal * sideGrams / 100));
+          var mP = Math.round(((mainFood.p * mainGrams / 100) + sideP) * 10) / 10;
+          var mF = Math.round(((mainFood.f * mainGrams / 100) + (sideFood.f * sideGrams / 100)) * 10) / 10;
+          var mC = Math.round(((mainFood.c * mainGrams / 100) + (sideFood.c * sideGrams / 100)) * 10) / 10;
+
+          out.push({
+            slot: sl.slot,
+            title: formatFoodPortionLabel(mainFood, mainGrams) + " + " + formatFoodPortionLabel(sideFood, sideGrams),
+            cal: mCal,
+            p: mP,
+            f: mF,
+            c: mC
+          });
+        }
+      }
+    }
+    return out;
+  }
+
+  var defProteins = [
+    { name:"Ovo Inteiro Cozido/Mexido", cal:146, p:13.3, f:9.5, c:0.6 },
+    { name:"Patinho Bovino Grelhado/Moído", cal:219, p:35.9, f:7.3, c:0.0 },
+    { name:"Peito de Frango Grelhado/Desfiado", cal:161, p:31.8, f:2.8, c:0.0 },
+    { name:"Contrafilé Grelhado", cal:240, p:29.5, f:13.0, c:0.0 }
+  ];
+  var defSides = [
+    { name:"Queijo Coalho", cal:345, p:23.5, f:27.0, c:1.8 },
+    { name:"Brócolis Cozido", cal:34, p:2.8, f:0.4, c:4.0 },
+    { name:"Abacate Puro", cal:160, p:2.0, f:14.7, c:1.8 },
+    { name:"Queijo Mussarela", cal:330, p:22.6, f:25.2, c:2.2 }
+  ];
+
+  for(var d=0; d<slots.length; d++){
+    var slDef = slots[d];
+    var tPDef = goalP * slDef.share;
+    var mf = defProteins[d % defProteins.length];
+    var sf = defSides[d % defSides.length];
+    var sG = (sf.p > 15) ? 45 : 90;
+    var sP = (sf.p * sG) / 100;
+    var mG = Math.max(Math.round((((tPDef - sP) / mf.p) * 100) / 10) * 10, 100);
 
     out.push({
-      slot: sl.slot,
-      title: mainLabel + " + " + sideLabel,
-      cal: mCal,
-      p: mP,
-      f: mF,
-      c: mC
+      slot: slDef.slot,
+      title: formatFoodPortionLabel(mf, mG) + " + " + formatFoodPortionLabel(sf, sG),
+      cal: Math.round((mf.cal * mG / 100) + (sf.cal * sG / 100)),
+      p: Math.round(((mf.p * mG / 100) + sP) * 10) / 10,
+      f: Math.round(((mf.f * mG / 100) + (sf.f * sG / 100)) * 10) / 10,
+      c: Math.round(((mf.c * mG / 100) + (sf.c * sG / 100)) * 10) / 10
     });
   }
   return out;
 }
 
+function saveGeneratedPlanDishesToMemory(meals){
+  if(!Array.isArray(meals)) return;
+  for(var i=meals.length-1; i>=0; i--){
+    rememberDishInIdeas({
+      slot: meals[i].slot,
+      title: meals[i].title,
+      desc: "Prato gerado pelo Roteiro Inteligente e salvo na memória.",
+      cal: meals[i].cal,
+      p: meals[i].p,
+      f: meals[i].f,
+      c: meals[i].c
+    });
+  }
+}
+
 function generateSmartLocalPlan(mode){
+  previewRecognizedIngredients();
   var meals = buildSmartMathematicalMeals(mode || "full");
   S.aiPlan = meals;
   S.aiConsumed = {};
+  saveGeneratedPlanDishesToMemory(meals);
   renderAiPlan();
   save();
+  var rawIngr = document.getElementById("aiIngredients").value.trim();
   var st = document.getElementById("aiStatus");
-  st.textContent = "⚡ Roteiro calculado instantaneamente com as porções exatas em gramas! Marque '🍽️ Consumi Esta' conforme comer.";
+  st.textContent = rawIngr
+    ? "✅ Roteiro montado usando EXCLUSIVAMENTE seus ingredientes (" + rawIngr + ") e salvo em Pratos Feitos!"
+    : "⚡ Roteiro calculado instantaneamente e salvo na memória de Pratos Feitos!";
   st.className = "st-bar st-ok";
-  notify("⚡ Roteiro calculado com sucesso!");
+  notify("⚡ Roteiro gerado e salvo nos Pratos Feitos!");
 }
 
 async function fetchGeminiTextWithAutoHeal(key, promptText){
@@ -1262,7 +1719,7 @@ async function fetchGeminiTextWithAutoHeal(key, promptText){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           contents: [{ parts: [{ text: promptText }] }],
-          generationConfig: { temperature: 0.2 }
+          generationConfig: { temperature: 0.1 }
         }),
         signal: ctrl.signal
       });
@@ -1285,6 +1742,7 @@ async function fetchGeminiTextWithAutoHeal(key, promptText){
 }
 
 async function askGeminiDiet(mode){
+  previewRecognizedIngredients();
   var rawInput = document.getElementById("geminiKey").value.trim();
   var key = extractApiKey(rawInput);
   var st = document.getElementById("aiStatus");
@@ -1311,11 +1769,14 @@ async function askGeminiDiet(mode){
   }
 
   var userIngr = document.getElementById("aiIngredients").value.trim();
+  var parsedUserList = parseUserIngredientsList(userIngr);
+  var exactNames = parsedUserList.map(function(x){ return x.name.split("/")[0].trim(); }).join(", ");
+
   var ingrPrompt = userIngr
-    ? ("Use obrigatoriamente estes ingredientes: " + userIngr + ".")
+    ? ("REGRA ESTRITA E ABSOLUTA: Você deve montar as refeições usando APENAS E EXCLUSIVAMENTE estes alimentos informados pelo usuário: [" + userIngr + " (" + exactNames + ")]. É TERMINANTEMENTE PROIBIDO incluir qualquer outro alimento, verdura, fruta, queijo, bacon ou acompanhamento que NÃO tenha sido citado pelo usuário.")
     : "Use alimentos cetogênicos comuns no Brasil (ovos, frango, patinho/carne, queijo coalho/mussarela, bacon, brócolis, abacate).";
 
-  var promptText = "Planeje " + mealCountDesc + " para Dieta Cetogênica Hiperproteica somando: "
+  var promptText = "Planeje " + mealCountDesc + " para Dieta Cetogênica Hiperproteica somando aproximadamente: "
     + goalCal + " kcal, " + goalP + "g Proteína, " + goalF + "g Gordura e máximo " + goalC + "g Carboidrato.\n"
     + ingrPrompt + "\n"
     + "Responda SOMENTE um JSON array puro neste formato exato:\n"
@@ -1323,7 +1784,7 @@ async function askGeminiDiet(mode){
 
   var b1 = document.getElementById("btnGenFull"), b2 = document.getElementById("btnGenRem");
   b1.disabled = true; b2.disabled = true;
-  st.textContent = "⏳ Conectando ao Gemini (3.8 / Latest)...";
+  st.textContent = "⏳ Conectando ao Gemini (usando exclusivamente seus alimentos)...";
   st.className = "st-bar st-in";
 
   try{
@@ -1336,20 +1797,22 @@ async function askGeminiDiet(mode){
 
     S.aiPlan = meals;
     S.aiConsumed = {};
+    saveGeneratedPlanDishesToMemory(meals);
     renderAiPlan();
     save();
-    st.textContent = "✨ Roteiro gerado pela IA (" + resObj.model + ")! Toque em '🍽️ Consumi Esta' apenas quando comer.";
+    st.textContent = "✨ Roteiro gerado pela IA (" + resObj.model + ") e salvo na memória de Pratos Feitos!";
     st.className = "st-bar st-ok";
-    notify("✨ Roteiro IA gerado com sucesso!");
+    notify("✨ Roteiro IA gerado e salvo nos Pratos Feitos!");
   }catch(err){
     var fallbackMeals = buildSmartMathematicalMeals(mode);
     S.aiPlan = fallbackMeals;
     S.aiConsumed = {};
+    saveGeneratedPlanDishesToMemory(fallbackMeals);
     renderAiPlan();
     save();
-    st.textContent = "⚡ Roteiro calculado pelo Motor Nutricional Interno (porções exatas em gramas para os seus ingredientes e metas)!";
+    st.textContent = "⚡ Roteiro calculado exclusivamente com seus ingredientes e salvo em Pratos Feitos!";
     st.className = "st-bar st-ok";
-    notify("⚡ Roteiro calculado com sucesso!");
+    notify("⚡ Roteiro calculado e salvo nos Pratos Feitos!");
   }
   b1.disabled = false; b2.disabled = false;
 }
@@ -1372,7 +1835,7 @@ function renderAiPlan(){
 
     var btnHtml = isDone
       ? '<div style="display:flex;gap:6px;align-items:center"><span class="bdg">✅ Consumido</span><button type="button" class="btn btn-x" onclick="unconsumeAiMeal('+idx+')">↩️ Desfazer</button></div>'
-      : '<button type="button" class="btn btn-g" style="padding:7px 11px;font-size:11.5px" onclick="consumeAiMeal('+idx+')">🍽️ Consumi Esta</button>';
+      : '<div style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="btn btn-g" style="padding:7px 11px;font-size:11.5px" onclick="consumeAiMeal('+idx+')">🍽️ Consumi Esta</button><button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11px" onclick="sendSingleAiMealToSim('+idx+')">🔮 Simulador</button></div>';
 
     var cardBorder = isDone ? "border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.06)" : "border-color:rgba(168,85,247,.3)";
 
@@ -1411,8 +1874,51 @@ function consumeAiMeal(idx){
     f: Math.round(num(m.f,0)*10)/10,
     c: Math.round(num(m.c,0)*10)/10
   });
+  rememberDishInIdeas(m);
   renderMeals(); refreshBars(); renderAiPlan(); save();
   notify("🍽️ " + m.slot + " somado ao diário!");
+}
+
+function sendSingleAiMealToSim(idx){
+  var m = S.aiPlan[idx];
+  if(!m) return;
+  S.simMeals.push({
+    id: Date.now() + Math.random(),
+    slot: m.slot,
+    title: m.title,
+    cal: Math.round(num(m.cal,0)),
+    p: Math.round(num(m.p,0)*10)/10,
+    f: Math.round(num(m.f,0)*10)/10,
+    c: Math.round(num(m.c,0)*10)/10,
+    checked: false
+  });
+  renderSimMeals(); save();
+  notify("🔮 Refeição enviada para o Simulador!");
+}
+
+function sendAiPlanToSimulator(){
+  if(!S.aiPlan || !S.aiPlan.length){
+    var meals = buildSmartMathematicalMeals("full");
+    S.aiPlan = meals;
+    saveGeneratedPlanDishesToMemory(meals);
+    renderAiPlan();
+  }
+  for(var i=0; i<S.aiPlan.length; i++){
+    var m = S.aiPlan[i];
+    S.simMeals.push({
+      id: Date.now() + Math.random() + i,
+      slot: m.slot,
+      title: m.title,
+      cal: Math.round(num(m.cal,0)),
+      p: Math.round(num(m.p,0)*10)/10,
+      f: Math.round(num(m.f,0)*10)/10,
+      c: Math.round(num(m.c,0)*10)/10,
+      checked: false
+    });
+  }
+  renderSimMeals(); save();
+  switchView("sim");
+  notify("🔮 Roteiro enviado para a aba Simulador!");
 }
 
 function unconsumeAiMeal(idx){
@@ -1430,19 +1936,49 @@ function clearAiPlan(){
   save();
 }
 
+// ============================================================================
+// BUSCA INTELIGENTE APRIMORADA (COM STEMMING PT-BR E PRIORIDADE DE PALAVRA)
+// ============================================================================
 function findFoods(q){
   var kws = getKeywords(q);
   if(!kws.length) return [];
   var qFull = kws.join(" "), res = [];
+
   for(var i=0;i<DB.length;i++){
-    var tn = norm(DB[i].name), sc = 0, matchedWords = 0;
-    if(tn.indexOf(qFull)!==-1) sc += 25;
-    for(var w=0;w<kws.length;w++){
-      if(tn.indexOf(kws[w])!==-1){ sc += 10; matchedWords++; }
+    var tn = norm(DB[i].name);
+    var words = tn.split(" ").map(stemPt);
+    var sc = 0, matchedWords = 0;
+
+    if(tn.indexOf(qFull) !== -1) sc += 30;
+
+    for(var w=0; w<kws.length; w++){
+      var kw = kws[w];
+      var exactWordIdx = words.indexOf(kw);
+      if(exactWordIdx !== -1){
+        matchedWords++;
+        sc += (exactWordIdx === 0) ? 35 : 22;
+      } else {
+        var prefixHit = false;
+        for(var tw=0; tw<words.length; tw++){
+          if(words[tw].indexOf(kw) === 0 && kw.length >= 3){
+            prefixHit = true;
+            sc += (tw === 0) ? 24 : 14;
+            break;
+          }
+        }
+        if(prefixHit) matchedWords++;
+      }
     }
-    if(matchedWords > 0){
-      if(matchedWords === kws.length) sc += 20;
+
+    if(qFull === "frango" && tn.indexOf("peito de frango") === 0) sc += 40;
+    if((qFull === "carne" || qFull === "carne moida" || qFull === "bife") && tn.indexOf("patinho") === 0) sc += 45;
+    if(qFull === "ovo" && tn.indexOf("ovo inteiro") === 0) sc += 45;
+    if(qFull === "queijo" && tn.indexOf("queijo mussarela") === 0) sc += 30;
+
+    if(matchedWords === kws.length){
       res.push({it:DB[i], sc:sc});
+    } else if(matchedWords > 0 && kws.length > 1 && matchedWords >= kws.length - 1){
+      res.push({it:DB[i], sc:sc - 15});
     }
   }
   res.sort(function(a,b){return b.sc-a.sc;});
@@ -1455,7 +1991,7 @@ function renderSuggestions(items){
   WEB_CACHE = items;
   var g = num(document.getElementById("mGrams").value,100), mult = g/100;
   box.innerHTML = items.slice(0,8).map(function(f, idx){
-    var bdg = (f.src==="WEB") ? '<span class="bdg bdg-b">🌐 Web BR</span>' : '<span class="bdg bdg-o">🇧🇷 Base BR</span>';
+    var bdg = (f.src==="WEB") ? '<span class="bdg bdg-b">🌐 Web BR</span>' : (f.src==="MEM" ? '<span class="bdg bdg-ai">🧠 Memória</span>' : '<span class="bdg bdg-o">🇧🇷 Base BR</span>');
     return '<div class="sug-it" onclick="pickCachedFood('+idx+')"><div><strong style="color:#fff">'+f.name+'</strong><br><small style="color:#9ca3af">Para '+g+'g/ml: 🔥 '+Math.round(f.cal*mult)+' kcal | 🥩 '+(Math.round(f.p*mult*10)/10)+'g P | 🥑 '+(Math.round(f.f*mult*10)/10)+'g G | 🥦 '+(Math.round(f.c*mult*10)/10)+'g C</small></div>'+bdg+'</div>';
   }).join("");
   box.className = "sug-box";
@@ -1473,7 +2009,16 @@ function pickCachedFood(idx){
   document.getElementById("mName").value = f.name;
   document.getElementById("sugBox").className = "sug-box hide";
   applyGramsToFields();
-  setSt("✅ Autopreenchido: "+f.name+" ("+num(document.getElementById("mGrams").value,100)+"g/ml).", "ok");
+  var g = num(document.getElementById("mGrams").value,100);
+  rememberDishInIdeas({
+    slot: document.getElementById("mSlot").value,
+    title: f.name + " (" + g + "g/ml)",
+    cal: Math.round(f.cal * g / 100),
+    p: Math.round(f.p * g / 100 * 10) / 10,
+    f: Math.round(f.f * g / 100 * 10) / 10,
+    c: Math.round(f.c * g / 100 * 10) / 10
+  });
+  setSt("✅ Autopreenchido e salvo em Pratos Feitos: "+f.name+" ("+g+"g/ml).", "ok");
 }
 
 function onGramsChange(){
@@ -1574,7 +2119,16 @@ function searchWeb(){
       document.getElementById("mName").value = combined[0].name;
       applyGramsToFields();
       renderSuggestions(combined);
-      setSt("✅ Encontrado no catálogo BR: '"+combined[0].name+"' (ou escolha outra opção na lista acima).", "ok");
+      var g = num(document.getElementById("mGrams").value, 100);
+      rememberDishInIdeas({
+        slot: document.getElementById("mSlot").value,
+        title: combined[0].name + " (" + g + "g/ml)",
+        cal: Math.round(combined[0].cal * g / 100),
+        p: Math.round(combined[0].p * g / 100 * 10) / 10,
+        f: Math.round(combined[0].f * g / 100 * 10) / 10,
+        c: Math.round(combined[0].c * g / 100 * 10) / 10
+      });
+      setSt("✅ Encontrado no catálogo BR e salvo em Pratos Feitos: '"+combined[0].name+"'.", "ok");
     })
     .catch(function(){
       if(localMatches.length > 0){
@@ -1587,7 +2141,7 @@ function searchWeb(){
     });
 }
 
-function addManual(){
+function getManualFormMealData(){
   var slot = document.getElementById("mSlot").value;
   var name = document.getElementById("mName").value.trim();
   var g = num(document.getElementById("mGrams").value,100);
@@ -1605,16 +2159,40 @@ function addManual(){
   }
   if(!name) name = "Alimento Manual";
   var cal = calRaw!=="" ? Math.round(num(calRaw,0)) : Math.round((p*4)+(f*9)+(c*4));
+  var fullTitle = name.indexOf("(") !== -1 && name.indexOf("g") !== -1 ? name : (name + " (" + g + "g/ml)");
+  return { slot:slot, name:name, grams:g, title:fullTitle, cal:cal, p:p, f:f, c:c };
+}
 
-  S.meals.push({ id:Date.now()+Math.random(), slot:slot, title:name+" ("+g+"g/ml)", cal:cal, p:p, f:f, c:c });
+function resetManualForm(){
   S.curBase = null;
-  document.getElementById("mName").value=""; document.getElementById("mP").value=""; document.getElementById("mF").value=""; document.getElementById("mC").value=""; document.getElementById("mCal").value="";
+  document.getElementById("mName").value="";
+  document.getElementById("mP").value="";
+  document.getElementById("mF").value="";
+  document.getElementById("mC").value="";
+  document.getElementById("mCal").value="";
   document.getElementById("sugBox").className="sug-box hide";
   document.getElementById("btnAddManualMain").className = "btn btn-g";
   closePhotoPreview();
-  setSt("✅ '"+name+" ("+g+"g/ml)' somado nas barras do dia!","ok");
+}
+
+function addManual(){
+  var d = getManualFormMealData();
+  S.meals.push({ id:Date.now()+Math.random(), slot:d.slot, title:d.title, grams:d.grams, cal:d.cal, p:d.p, f:d.f, c:d.c });
+  rememberDishInIdeas({ slot:d.slot, title:d.title, cal:d.cal, p:d.p, f:d.f, c:d.c });
+  resetManualForm();
+  setSt("✅ '"+d.title+"' somado no diário e salvo em Pratos Feitos!","ok");
   renderMeals(); refreshBars(); save();
-  notify("🔥 +" + cal + " kcal | +" + p + "g Proteína!");
+  notify("🔥 +" + d.cal + " kcal | +" + d.p + "g Proteína!");
+}
+
+function addManualToSimulator(){
+  var d = getManualFormMealData();
+  S.simMeals.push({ id:Date.now()+Math.random(), slot:d.slot, title:d.title, grams:d.grams, cal:d.cal, p:d.p, f:d.f, c:d.c, checked:false });
+  rememberDishInIdeas({ slot:d.slot, title:d.title, cal:d.cal, p:d.p, f:d.f, c:d.c });
+  resetManualForm();
+  renderSimMeals(); save();
+  setSt("🔮 '"+d.title+"' enviado para o Simulador do Dia Seguinte e salvo em Pratos Feitos!","ok");
+  notify("🔮 Enviado para o Simulador!");
 }
 
 function addFromDb(){
@@ -1622,10 +2200,25 @@ function addFromDb(){
   var idx = parseInt(document.getElementById("dbSelect").value,10)||0;
   var g = num(document.getElementById("dbGrams").value,100);
   var it = DB[idx], m = g/100;
-  var cal = Math.round(it.cal*m), p = Math.round(it.p*m*10)/10;
-  S.meals.push({ id:Date.now()+Math.random(), slot:slot, title:it.name+" ("+g+"g/ml)", cal:cal, p:p, f:Math.round(it.f*m*10)/10, c:Math.round(it.c*m*10)/10 });
+  var cal = Math.round(it.cal*m), p = Math.round(it.p*m*10)/10, f = Math.round(it.f*m*10)/10, c = Math.round(it.c*m*10)/10;
+  var title = it.name+" ("+g+"g/ml)";
+  S.meals.push({ id:Date.now()+Math.random(), slot:slot, title:title, grams:g, cal:cal, p:p, f:f, c:c });
+  rememberDishInIdeas({ slot:slot, title:title, cal:cal, p:p, f:f, c:c });
   renderMeals(); refreshBars(); save();
   notify("🔥 +" + cal + " kcal | +" + p + "g Proteína!");
+}
+
+function addFromDbToSim(){
+  var slot = document.getElementById("dbSlot").value;
+  var idx = parseInt(document.getElementById("dbSelect").value,10)||0;
+  var g = num(document.getElementById("dbGrams").value,100);
+  var it = DB[idx], m = g/100;
+  var cal = Math.round(it.cal*m), p = Math.round(it.p*m*10)/10, f = Math.round(it.f*m*10)/10, c = Math.round(it.c*m*10)/10;
+  var title = it.name+" ("+g+"g/ml)";
+  S.simMeals.push({ id:Date.now()+Math.random(), slot:slot, title:title, grams:g, cal:cal, p:p, f:f, c:c, checked:false });
+  rememberDishInIdeas({ slot:slot, title:title, cal:cal, p:p, f:f, c:c });
+  renderSimMeals(); save();
+  notify("🔮 Enviado para o Simulador!");
 }
 
 function addIdea(idx){
@@ -1635,32 +2228,491 @@ function addIdea(idx){
   notify("✅ Prato adicionado: +" + id.p + "g Proteína!");
 }
 
+// ============================================================================
+// EDIÇÃO DE REFEIÇÕES LANÇADAS NO DIÁRIO (SEM PRECISAR APAGAR)
+// ============================================================================
+function extractGramsFromTitle(title, fallbackGrams){
+  if(fallbackGrams && fallbackGrams > 0) return fallbackGrams;
+  var m = String(title || "").match(/(\d+(?:[.,]\d+)?)\s*(?:g|ml)\b/i);
+  return m ? num(m[1], 100) : 100;
+}
+
+function startEditMeal(id){
+  editingMealId = id;
+  renderMeals();
+}
+
+function cancelEditMeal(){
+  editingMealId = null;
+  renderMeals();
+}
+
+function onEditMealGramsInput(id, oldGrams, baseCal, baseP, baseF, baseC){
+  var newG = num(document.getElementById("edG_"+id).value, oldGrams);
+  if(oldGrams <= 0 || newG <= 0) return;
+  var ratio = newG / oldGrams;
+  document.getElementById("edCal_"+id).value = Math.round(baseCal * ratio);
+  document.getElementById("edP_"+id).value = Math.round(baseP * ratio * 10) / 10;
+  document.getElementById("edF_"+id).value = Math.round(baseF * ratio * 10) / 10;
+  document.getElementById("edC_"+id).value = Math.round(baseC * ratio * 10) / 10;
+
+  var titleInp = document.getElementById("edTitle_"+id);
+  if(titleInp){
+    titleInp.value = titleInp.value.replace(/(\d+(?:[.,]\d+)?)\s*(g\/ml|g|ml)\b/i, newG + "$2");
+  }
+}
+
+function saveEditMeal(id){
+  for(var i=0; i<S.meals.length; i++){
+    if(S.meals[i].id === id){
+      var newSlot = document.getElementById("edSlot_"+id).value;
+      var newTitle = document.getElementById("edTitle_"+id).value.trim() || S.meals[i].title;
+      var newG = num(document.getElementById("edG_"+id).value, 100);
+      var newP = Math.round(num(document.getElementById("edP_"+id).value, 0) * 10) / 10;
+      var newF = Math.round(num(document.getElementById("edF_"+id).value, 0) * 10) / 10;
+      var newC = Math.round(num(document.getElementById("edC_"+id).value, 0) * 10) / 10;
+      var newCal = Math.round(num(document.getElementById("edCal_"+id).value, (newP*4)+(newF*9)+(newC*4)));
+
+      S.meals[i].slot = newSlot;
+      S.meals[i].title = newTitle;
+      S.meals[i].grams = newG;
+      S.meals[i].p = newP;
+      S.meals[i].f = newF;
+      S.meals[i].c = newC;
+      S.meals[i].cal = newCal;
+
+      rememberDishInIdeas({ slot:newSlot, title:newTitle, cal:newCal, p:newP, f:newF, c:newC });
+      break;
+    }
+  }
+  editingMealId = null;
+  renderMeals();
+  refreshBars();
+  save();
+  notify("✏️ Refeição atualizada com sucesso!");
+}
+
 function delMeal(id){
   for(var i=0;i<S.meals.length;i++){
-    if(S.meals[i].id === id && S.meals[i].aiIdx !== undefined){
-      delete S.aiConsumed[S.meals[i].aiIdx];
+    if(S.meals[i].id === id){
+      if(S.meals[i].aiIdx !== undefined) delete S.aiConsumed[S.meals[i].aiIdx];
+      if(S.meals[i].simId !== undefined){
+        for(var s=0; s<S.simMeals.length; s++){
+          if(S.simMeals[s].id === S.meals[i].simId) S.simMeals[s].checked = false;
+        }
+      }
     }
   }
   S.meals = S.meals.filter(function(m){return m.id!==id;});
-  renderMeals(); refreshBars(); renderAiPlan(); save();
+  renderMeals(); refreshBars(); renderAiPlan(); renderSimMeals(); save();
   notify("🗑️ Refeição removida do diário");
 }
 
 function clearMeals(){
   S.meals = [];
   S.aiConsumed = {};
-  renderMeals(); refreshBars(); renderAiPlan(); save();
+  for(var s=0; s<S.simMeals.length; s++) S.simMeals[s].checked = false;
+  renderMeals(); refreshBars(); renderAiPlan(); renderSimMeals(); save();
   notify("🧹 Diário de refeições limpo!");
 }
 
 function renderMeals(){
   var box = document.getElementById("mealList");
   if(!S.meals.length){
-    box.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:12px;margin-top:8px">Nenhuma refeição lançada hoje. Fotografe seu prato acima, use o roteiro IA ou pesquise!</div>';
+    box.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:12px;margin-top:8px">Nenhuma refeição lançada hoje. Fotografe seu prato acima, use o roteiro IA, o Simulador ou pesquise!</div>';
     return;
   }
+  var slotsList = ["☕ Café da Manhã","🍽️ Almoço","🥤 Lanche / Pós-Treino","🌙 Jantar"];
   box.innerHTML = S.meals.map(function(m){
-    return '<div class="m-it"><div><span class="bdg bdg-o" style="font-size:10px">'+m.slot+'</span><div style="font-size:12.5px;font-weight:700;color:#fff;margin-top:4px">'+m.title+'</div><div style="font-size:11px;color:var(--mut);margin-top:2px">🔥 <strong style="color:#fb923c">'+m.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:#38bdf8">'+m.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+m.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:#10b981">'+m.c+'g C</strong></div></div><button type="button" class="btn btn-x" onclick="delMeal('+m.id+')">✕</button></div>';
+    var isEditing = (editingMealId === m.id);
+    var curG = extractGramsFromTitle(m.title, m.grams);
+    var safeTitle = String(m.title || "").replace(/"/g, "&quot;");
+
+    var editHtml = "";
+    if(isEditing){
+      var slotOpts = slotsList.map(function(sl){
+        return '<option ' + (sl === m.slot ? 'selected' : '') + '>' + sl + '</option>';
+      }).join("");
+      editHtml = '<div class="m-edit-box">'
+        + '<div style="font-size:11.5px;font-weight:800;color:#38bdf8;margin-bottom:8px">✏️ Editando Refeição (Altere o peso p/ recalcular ou edite os macros):</div>'
+        + '<div class="g2">'
+        + '<div><label class="lbl">Refeição</label><select id="edSlot_'+m.id+'">'+slotOpts+'</select></div>'
+        + '<div><label class="lbl">Peso / Qtd (g ou ml)</label><input type="number" id="edG_'+m.id+'" value="'+curG+'" min="1" step="5" oninput="onEditMealGramsInput('+m.id+','+curG+','+m.cal+','+m.p+','+m.f+','+m.c+')"></div>'
+        + '<div class="full"><label class="lbl">Nome / Descrição</label><input type="text" id="edTitle_'+m.id+'" value="'+safeTitle+'"></div>'
+        + '<div><label class="lbl">🥩 Proteínas (g)</label><input type="number" id="edP_'+m.id+'" step="0.1" value="'+m.p+'"></div>'
+        + '<div><label class="lbl">🥑 Gorduras (g)</label><input type="number" id="edF_'+m.id+'" step="0.1" value="'+m.f+'"></div>'
+        + '<div><label class="lbl">🥦 Carboidratos (g)</label><input type="number" id="edC_'+m.id+'" step="0.1" value="'+m.c+'"></div>'
+        + '<div><label class="lbl">🔥 Calorias (kcal)</label><input type="number" id="edCal_'+m.id+'" step="1" value="'+m.cal+'"></div>'
+        + '<div class="full" style="display:flex;gap:8px;margin-top:4px">'
+        + '<button type="button" class="btn btn-g" style="flex:1" onclick="saveEditMeal('+m.id+')">💾 Salvar Alterações</button>'
+        + '<button type="button" class="btn btn-dk" onclick="cancelEditMeal()">Cancelar</button>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+
+    return '<div class="m-it">'
+      + '<div class="m-it-row">'
+      + '<div>'
+      + '<span class="bdg bdg-o" style="font-size:10px">'+m.slot+'</span>'
+      + '<div style="font-size:12.5px;font-weight:700;color:#fff;margin-top:4px">'+m.title+'</div>'
+      + '<div style="font-size:11px;color:var(--mut);margin-top:2px">🔥 <strong style="color:#fb923c">'+m.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:#38bdf8">'+m.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+m.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:#10b981">'+m.c+'g C</strong></div>'
+      + '</div>'
+      + '<div style="display:flex;gap:6px;align-items:center">'
+      + '<button type="button" class="btn btn-ed" onclick="startEditMeal('+m.id+')">✏️ Editar</button>'
+      + '<button type="button" class="btn btn-x" onclick="delMeal('+m.id+')">✕</button>'
+      + '</div>'
+      + '</div>'
+      + editHtml
+      + '</div>';
+  }).join("");
+}
+
+// ============================================================================
+// ABA SIMULADOR DO DIA SEGUINTE (REGISTRA E SÓ LANÇA QUANDO CLICAR EM CHECK)
+// ============================================================================
+function onSimNameInput(){
+  var q = document.getElementById("simName").value;
+  var box = document.getElementById("simSugBox");
+  if(!q || q.length < 2){ box.className = "sug-box hide"; return; }
+  var matches = findFoods(q);
+  if(!matches.length){ box.className = "sug-box hide"; return; }
+  SIM_CACHE = matches;
+  var g = num(document.getElementById("simGrams").value, 100), mult = g / 100;
+  box.innerHTML = matches.slice(0, 8).map(function(f, idx){
+    return '<div class="sug-it" onclick="pickSimCachedFood('+idx+')"><div><strong style="color:#fff">'+f.name+'</strong><br><small style="color:#9ca3af">Para '+g+'g/ml: 🔥 '+Math.round(f.cal*mult)+' kcal | 🥩 '+(Math.round(f.p*mult*10)/10)+'g P | 🥑 '+(Math.round(f.f*mult*10)/10)+'g G | 🥦 '+(Math.round(f.c*mult*10)/10)+'g C</small></div><span class="bdg bdg-b">🔮 Simular</span></div>';
+  }).join("");
+  box.className = "sug-box";
+}
+
+function pickSimCachedFood(idx){
+  var f = SIM_CACHE[idx]; if(!f) return;
+  S.simCurBase = f;
+  document.getElementById("simName").value = f.name;
+  document.getElementById("simSugBox").className = "sug-box hide";
+  applySimGramsToFields();
+}
+
+function onSimGramsChange(){
+  if(S.simCurBase) applySimGramsToFields();
+  else onSimNameInput();
+}
+
+function applySimGramsToFields(){
+  if(!S.simCurBase) return;
+  var m = num(document.getElementById("simGrams").value, 100) / 100;
+  document.getElementById("simInP").value = Math.round(S.simCurBase.p * m * 10) / 10;
+  document.getElementById("simInF").value = Math.round(S.simCurBase.f * m * 10) / 10;
+  document.getElementById("simInC").value = Math.round(S.simCurBase.c * m * 10) / 10;
+  document.getElementById("simInCal").value = Math.round(S.simCurBase.cal * m);
+}
+
+function addSimMealManual(){
+  var slot = document.getElementById("simSlot").value;
+  var name = document.getElementById("simName").value.trim();
+  var g = num(document.getElementById("simGrams").value, 100);
+  var p = num(document.getElementById("simInP").value, 0);
+  var f = num(document.getElementById("simInF").value, 0);
+  var c = num(document.getElementById("simInC").value, 0);
+  var calRaw = document.getElementById("simInCal").value.trim();
+
+  if(name && p===0 && f===0 && c===0 && calRaw===""){
+    var m = findFoods(name);
+    if(m.length > 0){
+      var it = m[0], mult = g / 100;
+      name = it.name;
+      p = Math.round(it.p * mult * 10) / 10;
+      f = Math.round(it.f * mult * 10) / 10;
+      c = Math.round(it.c * mult * 10) / 10;
+      calRaw = String(Math.round(it.cal * mult));
+    }
+  }
+  if(!name) name = "Refeição Simulada";
+  var cal = calRaw !== "" ? Math.round(num(calRaw, 0)) : Math.round((p*4)+(f*9)+(c*4));
+  var fullTitle = name.indexOf("(") !== -1 && name.indexOf("g") !== -1 ? name : (name + " (" + g + "g/ml)");
+
+  S.simMeals.push({
+    id: Date.now() + Math.random(),
+    slot: slot,
+    title: fullTitle,
+    grams: g,
+    cal: cal,
+    p: p,
+    f: f,
+    c: c,
+    checked: false
+  });
+
+  rememberDishInIdeas({ slot:slot, title:fullTitle, cal:cal, p:p, f:f, c:c });
+
+  S.simCurBase = null;
+  document.getElementById("simName").value = "";
+  document.getElementById("simInP").value = "";
+  document.getElementById("simInF").value = "";
+  document.getElementById("simInC").value = "";
+  document.getElementById("simInCal").value = "";
+  document.getElementById("simSugBox").className = "sug-box hide";
+
+  renderSimMeals();
+  save();
+  notify("🔮 Registrado no Simulador (aguardando ✅ Check)!");
+}
+
+function generateSimFromIngredients(){
+  var meals = buildSmartMathematicalMeals("full");
+  for(var i=0; i<meals.length; i++){
+    S.simMeals.push({
+      id: Date.now() + Math.random() + i,
+      slot: meals[i].slot,
+      title: meals[i].title,
+      cal: meals[i].cal,
+      p: meals[i].p,
+      f: meals[i].f,
+      c: meals[i].c,
+      checked: false
+    });
+  }
+  saveGeneratedPlanDishesToMemory(meals);
+  renderSimMeals();
+  save();
+  notify("🔮 Dia seguinte simulado! Clique em ✅ Check quando quiser lançar.");
+}
+
+function toggleCheckSimMeal(id){
+  for(var i=0; i<S.simMeals.length; i++){
+    var sm = S.simMeals[i];
+    if(sm.id === id){
+      if(!sm.checked){
+        sm.checked = true;
+        S.meals.push({
+          id: Date.now() + Math.random(),
+          simId: sm.id,
+          slot: sm.slot,
+          title: sm.title,
+          grams: sm.grams,
+          cal: sm.cal,
+          p: sm.p,
+          f: sm.f,
+          c: sm.c
+        });
+        notify("✅ Check! Refeição lançada no Diário Oficial!");
+      } else {
+        sm.checked = false;
+        S.meals = S.meals.filter(function(m){ return m.simId !== sm.id; });
+        notify("↩️ Check desmarcado e removido do Diário!");
+      }
+      break;
+    }
+  }
+  renderSimMeals();
+  renderMeals();
+  refreshBars();
+  save();
+}
+
+function checkAllSimMeals(){
+  if(!S.simMeals.length){ notify("⚠️ Adicione refeições ao simulador primeiro!"); return; }
+  var added = 0;
+  for(var i=0; i<S.simMeals.length; i++){
+    var sm = S.simMeals[i];
+    if(!sm.checked){
+      sm.checked = true;
+      S.meals.push({
+        id: Date.now() + Math.random() + i,
+        simId: sm.id,
+        slot: sm.slot,
+        title: sm.title,
+        grams: sm.grams,
+        cal: sm.cal,
+        p: sm.p,
+        f: sm.f,
+        c: sm.c
+      });
+      added++;
+    }
+  }
+  renderSimMeals(); renderMeals(); refreshBars(); save();
+  notify(added > 0 ? ("✅ " + added + " refeições lançadas no Diário!") : "✅ Todas já estavam lançadas!");
+}
+
+function uncheckAllSimMeals(){
+  for(var i=0; i<S.simMeals.length; i++) S.simMeals[i].checked = false;
+  S.meals = S.meals.filter(function(m){ return m.simId === undefined; });
+  renderSimMeals(); renderMeals(); refreshBars(); save();
+  notify("↩️ Todos os checks do simulador foram desmarcados!");
+}
+
+function clearSimMeals(){
+  S.meals = S.meals.filter(function(m){ return m.simId === undefined; });
+  S.simMeals = [];
+  renderSimMeals(); renderMeals(); refreshBars(); save();
+  notify("🧹 Simulador limpo!");
+}
+
+function startEditSimMeal(id){
+  editingSimId = id;
+  renderSimMeals();
+}
+
+function cancelEditSimMeal(){
+  editingSimId = null;
+  renderSimMeals();
+}
+
+function onEditSimGramsInput(id, oldGrams, baseCal, baseP, baseF, baseC){
+  var newG = num(document.getElementById("edSimG_"+id).value, oldGrams);
+  if(oldGrams <= 0 || newG <= 0) return;
+  var ratio = newG / oldGrams;
+  document.getElementById("edSimCal_"+id).value = Math.round(baseCal * ratio);
+  document.getElementById("edSimP_"+id).value = Math.round(baseP * ratio * 10) / 10;
+  document.getElementById("edSimF_"+id).value = Math.round(baseF * ratio * 10) / 10;
+  document.getElementById("edSimC_"+id).value = Math.round(baseC * ratio * 10) / 10;
+  var tInp = document.getElementById("edSimTitle_"+id);
+  if(tInp){
+    tInp.value = tInp.value.replace(/(\d+(?:[.,]\d+)?)\s*(g\/ml|g|ml)\b/i, newG + "$2");
+  }
+}
+
+function saveEditSimMeal(id){
+  for(var i=0; i<S.simMeals.length; i++){
+    if(S.simMeals[i].id === id){
+      var sm = S.simMeals[i];
+      sm.slot = document.getElementById("edSimSlot_"+id).value;
+      sm.title = document.getElementById("edSimTitle_"+id).value.trim() || sm.title;
+      sm.grams = num(document.getElementById("edSimG_"+id).value, 100);
+      sm.p = Math.round(num(document.getElementById("edSimP_"+id).value, 0) * 10) / 10;
+      sm.f = Math.round(num(document.getElementById("edSimF_"+id).value, 0) * 10) / 10;
+      sm.c = Math.round(num(document.getElementById("edSimC_"+id).value, 0) * 10) / 10;
+      sm.cal = Math.round(num(document.getElementById("edSimCal_"+id).value, (sm.p*4)+(sm.f*9)+(sm.c*4)));
+
+      if(sm.checked){
+        for(var j=0; j<S.meals.length; j++){
+          if(S.meals[j].simId === sm.id){
+            S.meals[j].slot = sm.slot;
+            S.meals[j].title = sm.title;
+            S.meals[j].grams = sm.grams;
+            S.meals[j].p = sm.p;
+            S.meals[j].f = sm.f;
+            S.meals[j].c = sm.c;
+            S.meals[j].cal = sm.cal;
+          }
+        }
+      }
+      break;
+    }
+  }
+  editingSimId = null;
+  renderSimMeals();
+  renderMeals();
+  refreshBars();
+  save();
+  notify("✏️ Item do Simulador atualizado!");
+}
+
+function delSimMeal(id){
+  S.meals = S.meals.filter(function(m){ return m.simId !== id; });
+  S.simMeals = S.simMeals.filter(function(sm){ return sm.id !== id; });
+  renderSimMeals(); renderMeals(); refreshBars(); save();
+  notify("🗑️ Removido do Simulador");
+}
+
+function refreshSimBars(){
+  var tot = { cal:0, p:0, f:0, c:0 }, checkedCount = 0;
+  for(var i=0; i<S.simMeals.length; i++){
+    tot.cal += num(S.simMeals[i].cal, 0);
+    tot.p += num(S.simMeals[i].p, 0);
+    tot.f += num(S.simMeals[i].f, 0);
+    tot.c += num(S.simMeals[i].c, 0);
+    if(S.simMeals[i].checked) checkedCount++;
+  }
+  tot.p = Math.round(tot.p * 10) / 10;
+  tot.f = Math.round(tot.f * 10) / 10;
+  tot.c = Math.round(tot.c * 10) / 10;
+
+  var tg = S.targets;
+  var elCal = document.getElementById("simCal");
+  if(!elCal) return;
+
+  elCal.textContent = tot.cal;
+  document.getElementById("simGCal").textContent = tg.cal;
+  document.getElementById("simBCal").style.width = (tg.cal > 0 ? Math.min(Math.round((tot.cal/tg.cal)*100), 100) : 0) + "%";
+  document.getElementById("simRCal").textContent = tot.cal <= tg.cal ? ("Livre: " + (tg.cal - tot.cal) + " kcal") : ("Excedeu: +" + (tot.cal - tg.cal) + " kcal");
+
+  document.getElementById("simP").textContent = tot.p;
+  document.getElementById("simGP").textContent = tg.p;
+  document.getElementById("simBP").style.width = (tg.p > 0 ? Math.min(Math.round((tot.p/tg.p)*100), 100) : 0) + "%";
+  document.getElementById("simRP").textContent = tot.p < tg.p ? ("Faltam " + Math.round((tg.p - tot.p)*10)/10 + "g P") : "✅ Proteína batida!";
+
+  document.getElementById("simF").textContent = tot.f;
+  document.getElementById("simGF").textContent = tg.f;
+  document.getElementById("simBF").style.width = (tg.f > 0 ? Math.min(Math.round((tot.f/tg.f)*100), 100) : 0) + "%";
+
+  document.getElementById("simC").textContent = tot.c;
+  document.getElementById("simGC").textContent = tg.c;
+  document.getElementById("simBC").style.width = (tg.c > 0 ? Math.min(Math.round((tot.c/tg.c)*100), 100) : 0) + "%";
+  document.getElementById("simRC").textContent = tot.c <= 25 ? "🔥 Cetose Mantida" : "⚠️ Acima de 25g";
+
+  document.getElementById("simStatusBadge").textContent = S.simMeals.length + " planejadas • " + checkedCount + " no Check";
+}
+
+function renderSimMeals(){
+  refreshSimBars();
+  var box = document.getElementById("simMealList");
+  if(!box) return;
+  if(!S.simMeals.length){
+    box.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut);border:1px dashed rgba(56,189,248,0.35);border-radius:12px">Nenhuma refeição simulada ainda. Adicione alimentos acima ou clique em "⚡ Montar Dia Seguinte Automático" para planejar amanhã e dar ✅ Check quando consumir!</div>';
+    return;
+  }
+  var slotsList = ["☕ Café da Manhã","🍽️ Almoço","🥤 Lanche / Pós-Treino","🌙 Jantar"];
+  box.innerHTML = S.simMeals.map(function(sm){
+    var isEditing = (editingSimId === sm.id);
+    var curG = extractGramsFromTitle(sm.title, sm.grams);
+    var safeTitle = String(sm.title || "").replace(/"/g, "&quot;");
+    var borderCol = sm.checked ? "var(--grn)" : "var(--blu)";
+
+    var checkBtn = sm.checked
+      ? '<button type="button" class="btn btn-g" style="padding:7px 11px;font-size:11.5px" onclick="toggleCheckSimMeal('+sm.id+')">✅ Lançado (Desfazer)</button>'
+      : '<button type="button" class="btn btn-dk" style="padding:7px 11px;font-size:11.5px;border-color:rgba(16,185,129,0.5);color:#6ee7b7" onclick="toggleCheckSimMeal('+sm.id+')">⬜ Check (Lançar)</button>';
+
+    var editHtml = "";
+    if(isEditing){
+      var slotOpts = slotsList.map(function(sl){
+        return '<option ' + (sl === sm.slot ? 'selected' : '') + '>' + sl + '</option>';
+      }).join("");
+      editHtml = '<div class="m-edit-box">'
+        + '<div style="font-size:11.5px;font-weight:800;color:#7dd3fc;margin-bottom:8px">✏️ Editando Refeição do Simulador:</div>'
+        + '<div class="g2">'
+        + '<div><label class="lbl">Refeição</label><select id="edSimSlot_'+sm.id+'">'+slotOpts+'</select></div>'
+        + '<div><label class="lbl">Peso / Qtd (g ou ml)</label><input type="number" id="edSimG_'+sm.id+'" value="'+curG+'" min="1" step="5" oninput="onEditSimGramsInput('+sm.id+','+curG+','+sm.cal+','+sm.p+','+sm.f+','+sm.c+')"></div>'
+        + '<div class="full"><label class="lbl">Nome / Descrição</label><input type="text" id="edSimTitle_'+sm.id+'" value="'+safeTitle+'"></div>'
+        + '<div><label class="lbl">🥩 Proteínas (g)</label><input type="number" id="edSimP_'+sm.id+'" step="0.1" value="'+sm.p+'"></div>'
+        + '<div><label class="lbl">🥑 Gorduras (g)</label><input type="number" id="edSimF_'+sm.id+'" step="0.1" value="'+sm.f+'"></div>'
+        + '<div><label class="lbl">🥦 Carboidratos (g)</label><input type="number" id="edSimC_'+sm.id+'" step="0.1" value="'+sm.c+'"></div>'
+        + '<div><label class="lbl">🔥 Calorias (kcal)</label><input type="number" id="edSimCal_'+sm.id+'" step="1" value="'+sm.cal+'"></div>'
+        + '<div class="full" style="display:flex;gap:8px;margin-top:4px">'
+        + '<button type="button" class="btn btn-g" style="flex:1" onclick="saveEditSimMeal('+sm.id+')">💾 Salvar no Simulador</button>'
+        + '<button type="button" class="btn btn-dk" onclick="cancelEditSimMeal()">Cancelar</button>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
+    }
+
+    return '<div class="m-it" style="border-left-color:'+borderCol+'">'
+      + '<div class="m-it-row">'
+      + '<div>'
+      + '<span class="bdg bdg-b" style="font-size:10px">'+sm.slot+'</span> '
+      + (sm.checked ? '<span class="bdg" style="font-size:10px">✅ No Diário</span>' : '<span class="bdg bdg-w" style="font-size:10px">⏳ Só Simulado</span>')
+      + '<div style="font-size:12.5px;font-weight:700;color:#fff;margin-top:4px;'+(sm.checked ? 'text-decoration:line-through;color:#94a3b8' : '')+'">'+sm.title+'</div>'
+      + '<div style="font-size:11px;color:var(--mut);margin-top:2px">🔥 <strong style="color:#fb923c">'+sm.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:#38bdf8">'+sm.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+sm.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:#10b981">'+sm.c+'g C</strong></div>'
+      + '</div>'
+      + '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'
+      + checkBtn
+      + '<button type="button" class="btn btn-ed" onclick="startEditSimMeal('+sm.id+')">✏️ Editar</button>'
+      + '<button type="button" class="btn btn-x" onclick="delSimMeal('+sm.id+')">✕</button>'
+      + '</div>'
+      + '</div>'
+      + editHtml
+      + '</div>';
   }).join("");
 }
 
@@ -1835,8 +2887,9 @@ function finishDay(){
   renderHist();
   showRepModal(r, true);
   S.meals=[]; S.wkDone={}; S.aiConsumed={}; S.elec=[false,false,false];
+  for(var s=0; s<S.simMeals.length; s++) S.simMeals[s].checked = false;
   restoreElec();
-  renderMeals(); refreshBars(); renderWk(); renderAiPlan(); save();
+  renderMeals(); renderSimMeals(); refreshBars(); renderWk(); renderAiPlan(); save();
   notify("📸 Dia encerrado e salvo no histórico!");
 }
 
@@ -1865,9 +2918,6 @@ function renderHist(){
 
 (function init(){
   document.getElementById("dbSelect").innerHTML = DB.map(function(f,i){ return '<option value="'+i+'">'+f.name+' (100g/ml: '+f.cal+'kcal | '+f.p+'g P | '+f.c+'g C)</option>'; }).join("");
-  document.getElementById("ideasGrid").innerHTML = IDEAS.map(function(id,i){
-    return '<div class="id-card"><div><span class="bdg bdg-o" style="font-size:10px">'+id.slot+'</span><h4 style="font-size:13px;font-weight:700;color:#fff;margin-top:6px">'+id.title+'</h4><p style="font-size:11px;color:var(--mut);margin-top:4px">'+id.desc+'</p></div><div class="id-ft"><span style="font-size:11px;color:#cbd5e1">🔥 '+id.cal+' kcal • <strong style="color:#38bdf8">'+id.p+'g P</strong></span><button type="button" class="btn btn-o" style="padding:7px 12px" onclick="addIdea('+i+')">+ Lançar</button></div></div>';
-  }).join("");
   load();
   if(S.profile){
     document.getElementById("gender").value = S.profile.gender || "M";
@@ -1880,9 +2930,11 @@ function renderHist(){
   }
   if(S.geminiKey) document.getElementById("geminiKey").value = S.geminiKey;
   restoreElec();
-  calcAll(); renderMeals(); setWkMode(S.mode||"3x"); renderHist(); renderAiPlan();
+  renderIdeasGrid();
+  calcAll(); renderMeals(); renderSimMeals(); setWkMode(S.mode||"3x"); renderHist(); renderAiPlan();
   if(S.view && S.view !== "all") switchView(S.view);
 })();
 </script>
 </body>
 </html>
+```
