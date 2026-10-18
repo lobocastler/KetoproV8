@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#090b10">
-<title>KetoPro Thermo v20 — Obsidian Neon & Solar Pro</title>
+<title>KetoPro Thermo v21 — Slim & Modular Pro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -349,6 +349,76 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
   display:inline-flex;align-items:center;gap:5px;
 }
 
+
+/* V21 SLIM & MODULAR LAYOUT + INDEPENDENT ITEM EDITOR + PF SEARCH */
+body.slim-ui .hero-banner{min-height:112px;padding:12px 16px;margin-bottom:12px}
+body.slim-ui .hero-title{font-size:17px}
+body.slim-ui .hero-sub{display:none}
+body.slim-ui .card{padding:14px;margin-bottom:12px;border-radius:16px}
+body.slim-ui .s-hd{padding-bottom:9px;margin-bottom:11px}
+
+.sec-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.btn-min{
+  background:var(--inp);color:var(--mut);border:1px solid var(--bd);
+  padding:5px 10px;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;gap:4px;transition:all .16s;font-family:inherit;
+}
+.btn-min:hover{border-color:var(--org);color:var(--txt)}
+.btn-reroll{
+  background:rgba(192,38,211,0.16);color:#f0abfc;border:1px solid rgba(192,38,211,0.45);
+  padding:6px 10px;font-size:11px;border-radius:9px;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;gap:4px;transition:all .16s;
+}
+body.light-mode .btn-reroll{color:#7e22ce;background:rgba(147,51,234,0.12)}
+.btn-reroll:hover{transform:translateY(-1px);border-color:var(--org);box-shadow:0 4px 12px rgba(192,38,211,0.28)}
+
+/* SLIM SUB-TOOLBAR & COLLAPSIBLE DRAWERS */
+.slim-drawer-toggle{
+  width:100%;background:var(--inp);border:1px dashed var(--bd-hl);color:var(--txt);
+  padding:9px 13px;border-radius:12px;font-size:12px;font-weight:800;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;transition:all .16s;
+}
+.slim-drawer-toggle:hover{border-color:var(--org);background:rgba(255,94,26,0.08)}
+
+/* PF SEARCH & FILTER BAR */
+.pf-toolbar{
+  background:var(--inp);border:1px solid var(--bd);border-radius:14px;padding:11px;margin-bottom:12px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.pf-search-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.pf-search-wrap{position:relative;flex:1;min-width:200px}
+.pf-search-wrap input{padding-left:34px;padding-right:30px;height:38px;font-size:12.5px}
+.pf-search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;opacity:0.75}
+.pf-clear-btn{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;
+  color:var(--mut);cursor:pointer;font-size:13px;font-weight:800;padding:2px 5px;
+}
+.pf-filter-pills{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.pf-pill{
+  padding:5px 10px;border-radius:99px;border:1px solid var(--bd);background:var(--card-solid);
+  color:var(--mut);font-size:11px;font-weight:800;cursor:pointer;transition:all .15s;
+}
+.pf-pill.act{background:linear-gradient(135deg,#ff5e1a,#c026d3);color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(255,94,26,0.3)}
+.g3.compact-list{grid-template-columns:1fr;gap:8px}
+.g3.compact-list .id-card{flex-direction:row;align-items:center;padding:10px 13px;gap:12px;flex-wrap:wrap}
+.g3.compact-list .id-ft{border-top:none;padding-top:0;width:auto}
+
+/* INDEPENDENT MULTI-ITEM PF EDITOR */
+.pf-items-list{display:flex;flex-direction:column;gap:8px;margin:8px 0 10px}
+.pf-sub-row{
+  background:var(--inp);border:1px solid var(--bd);border-left:3px solid var(--blu);
+  border-radius:10px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;
+}
+.pf-sub-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.pf-sub-name{font-size:12px;font-weight:800;color:var(--txt);flex:1;min-width:140px}
+.pf-sub-controls{display:flex;align-items:center;gap:5px}
+.pf-sub-macros{font-size:11px;color:var(--mut);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.pf-Breakdown-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.pf-b-tag{
+  font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px;
+  background:rgba(56,189,248,0.1);color:var(--txt);border:1px solid var(--bd);
+}
+
 /* MODAL */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:center;padding:12px}
 .m-box2{background:var(--card-solid);border:1px solid var(--org);border-radius:18px;max-width:520px;width:100%;padding:16px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,0.7)}
@@ -392,11 +462,12 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
     <div class="brand">
       <div class="logo">🔥</div>
       <div>
-        <div class="title-main">KetoPro <span style="color:var(--org)">Thermo</span> <span class="title-tag">PRO v19</span></div>
-        <div id="jsStatus" style="font-size:11px;color:#6ee7b7;font-weight:600">🟢 Vision 3.8 • Memória de Pratos • Simulador</div>
+        <div class="title-main">KetoPro <span style="color:var(--org)">Thermo</span> <span class="title-tag">PRO v21 SLIM</span></div>
+        <div id="jsStatus" style="font-size:11px;color:#6ee7b7;font-weight:600">🟢 Painel Slim • Pesquisa de PFs • Edição Independente por Item</div>
       </div>
     </div>
     <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center">
+      <button type="button" id="slimBtn" class="btn btn-dk" style="padding:8px 10px;font-size:11.5px" onclick="toggleSlimMode()" title="Deixar interface mais compacta e separada">📐 Modo Slim</button>
       <button type="button" id="themeBtn" class="btn btn-dk" style="padding:8px 11px;font-size:11.5px" onclick="toggleTheme()">☀️ Modo Claro</button>
       <button type="button" class="btn btn-dk" style="padding:8px 11px;font-size:11.5px" onclick="previewReport()">📊 Print Parcial</button>
       <button type="button" class="btn btn-o" style="padding:8px 12px;font-size:11.5px" onclick="finishDay()">📸 Fechar Dia</button>
@@ -438,10 +509,10 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
           <h2 class="s-tt">📊 Painel <span>Termogênico Diário</span></h2>
           <p style="font-size:11px;color:var(--mut)">Acompanhe seu déficit calórico e sua meta de proteína em tempo real</p>
         </div>
-        <span id="ketoBadge" class="bdg">🔥 Cetose Ativa (0g / 25g Carbo)</span>
+        <div class="sec-actions"><span id="ketoBadge" class="bdg">🔥 Cetose Ativa (0g / 25g Carbo)</span><button type="button" id="btnMinThermo" class="btn-min" onclick="toggleSectionBox('thermoBody','btnMinThermo')">🔼 Minimizar</button></div>
       </div>
 
-      <div class="hero-dash">
+      <div id="thermoBody"><div class="hero-dash">
         <!-- ANEL CIRCULAR SVG DE CALORIAS -->
         <div class="ring-box">
           <svg class="ring-svg" viewBox="0 0 140 140">
@@ -504,6 +575,7 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
           <label class="el-i"><input type="checkbox" class="el-cb" onchange="saveElec()"><span>⚡ Magnésio + Potássio</span></label>
         </div>
       </div>
+      </div>
     </section>
 
     <!-- SCANNER DE FOTOS + BUSCA E DIÁRIO DE REFEIÇÕES -->
@@ -513,16 +585,18 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
           <h2 class="s-tt">🍳 Diário de <span>Refeições & Scanner Vision</span></h2>
           <p style="font-size:11px;color:var(--mut)">Fotografe seu prato/rótulo, pesquise na base BR ou edite refeições lançadas</p>
         </div>
-        <button type="button" class="btn btn-x" onclick="clearMeals()">Limpar Diário</button>
+        <div class="sec-actions"><button type="button" id="btnMinDiaryForm" class="btn-min" onclick="toggleSectionBox('diaryToolsWrap','btnMinDiaryForm')">🔼 Ocultar Lançador</button><button type="button" class="btn btn-x" onclick="clearMeals()">Limpar Diário</button></div>
       </div>
 
+      <div id="diaryToolsWrap">
       <div class="tabs">
         <button type="button" id="tMan" class="t-btn act" onclick="setTab('man')">📸 Foto / 🔍 Busca Inteligente</button>
+        <button type="button" id="tCam" class="t-btn" onclick="setTab('cam')">📸 Scanner IA (Foto/Rótulo)</button>
         <button type="button" id="tDb" class="t-btn" onclick="setTab('db')">📋 Lista Completa (165+ Itens)</button>
       </div>
 
       <div id="pMan" class="p-man">
-        <div class="cam-box">
+        <div id="camBoxWrap" class="cam-box hide">
           <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
             <div>
               <strong style="font-size:13.5px;color:var(--txt)">📸 Scanner IA de Pratos Feitos & Rótulos Nutricionais</strong>
@@ -638,6 +712,7 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
         </div>
       </div>
 
+      </div>
       <div id="mealList"></div>
     </section>
   </div>
@@ -652,7 +727,7 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
           <h2 class="s-tt" style="color:var(--blu)">🔮 Simulador Duplo: <span>Hoje vs. Amanhã (Só Lança no Check)</span></h2>
           <p style="font-size:11.5px;color:var(--mut)">Separe os testes do <strong>Dia de Hoje</strong> (somando ou não ao que já lançou) e do <strong>Dia de Amanhã</strong> (sempre calculado do zero)!</p>
         </div>
-        <span id="simStatusBadge" class="bdg bdg-b">Modo: ☀️ Hoje</span>
+        <div class="sec-actions"><span id="simStatusBadge" class="bdg bdg-b">Modo: ☀️ Hoje</span><button type="button" id="btnMinSimForm" class="btn-min" onclick="toggleSectionBox('simFormBox','btnMinSimForm')">🔼 Minimizar Ferramenta</button></div>
       </div>
 
       <!-- SELETOR ENTRE SIMULADOR DE HOJE E SIMULADOR DE AMANHÃ -->
@@ -709,7 +784,7 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
       </div>
 
       <!-- ADICIONAR REFEIÇÃO NO SIMULADOR ATIVO (HOJE OU AMANHÃ) -->
-      <div class="p-db" style="border-color:rgba(0,229,255,0.4)">
+      <div id="simFormBox" class="p-db" style="border-color:rgba(0,229,255,0.4)">
         <div id="simFormHeaderTitle" style="font-size:13px;font-weight:800;color:var(--blu);margin-bottom:10px">➕ Adicionar Refeição na Simulação de HOJE</div>
         <div class="g2">
           <div>
@@ -778,68 +853,105 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
     <section class="card card-ai">
       <div class="s-hd">
         <div>
-          <h2 class="s-tt" style="color:#e9d5ff">✨ Assistente <span>Gemini AI & Roteiro do Dia</span></h2>
-          <p style="font-size:11px;color:var(--mut)">Usa <strong>estritamente</strong> os alimentos que você informar abaixo. As barras só sobem quando clicar em "Consumi Esta"!</p>
+          <h2 class="s-tt" style="color:#e9d5ff">✨ Gerador <span>Roteiro do Dia & Cálculo Instantâneo</span></h2>
+          <p style="font-size:11px;color:var(--mut)">Usa <strong>estritamente</strong> seus ingredientes. Troque qualquer prato individualmente (🔄) ou edite cada item em gramas!</p>
         </div>
-        <span id="activeModelBadge" class="bdg bdg-ai">Gemini 3.8 / Latest</span>
+        <div class="sec-actions">
+          <span id="activeModelBadge" class="bdg bdg-ai">Gemini 3.8 / Instant</span>
+          <button type="button" id="btnMinAiGen" class="btn-min" onclick="toggleSectionBox('aiGenBody','btnMinAiGen')">🔼 Minimizar</button>
+        </div>
       </div>
 
-      <div class="g2">
-        <div class="full">
-          <label class="lbl">Chave de API do Gemini (Usada no Roteiro IA e no Scanner de Fotos):</label>
+      <div id="aiGenBody">
+        <button type="button" class="slim-drawer-toggle" onclick="toggleSectionBox('apiKeyDrawer','apiKeyDrawerLbl')">
+          <span>🔑 Configurar Chave de API do Gemini (Opcional p/ IA & Scanner de Fotos)</span>
+          <span id="apiKeyDrawerLbl" style="color:var(--blu);font-size:11px">🔽 Abrir / Editar Chave</span>
+        </button>
+        <div id="apiKeyDrawer" class="hide" style="background:var(--inp);border:1px solid var(--bd);border-radius:12px;padding:11px;margin-bottom:11px">
+          <label class="lbl">Chave de API do Gemini (Salva automaticamente no navegador):</label>
           <div style="display:flex;gap:8px">
             <input type="password" id="geminiKey" placeholder="Cole sua chave AQ.Ab8... ou AIzaSy..." oninput="cleanAndSaveKey()" onchange="cleanAndSaveKey()">
             <button type="button" class="btn btn-dk" onclick="toggleKeyVis()">👁️</button>
           </div>
         </div>
-        <div class="full">
-          <label class="lbl">O que você tem em casa ou quer comer hoje? (Usa SOMENTE os alimentos descritos aqui):</label>
-          <input type="text" id="aiIngredients" placeholder="Ex: ovos, carne moída, frango, queijo coalho, bacon, abacate..." oninput="previewRecognizedIngredients()">
-          <div id="recognizedIngrBox" class="ingr-chips"></div>
-        </div>
-        <div class="full" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
-          <button type="button" id="btnGenFull" class="btn btn-p" style="flex:1;min-width:170px;padding:11px" onclick="askGeminiDiet('full')">
-            ✨ Gerar Dia Inteiro (IA)
-          </button>
-          <button type="button" id="btnGenRem" class="btn btn-b" style="flex:1;min-width:170px;padding:11px" onclick="askGeminiDiet('remaining')">
-            🎯 Completar o Que Falta
-          </button>
-          <button type="button" class="btn btn-o" style="flex:1;min-width:170px;padding:11px" onclick="generateSmartLocalPlan('full')">
-            ⚡ Cálculo Instantâneo (0s)
-          </button>
-          <button type="button" class="btn btn-dk" style="flex:1;min-width:150px;padding:11px" onclick="sendAiPlanToSimulator()">
-            🔮 Enviar Roteiro p/ Simulador
-          </button>
-          <button type="button" id="btnClearAi" class="btn btn-dk hide" onclick="clearAiPlan()">
-            Limpar
-          </button>
-        </div>
-        <div class="full">
-          <div id="aiStatus" class="st-bar st-ai">💡 Digite o que você tem em casa acima: o gerador usará <strong>exclusivamente</strong> os alimentos descritos por você e salvará os pratos na memória!</div>
-        </div>
-      </div>
 
-      <div id="aiPreviewBox" class="hide" style="margin-top:14px;background:var(--inp);border:1px solid rgba(168,85,247,.35);border-radius:14px;padding:13px">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:10px">
-          <div>
-            <strong style="font-size:13px;color:#e9d5ff">📋 Roteiro Planejado (Check-in Individual):</strong>
-            <div style="font-size:11px;color:var(--mut)">Toque em <strong>"🍽️ Consumi Esta"</strong> somente depois de comer cada refeição:</div>
+        <div class="g2">
+          <div class="full">
+            <label class="lbl">🏠 O que você tem em casa ou quer comer? (Usa SOMENTE os alimentos descritos aqui):</label>
+            <input type="text" id="aiIngredients" placeholder="Ex: ovos, carne moída, frango, queijo coalho, bacon, abacate..." oninput="previewRecognizedIngredients()">
+            <div id="recognizedIngrBox" class="ingr-chips"></div>
           </div>
-          <span id="aiTotalsBadge" class="bdg bdg-o">-- kcal</span>
+          <div class="full" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:2px">
+            <button type="button" class="btn btn-o" style="flex:1;min-width:165px;padding:11px" onclick="generateSmartLocalPlan('full')">
+              ⚡ Cálculo Instantâneo (0s)
+            </button>
+            <button type="button" id="btnGenFull" class="btn btn-p" style="flex:1;min-width:165px;padding:11px" onclick="askGeminiDiet('full')">
+              ✨ Gerar Dia Inteiro (IA)
+            </button>
+            <button type="button" id="btnGenRem" class="btn btn-b" style="flex:1;min-width:165px;padding:11px" onclick="askGeminiDiet('remaining')">
+              🎯 Completar o Que Falta
+            </button>
+            <button type="button" class="btn btn-dk" style="flex:1;min-width:145px;padding:11px" onclick="sendAiPlanToSimulator()">
+              🔮 Enviar Roteiro p/ Simulador
+            </button>
+            <button type="button" id="btnClearAi" class="btn btn-dk hide" onclick="clearAiPlan()">
+              Limpar
+            </button>
+          </div>
+          <div class="full">
+            <div id="aiStatus" class="st-bar st-ai">💡 Digite os ingredientes disponíveis acima ou gere sugestões Keto! Cada prato gerado pode ser refeito individualmente (🔄) ou editado item por item.</div>
+          </div>
         </div>
-        <div id="aiMealsCards" class="g2"></div>
+
+        <div id="aiPreviewBox" class="hide" style="margin-top:14px;background:var(--inp);border:1px solid rgba(168,85,247,.35);border-radius:14px;padding:13px">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;margin-bottom:10px">
+            <div>
+              <strong style="font-size:13px;color:#e9d5ff">📋 Roteiro Planejado (Troca Individual 🔄 & Edição por Item ✏️):</strong>
+              <div style="font-size:11px;color:var(--mut)">Refaça a pesquisa de qualquer prato isolado (🔄 Trocar PF), ajuste gramas de um item específico (✏️) ou marque consumo:</div>
+            </div>
+            <span id="aiTotalsBadge" class="bdg bdg-o">-- kcal</span>
+          </div>
+          <div id="aiMealsCards" class="g2"></div>
+        </div>
       </div>
     </section>
 
     <section class="card">
       <div class="s-hd">
         <div>
-          <h2 class="s-tt">💡 Pratos Feitos & <span>Memória de Pesquisas</span></h2>
-          <p style="font-size:11px;color:var(--mut)">Os pratos gerados na pesquisa, no scanner e na IA ficam salvos aqui na memória para você reutilizar com 1 toque!</p>
+          <h2 class="s-tt">💡 Pratos Feitos (PFs) & <span>Pesquisador da Memória</span></h2>
+          <p style="font-size:11px;color:var(--mut)">Pesquise rapidamente entre os PFs salvos na memória, filtre por refeição ou minimize a seção quando quiser</p>
         </div>
-        <button type="button" id="btnClearSavedIdeas" class="btn btn-x hide" onclick="clearSavedIdeas()">Limpar Memória</button>
+        <div class="sec-actions">
+          <span id="pfCountBadge" class="bdg bdg-ai">6 PFs</span>
+          <button type="button" id="btnTogglePfCompact" class="btn-min" onclick="togglePfCompactView()" title="Alternar entre Grade e Lista Slim">📑 Lista Slim</button>
+          <button type="button" id="btnMinPfSec" class="btn-min" onclick="toggleSectionBox('pfSectionBody','btnMinPfSec')">🔼 Minimizar Opções</button>
+          <button type="button" id="btnClearSavedIdeas" class="btn btn-x hide" onclick="clearSavedIdeas()">Limpar Memória</button>
+        </div>
       </div>
-      <div id="ideasGrid" class="g3"></div>
+
+      <div id="pfSectionBody">
+        <!-- BARRA DE PESQUISA E FILTROS DE PRATOS FEITOS -->
+        <div class="pf-toolbar">
+          <div class="pf-search-row">
+            <div class="pf-search-wrap">
+              <span class="pf-search-ico">🔍</span>
+              <input type="text" id="pfSearchInput" placeholder="Pesquisar Prato Feito ou ingrediente (ex: ovo, queijo coalho, frango, patinho, shake)..." oninput="renderIdeasGrid()" autocomplete="off">
+              <button type="button" id="pfClearSearchBtn" class="pf-clear-btn hide" onclick="clearPfSearch()" title="Limpar busca">✕</button>
+            </div>
+          </div>
+          <div class="pf-filter-pills" id="pfFilterPills">
+            <button type="button" class="pf-pill act" onclick="setPfFilter('all',this)">📋 Todos</button>
+            <button type="button" class="pf-pill" onclick="setPfFilter('mem',this)">🧠 Só da Memória</button>
+            <button type="button" class="pf-pill" onclick="setPfFilter('☕ Café',this)">☕ Café</button>
+            <button type="button" class="pf-pill" onclick="setPfFilter('🍽️ Almoço',this)">🍽️ Almoço</button>
+            <button type="button" class="pf-pill" onclick="setPfFilter('🥤 Lanche',this)">🥤 Lanche</button>
+            <button type="button" class="pf-pill" onclick="setPfFilter('🌙 Jantar',this)">🌙 Jantar</button>
+          </div>
+        </div>
+
+        <div id="ideasGrid" class="g3"></div>
+      </div>
     </section>
   </div>
 
@@ -857,8 +969,10 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
           <span id="timerDisplay" class="bdg bdg-o" style="font-size:12px">⏱️ Descanso</span>
           <button type="button" class="btn btn-dk" style="padding:6px 10px;font-size:11px" onclick="startRest(60)">60s</button>
           <button type="button" class="btn btn-dk" style="padding:6px 10px;font-size:11px" onclick="startRest(90)">90s</button>
+          <button type="button" id="btnMinWkSec" class="btn-min" onclick="toggleSectionBox('wkSecBody','btnMinWkSec')">🔼 Minimizar</button>
         </div>
       </div>
+      <div id="wkSecBody">
       <div class="tabs">
         <button type="button" id="bWk3x" class="t-btn act" onclick="setWkMode('3x')">📅 3x na Semana (Full Body A/B/C)</button>
         <button type="button" id="bWkDay" class="t-btn" onclick="setWkMode('daily')">🔥 Diário 5x-6x (Push / Pull / Legs + Upper/Lower)</button>
@@ -871,6 +985,7 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
         <div class="b-bg"><div id="wkBar" class="b-fl" style="width:0%;background:linear-gradient(90deg,#ff6b2b,#10b981)"></div></div>
       </div>
       <div id="wkGrid" class="g3"></div>
+      </div>
     </section>
   </div>
 
@@ -881,9 +996,9 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
     <section class="card">
       <div class="s-hd">
         <h2 class="s-tt">⚙️ Perfil & <span>Configuração de Metas</span></h2>
-        <span class="bdg">Salvo Automaticamente</span>
+        <div class="sec-actions"><span class="bdg">Salvo Automaticamente</span><button type="button" id="btnMinProfSec" class="btn-min" onclick="toggleSectionBox('profSecBody','btnMinProfSec')">🔼 Minimizar</button></div>
       </div>
-      <div class="g2">
+      <div id="profSecBody"><div class="g2">
         <div><label class="lbl">Sexo</label><select id="gender" onchange="calcAll()"><option value="M" selected>Masculino</option><option value="F">Feminino</option></select></div>
         <div><label class="lbl">Idade (anos)</label><input type="number" id="age" value="31" oninput="calcAll()"></div>
         <div><label class="lbl">Peso Atual (kg)</label><input type="number" id="weight" value="105" step="0.5" oninput="calcAll()"></div>
@@ -914,7 +1029,7 @@ body:not(.light-mode) .st-ai{color:#f0abfc}
         <div class="sum-r"><span>Gasto Basal (TMB):</span><strong id="bmrVal">2088 kcal</strong></div>
         <div class="sum-r"><span>Gasto Total Diário (TDEE):</span><strong id="tdeeVal">2870 kcal</strong></div>
         <div class="sum-r hl"><span>🔥 Meta Diária c/ Déficit:</span><strong id="targetCalText">2067 kcal</strong></div>
-      </div>
+      </div></div>
     </section>
 
     <section class="card">
@@ -1006,7 +1121,10 @@ var S = {
   aiPlan: [],
   aiConsumed: {},
   view: "all",
-  theme: "dark"
+  theme: "dark",
+  slimMode: false,
+  pfCompact: false,
+  collapsed: {}
 };
 
 var WEB_CACHE = [];
@@ -1017,6 +1135,9 @@ var restTimer = null;
 var toastTimer = null;
 var editingMealId = null;
 var editingSimId = null;
+var editingAiIdx = null;
+var currentPfFilter = "all";
+var rerollCounter = 1;
 
 function notify(msg){
   var t = document.getElementById("toastBox");
@@ -1091,6 +1212,9 @@ function load(){
       if(p.aiConsumed) S.aiConsumed = p.aiConsumed;
       if(p.view) S.view = p.view;
       if(p.theme) S.theme = p.theme;
+      if(typeof p.slimMode === "boolean") S.slimMode = p.slimMode;
+      if(typeof p.pfCompact === "boolean") S.pfCompact = p.pfCompact;
+      if(p.collapsed && typeof p.collapsed === "object") S.collapsed = p.collapsed;
     }
   }catch(e){}
 }
@@ -1108,6 +1232,66 @@ function toggleTheme(){
   applyTheme();
   save();
   notify(S.theme === "light" ? "☀️ Modo Diurno Solar ativado!" : "🌙 Modo Noturno Neon ativado!");
+}
+
+function applySlimMode(){
+  if(S.slimMode) document.body.classList.add("slim-ui");
+  else document.body.classList.remove("slim-ui");
+  var btn = document.getElementById("slimBtn");
+  if(btn) btn.textContent = S.slimMode ? "📐 Slim: ON" : "📐 Modo Slim";
+}
+
+function toggleSlimMode(){
+  S.slimMode = !S.slimMode;
+  applySlimMode();
+  save();
+  notify(S.slimMode ? "📐 Modo Slim Compacto ativado!" : "📐 Modo Padrão restaurado!");
+}
+
+function toggleSectionBox(boxId, btnId){
+  var box = document.getElementById(boxId);
+  var btn = document.getElementById(btnId);
+  if(!box) return;
+  var isHidden = box.classList.contains("hide");
+  if(isHidden){
+    box.classList.remove("hide");
+    if(S.collapsed) delete S.collapsed[boxId];
+    if(btn){
+      if(btnId === "apiKeyDrawerLbl") btn.textContent = "🔼 Ocultar Chave";
+      else btn.textContent = btn.textContent.replace("🔽 Maximizar", "🔼 Minimizar").replace("🔽 Mostrar", "🔼 Ocultar").replace("🔽 Expandir", "🔼 Minimizar");
+    }
+  } else {
+    box.classList.add("hide");
+    if(!S.collapsed) S.collapsed = {};
+    S.collapsed[boxId] = true;
+    if(btn){
+      if(btnId === "apiKeyDrawerLbl") btn.textContent = "🔽 Abrir / Editar Chave";
+      else if(btn.textContent.indexOf("Opções") !== -1) btn.textContent = "🔽 Maximizar Opções";
+      else if(btn.textContent.indexOf("Lançador") !== -1) btn.textContent = "🔽 Mostrar Lançador";
+      else if(btn.textContent.indexOf("Ferramenta") !== -1) btn.textContent = "🔽 Maximizar Ferramenta";
+      else btn.textContent = "🔽 Maximizar";
+    }
+  }
+  save();
+}
+
+function restoreCollapsedSections(){
+  if(!S.collapsed) return;
+  var map = {
+    thermoBody: "btnMinThermo",
+    diaryToolsWrap: "btnMinDiaryForm",
+    simFormBox: "btnMinSimForm",
+    aiGenBody: "btnMinAiGen",
+    pfSectionBody: "btnMinPfSec"
+  };
+  for(var k in map){
+    if(S.collapsed[k]){
+      var b = document.getElementById(k);
+      if(b && !b.classList.contains("hide")){
+        toggleSectionBox(k, map[k]);
+      }
+    }
+  }
 }
 
 function pickSlotPill(selectId, val, btnEl){
@@ -1171,6 +1355,8 @@ function rememberDishInIdeas(dishObj){
     if(norm(IDEAS[j].title) === normT) return;
   }
   if(!Array.isArray(S.savedIdeas)) S.savedIdeas = [];
+  var clonedItems = Array.isArray(dishObj.items) ? JSON.parse(JSON.stringify(dishObj.items)) : null;
+
   for(var i=0; i<S.savedIdeas.length; i++){
     if(norm(S.savedIdeas[i].title) === normT){
       S.savedIdeas[i].cal = Math.round(num(dishObj.cal, S.savedIdeas[i].cal));
@@ -1178,6 +1364,7 @@ function rememberDishInIdeas(dishObj){
       S.savedIdeas[i].f = Math.round(num(dishObj.f, S.savedIdeas[i].f)*10)/10;
       S.savedIdeas[i].c = Math.round(num(dishObj.c, S.savedIdeas[i].c)*10)/10;
       S.savedIdeas[i].slot = dishObj.slot || S.savedIdeas[i].slot || "🍽️ Almoço";
+      if(clonedItems) S.savedIdeas[i].items = clonedItems;
       var item = S.savedIdeas.splice(i, 1)[0];
       S.savedIdeas.unshift(item);
       renderIdeasGrid();
@@ -1195,10 +1382,11 @@ function rememberDishInIdeas(dishObj){
     p: Math.round(num(dishObj.p, 0)*10)/10,
     f: Math.round(num(dishObj.f, 0)*10)/10,
     c: Math.round(num(dishObj.c, 0)*10)/10,
+    items: clonedItems,
     custom: true
   });
 
-  if(S.savedIdeas.length > 36) S.savedIdeas = S.savedIdeas.slice(0, 36);
+  if(S.savedIdeas.length > 60) S.savedIdeas = S.savedIdeas.slice(0, 60);
   renderIdeasGrid();
   save();
 }
@@ -1243,53 +1431,133 @@ function saveCurrentSearchToIdeas(){
   notify("📌 Salvo na memória de Pratos Feitos!");
 }
 
+function setPfFilter(flt, btnEl){
+  currentPfFilter = flt || "all";
+  var wrap = document.getElementById("pfFilterPills");
+  if(wrap){
+    var btns = wrap.querySelectorAll(".pf-pill");
+    for(var i=0; i<btns.length; i++) btns[i].className = "pf-pill";
+  }
+  if(btnEl) btnEl.className = "pf-pill act";
+  renderIdeasGrid();
+}
+
+function clearPfSearch(){
+  var inp = document.getElementById("pfSearchInput");
+  if(inp) inp.value = "";
+  renderIdeasGrid();
+}
+
+function togglePfCompactView(){
+  S.pfCompact = !S.pfCompact;
+  var btn = document.getElementById("btnTogglePfCompact");
+  if(btn) btn.textContent = S.pfCompact ? "🃏 Modo Cards" : "📑 Lista Slim";
+  renderIdeasGrid();
+  save();
+}
+
+function matchesPfQueryAndFilter(item, isSavedMem, qKws, flt){
+  if(flt === "mem" && !isSavedMem) return false;
+  if(flt !== "all" && flt !== "mem"){
+    if(String(item.slot || "").indexOf(flt) === -1) return false;
+  }
+  if(!qKws || !qKws.length) return true;
+  var hay = norm((item.title || "") + " " + (item.desc || "") + " " + (item.slot || ""));
+  var hayWords = hay.split(" ").map(stemPt);
+  for(var k=0; k<qKws.length; k++){
+    var kw = qKws[k];
+    var hit = (hay.indexOf(kw) !== -1);
+    if(!hit){
+      for(var w=0; w<hayWords.length; w++){
+        if(hayWords[w].indexOf(kw) !== -1){ hit = true; break; }
+      }
+    }
+    if(!hit) return false;
+  }
+  return true;
+}
+
 function renderIdeasGrid(){
   var box = document.getElementById("ideasGrid");
   var btnClr = document.getElementById("btnClearSavedIdeas");
+  var cntBdg = document.getElementById("pfCountBadge");
+  var clrSearch = document.getElementById("pfClearSearchBtn");
+  var btnCompact = document.getElementById("btnTogglePfCompact");
   if(!box) return;
+
+  box.className = S.pfCompact ? "g3 compact-list" : "g3";
+  if(btnCompact) btnCompact.textContent = S.pfCompact ? "🃏 Modo Cards" : "📑 Lista Slim";
 
   var saved = Array.isArray(S.savedIdeas) ? S.savedIdeas : [];
   if(btnClr) btnClr.className = saved.length ? "btn btn-x" : "btn btn-x hide";
 
+  var qRaw = "";
+  var sInp = document.getElementById("pfSearchInput");
+  if(sInp) qRaw = sInp.value.trim();
+  if(clrSearch) clrSearch.className = qRaw ? "pf-clear-btn" : "pf-clear-btn hide";
+  var qKws = getKeywords(qRaw);
+
+  var shownCount = 0;
+  var totalCount = saved.length + IDEAS.length;
+
   var htmlSaved = saved.map(function(id, idx){
+    if(!matchesPfQueryAndFilter(id, true, qKws, currentPfFilter)) return "";
+    shownCount++;
     return '<div class="id-card saved-mem">'
-      + '<div>'
+      + '<div style="flex:1;min-width:190px">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;gap:6px">'
       + '<span class="bdg bdg-ai" style="font-size:10px">🧠 Memória • ' + id.slot + '</span>'
       + '<button type="button" class="btn btn-x" style="padding:3px 7px;font-size:10px" onclick="delSavedIdea(' + idx + ')" title="Remover da memória">✕</button>'
       + '</div>'
-      + '<h4 style="font-size:13px;font-weight:700;color:#fff;margin-top:6px">' + id.title + '</h4>'
-      + '<p style="font-size:11px;color:var(--mut);margin-top:4px">🔥 ' + id.cal + ' kcal • 🥩 ' + id.p + 'g P • 🥑 ' + id.f + 'g G • 🥦 ' + id.c + 'g C</p>'
+      + '<h4 style="font-size:13px;font-weight:700;color:var(--txt);margin-top:5px">' + id.title + '</h4>'
+      + '<p style="font-size:11px;color:var(--mut);margin-top:3px">🔥 <strong style="color:var(--org)">' + id.cal + ' kcal</strong> • 🥩 <strong style="color:var(--blu)">' + id.p + 'g P</strong> • 🥑 ' + id.f + 'g G • 🥦 ' + id.c + 'g C</p>'
       + '</div>'
       + '<div class="id-ft">'
-      + '<button type="button" class="btn btn-o" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addSavedIdeaToDiary(' + idx + ')">+ Lançar Hoje</button>'
-      + '<button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addSavedIdeaToSim(' + idx + ')">🔮 Simulador</button>'
+      + '<button type="button" class="btn btn-o" style="padding:7px 10px;font-size:11px;flex:1" onclick="addSavedIdeaToDiary(' + idx + ')">+ Lançar Hoje</button>'
+      + '<button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11px;flex:1" onclick="addSavedIdeaToSim(' + idx + ')">🔮 Simulador</button>'
       + '</div>'
       + '</div>';
   }).join("");
 
   var htmlDefault = IDEAS.map(function(id, i){
+    if(!matchesPfQueryAndFilter(id, false, qKws, currentPfFilter)) return "";
+    shownCount++;
     return '<div class="id-card">'
-      + '<div>'
-      + '<span class="bdg bdg-o" style="font-size:10px">' + id.slot + '</span>'
-      + '<h4 style="font-size:13px;font-weight:700;color:#fff;margin-top:6px">' + id.title + '</h4>'
-      + '<p style="font-size:11px;color:var(--mut);margin-top:4px">' + id.desc + '</p>'
+      + '<div style="flex:1;min-width:190px">'
+      + '<span class="bdg bdg-o" style="font-size:10px">⭐ Base • ' + id.slot + '</span>'
+      + '<h4 style="font-size:13px;font-weight:700;color:var(--txt);margin-top:5px">' + id.title + '</h4>'
+      + (S.pfCompact ? '' : '<p style="font-size:11px;color:var(--mut);margin-top:3px">' + id.desc + '</p>')
+      + '<p style="font-size:11px;color:var(--mut);margin-top:3px">🔥 <strong style="color:var(--org)">' + id.cal + ' kcal</strong> • 🥩 <strong style="color:var(--blu)">' + id.p + 'g P</strong> • 🥑 ' + id.f + 'g G • 🥦 ' + id.c + 'g C</p>'
       + '</div>'
       + '<div class="id-ft">'
-      + '<span style="font-size:11px;color:#cbd5e1;width:100%;margin-bottom:4px">🔥 ' + id.cal + ' kcal • <strong style="color:#38bdf8">' + id.p + 'g P</strong> • 🥑 ' + id.f + 'g G • 🥦 ' + id.c + 'g C</span>'
-      + '<button type="button" class="btn btn-o" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addIdea(' + i + ')">+ Lançar Hoje</button>'
-      + '<button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11.5px;flex:1" onclick="addDefaultIdeaToSim(' + i + ')">🔮 Simulador</button>'
+      + '<button type="button" class="btn btn-o" style="padding:7px 10px;font-size:11px;flex:1" onclick="addIdea(' + i + ')">+ Lançar Hoje</button>'
+      + '<button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11px;flex:1" onclick="addDefaultIdeaToSim(' + i + ')">🔮 Simulador</button>'
       + '</div>'
       + '</div>';
   }).join("");
 
-  box.innerHTML = htmlSaved + htmlDefault;
+  if(cntBdg){
+    cntBdg.textContent = (qRaw || currentPfFilter !== "all")
+      ? (shownCount + " de " + totalCount + " PFs")
+      : (totalCount + " PFs (" + saved.length + " na Memória)");
+  }
+
+  if(shownCount === 0){
+    box.innerHTML = '<div class="full" style="text-align:center;padding:18px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:12px">'
+      + '🔍 Nenhum Prato Feito encontrado para <strong>"' + (qRaw || currentPfFilter) + '"</strong>. Tente outro termo ou clique em "📋 Todos"!'
+      + '</div>';
+  } else {
+    box.innerHTML = htmlSaved + htmlDefault;
+  }
 }
 
 function addSavedIdeaToDiary(idx){
   var id = S.savedIdeas[idx];
   if(!id) return;
-  S.meals.push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c });
+  var mObj = { id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c };
+  if(Array.isArray(id.items)) mObj.items = JSON.parse(JSON.stringify(id.items));
+  ensureDishItems(mObj);
+  S.meals.push(mObj);
   renderMeals(); refreshBars(); save();
   notify("✅ Prato da memória lançado: +" + id.p + "g Proteína!");
 }
@@ -1297,15 +1565,20 @@ function addSavedIdeaToDiary(idx){
 function addSavedIdeaToSim(idx){
   var id = S.savedIdeas[idx];
   if(!id) return;
-  getActiveSimList().push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c, checked:false });
+  var smObj = { id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c, checked:false };
+  if(Array.isArray(id.items)) smObj.items = JSON.parse(JSON.stringify(id.items));
+  ensureDishItems(smObj);
+  getActiveSimList().push(smObj);
   renderSimMeals(); save();
-  notify("🔮 Adicionado ao Simulador do Dia Seguinte!");
+  notify("🔮 Adicionado ao Simulador!");
 }
 
 function addDefaultIdeaToSim(idx){
   var id = IDEAS[idx];
   if(!id) return;
-  getActiveSimList().push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c, checked:false });
+  var smObj = { id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c, checked:false };
+  ensureDishItems(smObj);
+  getActiveSimList().push(smObj);
   renderSimMeals(); save();
   notify("🔮 Ideia enviada para o Simulador!");
 }
@@ -1801,15 +2074,215 @@ function refreshBars(){
 }
 
 function setTab(t){
-  document.getElementById("pMan").className = (t==="man") ? "p-man" : "p-man hide";
-  document.getElementById("pDb").className = (t==="db") ? "p-db" : "p-db hide";
-  document.getElementById("tMan").className = (t==="man") ? "t-btn act" : "t-btn";
-  document.getElementById("tDb").className = (t==="db") ? "t-btn act" : "t-btn";
+  var pMan = document.getElementById("pMan");
+  var pDb = document.getElementById("pDb");
+  var camBox = document.getElementById("camBoxWrap");
+  var tMan = document.getElementById("tMan");
+  var tCam = document.getElementById("tCam");
+  var tDb = document.getElementById("tDb");
+
+  if(t === "db"){
+    if(pMan) pMan.className = "p-man hide";
+    if(pDb) pDb.className = "p-db";
+  } else {
+    if(pMan) pMan.className = "p-man";
+    if(pDb) pDb.className = "p-db hide";
+    if(camBox) camBox.className = (t === "cam") ? "cam-box" : "cam-box hide";
+  }
+  if(tMan) tMan.className = (t === "man") ? "t-btn act" : "t-btn";
+  if(tCam) tCam.className = (t === "cam") ? "t-btn act" : "t-btn";
+  if(tDb) tDb.className = (t === "db") ? "t-btn act" : "t-btn";
+}
+
+// ============================================================================
+// MOTOR DE ITENS INDEPENDENTES POR PRATO FEITO (PF) & PARSER DE REFEIÇÕES
+// Garante que editar as gramas de 1 item (ex: Ovos) NUNCA altere o outro (ex: Queijo Coalho)!
+// ============================================================================
+function createSubItemFromFood(foodObj, grams){
+  var g = Math.max(Math.round(num(grams, 100)), 5);
+  var c100 = num(foodObj.cal100 !== undefined ? foodObj.cal100 : foodObj.cal, 150);
+  var p100 = num(foodObj.p100 !== undefined ? foodObj.p100 : foodObj.p, 15);
+  var f100 = num(foodObj.f100 !== undefined ? foodObj.f100 : foodObj.f, 10);
+  var cb100 = num(foodObj.c100 !== undefined ? foodObj.c100 : foodObj.c, 1);
+  var cleanName = String(foodObj.name || "Alimento").split("/")[0].replace(/\(1 un=~50g\)/i, "").trim();
+  return {
+    name: cleanName,
+    grams: g,
+    cal100: c100,
+    p100: p100,
+    f100: f100,
+    c100: cb100,
+    cal: Math.round((c100 * g) / 100),
+    p: Math.round(((p100 * g) / 100) * 10) / 10,
+    f: Math.round(((f100 * g) / 100) * 10) / 10,
+    c: Math.round(((cb100 * g) / 100) * 10) / 10
+  };
+}
+
+function formatSubItemLabel(it){
+  var baseName = String(it.name || "Item").split("/")[0].replace(/\(1 un=~50g\)/i, "").trim();
+  var g = Math.max(Math.round(num(it.grams, 100)), 1);
+  if(norm(baseName).indexOf("ovo") !== -1 && norm(baseName).indexOf("clara") === -1){
+    var units = Math.max(Math.round(g / 50), 1);
+    return units + (units === 1 ? " Ovo (" : " Ovos (") + g + "g)";
+  }
+  return g + "g " + baseName;
+}
+
+function parseSinglePartToSubItem(partStr, fallbackTotalDish){
+  var s = String(partStr || "").replace(/^[✨📸🍳🥩🥑🍗🐟🐖🔥☀️🌙]+\s*/, "").trim();
+  var g = 100;
+  var gMatch = s.match(/(\d+(?:[.,]\d+)?)\s*(?:g\/ml|g|ml)\b/i);
+  if(gMatch){
+    g = Math.max(Math.round(num(gMatch[1], 100)), 5);
+  } else {
+    var eggMatch = s.match(/(\d+)\s*ovos?/i);
+    if(eggMatch){
+      g = Math.max(parseInt(eggMatch[1], 10) * 50, 50);
+    } else if(/1\s*lata/i.test(s)){
+      g = 120;
+    }
+  }
+
+  var cleanFoodText = s
+    .replace(/\(\s*\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\s*\)/gi, "")
+    .replace(/\b\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\s*(?:de\s+)?/gi, "")
+    .replace(/^\d+\s+(?=ovos?\b)/i, "")
+    .replace(/^1\s*lata\s*(?:de\s+)?/i, "")
+    .replace(/^de\s+/i, "")
+    .trim();
+
+  if(!cleanFoodText) cleanFoodText = s || "Alimento";
+
+  var matches = findFoods(cleanFoodText);
+  if(matches.length > 0){
+    return createSubItemFromFood(matches[0], g);
+  }
+
+  if(fallbackTotalDish){
+    var totCal = num(fallbackTotalDish.cal, 180);
+    var totP = num(fallbackTotalDish.p, 18);
+    var totF = num(fallbackTotalDish.f, 10);
+    var totC = num(fallbackTotalDish.c, 1);
+    return {
+      name: cleanFoodText,
+      grams: g,
+      cal100: (totCal * 100) / g,
+      p100: (totP * 100) / g,
+      f100: (totF * 100) / g,
+      c100: (totC * 100) / g,
+      cal: Math.round(totCal),
+      p: Math.round(totP * 10) / 10,
+      f: Math.round(totF * 10) / 10,
+      c: Math.round(totC * 10) / 10
+    };
+  }
+
+  return createSubItemFromFood({ name: cleanFoodText, cal: 190, p: 20, f: 11, c: 1.5 }, g);
+}
+
+function ensureDishItems(dish){
+  if(!dish) return [];
+  if(Array.isArray(dish.items) && dish.items.length > 0){
+    for(var i=0; i<dish.items.length; i++){
+      var it = dish.items[i];
+      var g = Math.max(Math.round(num(it.grams, 100)), 5);
+      it.grams = g;
+      if(it.cal100 === undefined) it.cal100 = (num(it.cal, 150) * 100) / g;
+      if(it.p100 === undefined) it.p100 = (num(it.p, 15) * 100) / g;
+      if(it.f100 === undefined) it.f100 = (num(it.f, 10) * 100) / g;
+      if(it.c100 === undefined) it.c100 = (num(it.c, 1) * 100) / g;
+    }
+    return dish.items;
+  }
+
+  var rawTitle = String(dish.title || "").replace(/^✨\s*/, "").trim();
+  var innerSearch = rawTitle;
+  var parenPlus = rawTitle.match(/\(([^)]+\+[^)]+)\)/);
+  if(parenPlus){
+    innerSearch = parenPlus[1];
+  }
+
+  if(innerSearch.indexOf("+") !== -1){
+    var parts = innerSearch.split(/\s*\+\s*/);
+    var built = [];
+    for(var p=0; p<parts.length; p++){
+      if(parts[p].trim()){
+        built.push(parseSinglePartToSubItem(parts[p].trim(), null));
+      }
+    }
+    if(built.length > 0){
+      dish.items = built;
+      return dish.items;
+    }
+  }
+
+  var singleG = extractGramsFromTitle(rawTitle, dish.grams);
+  var singleClean = rawTitle
+    .replace(/^[✨📸]+\s*/, "")
+    .replace(/\(\s*\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\s*\)/gi, "")
+    .replace(/\b\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\b/gi, "")
+    .trim() || "Alimento";
+
+  var c100 = (num(dish.cal, 150) * 100) / Math.max(singleG, 1);
+  var p100 = (num(dish.p, 15) * 100) / Math.max(singleG, 1);
+  var f100 = (num(dish.f, 10) * 100) / Math.max(singleG, 1);
+  var cb100 = (num(dish.c, 1) * 100) / Math.max(singleG, 1);
+
+  dish.items = [{
+    name: singleClean,
+    grams: singleG,
+    cal100: c100,
+    p100: p100,
+    f100: f100,
+    c100: cb100,
+    cal: Math.round(num(dish.cal, 0)),
+    p: Math.round(num(dish.p, 0) * 10) / 10,
+    f: Math.round(num(dish.f, 0) * 10) / 10,
+    c: Math.round(num(dish.c, 0) * 10) / 10
+  }];
+  return dish.items;
+}
+
+function recomputeDishTotalsFromItems(dish){
+  if(!dish || !Array.isArray(dish.items) || !dish.items.length) return;
+  var tCal = 0, tP = 0, tF = 0, tC = 0, tG = 0;
+  var labels = [];
+  for(var i=0; i<dish.items.length; i++){
+    var it = dish.items[i];
+    var g = Math.max(Math.round(num(it.grams, 100)), 1);
+    it.grams = g;
+    it.cal = Math.round((num(it.cal100, 0) * g) / 100);
+    it.p = Math.round(((num(it.p100, 0) * g) / 100) * 10) / 10;
+    it.f = Math.round(((num(it.f100, 0) * g) / 100) * 10) / 10;
+    it.c = Math.round(((num(it.c100, 0) * g) / 100) * 10) / 10;
+
+    tCal += it.cal;
+    tP += it.p;
+    tF += it.f;
+    tC += it.c;
+    tG += g;
+    labels.push(formatSubItemLabel(it));
+  }
+  dish.cal = Math.round(tCal);
+  dish.p = Math.round(tP * 10) / 10;
+  dish.f = Math.round(tF * 10) / 10;
+  dish.c = Math.round(tC * 10) / 10;
+  dish.grams = tG;
+  dish.title = labels.join(" + ");
+}
+
+function renderDishBreakdownBadges(dish){
+  var items = ensureDishItems(dish);
+  if(!items || items.length <= 1) return "";
+  var chips = items.map(function(it){
+    return '<span class="pf-b-tag">🔹 ' + formatSubItemLabel(it) + ': <strong>' + it.cal + 'kcal</strong> | ' + it.p + 'g P | ' + it.f + 'g G | ' + it.c + 'g C</span>';
+  }).join("");
+  return '<div class="pf-Breakdown-tags">' + chips + '</div>';
 }
 
 // ============================================================================
 // PARSER ESTRITO DE INGREDIENTES ("O QUE VOCÊ TEM EM CASA")
-// Corrige o bug do split(/[,;+e]+/) que cortava a letra 'e' e impede alimentos não descritos
 // ============================================================================
 function parseUserIngredientsList(rawText){
   var raw = String(rawText || "").trim();
@@ -1878,16 +2351,134 @@ function formatFoodPortionLabel(food, grams){
   return grams + "g " + baseName;
 }
 
+// Gera 1 Prato Feito inteligente do zero p/ uma refeição específica respeitando estritamente os limites nutricionais!
+function buildSingleSlotSmartDish(slotName, targetMealCal, targetMealP, maxMealC, excludeTitle, seedOffset){
+  var rawIngr = document.getElementById("aiIngredients") ? document.getElementById("aiIngredients").value.trim() : "";
+  var userItems = parseUserIngredientsList(rawIngr);
+
+  var defProteins = [
+    { name:"Ovo Inteiro Cozido/Mexido", cal:146, p:13.3, f:9.5, c:0.6 },
+    { name:"Patinho Bovino Grelhado/Moído", cal:219, p:35.9, f:7.3, c:0.0 },
+    { name:"Peito de Frango Grelhado/Desfiado", cal:161, p:31.8, f:2.8, c:0.0 },
+    { name:"Contrafilé Grelhado", cal:240, p:29.5, f:13.0, c:0.0 },
+    { name:"Filé de Tilápia Grelhado", cal:128, p:26.2, f:2.7, c:0.0 },
+    { name:"Lombo Suíno Assado/Grelhado", cal:210, p:35.7, f:6.4, c:0.0 },
+    { name:"Sobrecoxa de Frango Assada", cal:225, p:25.5, f:13.2, c:0.0 },
+    { name:"Atum em Lata (Drenado)", cal:132, p:28.0, f:2.1, c:0.0 },
+    { name:"Alcatra Grelhada", cal:241, p:31.9, f:11.6, c:0.0 },
+    { name:"Picanha na Chapa/Assada", cal:289, p:27.2, f:19.5, c:0.0 }
+  ];
+  var defSides = [
+    { name:"Queijo Coalho", cal:345, p:23.5, f:27.0, c:1.8 },
+    { name:"Brócolis Cozido", cal:34, p:2.8, f:0.4, c:4.0 },
+    { name:"Abacate Puro", cal:160, p:2.0, f:14.7, c:1.8 },
+    { name:"Queijo Mussarela", cal:330, p:22.6, f:25.2, c:1.9 },
+    { name:"Bacon Frito", cal:533, p:35.8, f:41.6, c:1.2 },
+    { name:"Couve-Flor Cozida", cal:25, p:1.9, f:0.3, c:3.0 },
+    { name:"Queijo Minas Padrão/Canastra", cal:321, p:21.6, f:25.4, c:1.6 },
+    { name:"Cogumelo Shimeji/Champignon", cal:22, p:3.1, f:0.3, c:2.3 }
+  ];
+
+  var poolProteins = [], poolSides = [];
+  if(userItems.length > 0){
+    for(var u=0; u<userItems.length; u++){
+      if(userItems[u].p >= 10) poolProteins.push(userItems[u]);
+      else poolSides.push(userItems[u]);
+    }
+    if(poolProteins.length === 0) poolProteins = userItems.slice();
+    if(poolSides.length === 0 && userItems.length > 1) poolSides = userItems.slice();
+  } else {
+    poolProteins = defProteins;
+    poolSides = defSides;
+  }
+
+  var tP = Math.max(num(targetMealP, 45), 18);
+  var tCal = Math.max(num(targetMealCal, 450), 180);
+  var cLimit = Math.max(num(maxMealC, 8), 2);
+  var normExcl = norm(excludeTitle || "");
+  var baseSeed = (seedOffset !== undefined ? seedOffset : (rerollCounter++));
+
+  // Se o usuário digitou apenas 1 único ingrediente em casa
+  if(userItems.length === 1){
+    var onlyF = userItems[0];
+    var g1 = onlyF.p >= 5
+      ? Math.round(((tP / onlyF.p) * 100) / 10) * 10
+      : Math.round(((tCal / Math.max(onlyF.cal, 50)) * 100) / 10) * 10;
+    g1 = Math.max(Math.min(g1, 450), 50);
+    var sub1 = createSubItemFromFood(onlyF, g1);
+    var dish1 = { slot: slotName, items: [sub1], title: "", cal: 0, p: 0, f: 0, c: 0 };
+    recomputeDishTotalsFromItems(dish1);
+    return dish1;
+  }
+
+  var chosenMain = poolProteins[baseSeed % poolProteins.length];
+  var chosenSide = poolSides[(baseSeed * 3 + 1) % poolSides.length];
+
+  // Garante que a troca gere um prato diferente do atual
+  for(var attempt=0; attempt<12; attempt++){
+    var pIdx = (baseSeed + attempt) % poolProteins.length;
+    var sIdx = (baseSeed + attempt * 2 + 1) % poolSides.length;
+    var candMain = poolProteins[pIdx];
+    var candSide = poolSides[sIdx];
+    if(norm(candMain.name) === norm(candSide.name) && poolSides.length > 1){
+      candSide = poolSides[(sIdx + 1) % poolSides.length];
+    }
+    var candComboNorm = norm(candMain.name.split("/")[0] + " " + candSide.name.split("/")[0]);
+    if(!normExcl || normExcl.indexOf(norm(candMain.name.split("/")[0])) === -1 || normExcl.indexOf(norm(candSide.name.split("/")[0])) === -1){
+      chosenMain = candMain;
+      chosenSide = candSide;
+      break;
+    }
+  }
+
+  if(norm(chosenMain.name) === norm(chosenSide.name)){
+    var gSingle = Math.max(Math.round(((tP / Math.max(chosenMain.p, 8)) * 100) / 10) * 10, 80);
+    var subSingle = createSubItemFromFood(chosenMain, gSingle);
+    var dSingle = { slot: slotName, items: [subSingle], title: "", cal: 0, p: 0, f: 0, c: 0 };
+    recomputeDishTotalsFromItems(dSingle);
+    return dSingle;
+  }
+
+  // Calcula gramas dentro dos limites de proteína, calorias e carboidratos
+  var sideGrams = (chosenSide.cal >= 300 || chosenSide.p >= 18) ? 45 : 85;
+  if((chosenSide.c * sideGrams) / 100 > cLimit * 0.7 && chosenSide.c > 0){
+    sideGrams = Math.max(Math.round(((cLimit * 0.65) / chosenSide.c) * 100 / 5) * 5, 25);
+  }
+  var sideP = (chosenSide.p * sideGrams) / 100;
+  var sideCal = (chosenSide.cal * sideGrams) / 100;
+
+  var remP = Math.max(tP - sideP, 14);
+  var remCal = Math.max(tCal - sideCal, 120);
+
+  var mainGramsByP = (remP / Math.max(chosenMain.p, 8)) * 100;
+  var mainGramsByCal = (remCal / Math.max(chosenMain.cal, 60)) * 100;
+  var mainGrams = Math.round(((mainGramsByP * 0.65 + mainGramsByCal * 0.35)) / 10) * 10;
+  mainGrams = Math.max(Math.min(mainGrams, 380), 70);
+
+  var itemMain = createSubItemFromFood(chosenMain, mainGrams);
+  var itemSide = createSubItemFromFood(chosenSide, sideGrams);
+
+  var dishOut = {
+    slot: slotName,
+    items: [itemMain, itemSide],
+    title: "",
+    cal: 0,
+    p: 0,
+    f: 0,
+    c: 0
+  };
+  recomputeDishTotalsFromItems(dishOut);
+  return dishOut;
+}
+
 function buildSmartMathematicalMeals(mode){
   var tg = S.targets, tot = getTotals();
-  var goalCal = tg.cal, goalP = tg.p;
+  var goalCal = tg.cal, goalP = tg.p, goalC = tg.c;
   if(mode === "remaining"){
     goalCal = Math.max(tg.cal - tot.cal, 300);
     goalP = Math.max(tg.p - tot.p, 30);
+    goalC = Math.max(tg.c - tot.c, 4);
   }
-
-  var rawIngr = document.getElementById("aiIngredients").value.trim();
-  var userItems = parseUserIngredientsList(rawIngr);
 
   var slots = (mode === "remaining")
     ? [
@@ -1902,117 +2493,17 @@ function buildSmartMathematicalMeals(mode){
       ];
 
   var out = [];
-
-  if(userItems.length > 0){
-    var uProteins = [], uOthers = [];
-    for(var u=0; u<userItems.length; u++){
-      if(userItems[u].p >= 10) uProteins.push(userItems[u]);
-      else uOthers.push(userItems[u]);
-    }
-
-    for(var s=0; s<slots.length; s++){
-      var sl = slots[s];
-      var targetMealP = goalP * sl.share;
-      var targetMealCal = goalCal * sl.share;
-
-      if(userItems.length === 1){
-        var onlyFood = userItems[0];
-        var grams1 = onlyFood.p >= 5
-          ? Math.round(((targetMealP / onlyFood.p) * 100) / 10) * 10
-          : Math.round(((targetMealCal / Math.max(onlyFood.cal, 50)) * 100) / 10) * 10;
-        grams1 = Math.max(grams1, 60);
-        out.push({
-          slot: sl.slot,
-          title: formatFoodPortionLabel(onlyFood, grams1),
-          cal: Math.round(onlyFood.cal * grams1 / 100),
-          p: Math.round((onlyFood.p * grams1 / 100) * 10) / 10,
-          f: Math.round((onlyFood.f * grams1 / 100) * 10) / 10,
-          c: Math.round((onlyFood.c * grams1 / 100) * 10) / 10
-        });
-      } else {
-        var mainFood = uProteins.length > 0
-          ? uProteins[s % uProteins.length]
-          : userItems[s % userItems.length];
-
-        var sideFood = null;
-        if(uOthers.length > 0){
-          sideFood = uOthers[s % uOthers.length];
-        } else {
-          for(var k=1; k<userItems.length; k++){
-            var cand = userItems[(s + k) % userItems.length];
-            if(norm(cand.name) !== norm(mainFood.name)){
-              sideFood = cand;
-              break;
-            }
-          }
-        }
-
-        if(!sideFood){
-          var gSingle = Math.max(Math.round(((targetMealP / Math.max(mainFood.p, 8)) * 100) / 10) * 10, 80);
-          out.push({
-            slot: sl.slot,
-            title: formatFoodPortionLabel(mainFood, gSingle),
-            cal: Math.round(mainFood.cal * gSingle / 100),
-            p: Math.round((mainFood.p * gSingle / 100) * 10) / 10,
-            f: Math.round((mainFood.f * gSingle / 100) * 10) / 10,
-            c: Math.round((mainFood.c * gSingle / 100) * 10) / 10
-          });
-        } else {
-          var sideGrams = (sideFood.cal >= 300 || sideFood.p >= 18) ? 50 : 80;
-          var sideP = (sideFood.p * sideGrams) / 100;
-          var remP = Math.max(targetMealP - sideP, 12);
-          var mainGrams = Math.round(((remP / Math.max(mainFood.p, 8)) * 100) / 10) * 10;
-          mainGrams = Math.max(mainGrams, 80);
-
-          var mCal = Math.round((mainFood.cal * mainGrams / 100) + (sideFood.cal * sideGrams / 100));
-          var mP = Math.round(((mainFood.p * mainGrams / 100) + sideP) * 10) / 10;
-          var mF = Math.round(((mainFood.f * mainGrams / 100) + (sideFood.f * sideGrams / 100)) * 10) / 10;
-          var mC = Math.round(((mainFood.c * mainGrams / 100) + (sideFood.c * sideGrams / 100)) * 10) / 10;
-
-          out.push({
-            slot: sl.slot,
-            title: formatFoodPortionLabel(mainFood, mainGrams) + " + " + formatFoodPortionLabel(sideFood, sideGrams),
-            cal: mCal,
-            p: mP,
-            f: mF,
-            c: mC
-          });
-        }
-      }
-    }
-    return out;
-  }
-
-  var defProteins = [
-    { name:"Ovo Inteiro Cozido/Mexido", cal:146, p:13.3, f:9.5, c:0.6 },
-    { name:"Patinho Bovino Grelhado/Moído", cal:219, p:35.9, f:7.3, c:0.0 },
-    { name:"Peito de Frango Grelhado/Desfiado", cal:161, p:31.8, f:2.8, c:0.0 },
-    { name:"Contrafilé Grelhado", cal:240, p:29.5, f:13.0, c:0.0 }
-  ];
-  var defSides = [
-    { name:"Queijo Coalho", cal:345, p:23.5, f:27.0, c:1.8 },
-    { name:"Brócolis Cozido", cal:34, p:2.8, f:0.4, c:4.0 },
-    { name:"Abacate Puro", cal:160, p:2.0, f:14.7, c:1.8 },
-    { name:"Queijo Mussarela", cal:330, p:22.6, f:25.2, c:2.2 }
-  ];
-
-  for(var d=0; d<slots.length; d++){
-    var slDef = slots[d];
-    var tPDef = goalP * slDef.share;
-    var mf = defProteins[d % defProteins.length];
-    var sf = defSides[d % defSides.length];
-    var sG = (sf.p > 15) ? 45 : 90;
-    var sP = (sf.p * sG) / 100;
-    var mG = Math.max(Math.round((((tPDef - sP) / mf.p) * 100) / 10) * 10, 100);
-
-    out.push({
-      slot: slDef.slot,
-      title: formatFoodPortionLabel(mf, mG) + " + " + formatFoodPortionLabel(sf, sG),
-      cal: Math.round((mf.cal * mG / 100) + (sf.cal * sG / 100)),
-      p: Math.round(((mf.p * mG / 100) + sP) * 10) / 10,
-      f: Math.round(((mf.f * mG / 100) + (sf.f * sG / 100)) * 10) / 10,
-      c: Math.round(((mf.c * mG / 100) + (sf.c * sG / 100)) * 10) / 10
-    });
+  for(var s=0; s<slots.length; s++){
+    var sl = slots[s];
+    var dish = buildSingleSlotSmartDish(
+      sl.slot,
+      goalCal * sl.share,
+      goalP * sl.share,
+      goalC * sl.share,
+      "",
+      s + (rerollCounter++)
+    );
+    out.push(dish);
   }
   return out;
 }
@@ -2020,6 +2511,7 @@ function buildSmartMathematicalMeals(mode){
 function saveGeneratedPlanDishesToMemory(meals){
   if(!Array.isArray(meals)) return;
   for(var i=meals.length-1; i>=0; i--){
+    ensureDishItems(meals[i]);
     rememberDishInIdeas({
       slot: meals[i].slot,
       title: meals[i].title,
@@ -2027,7 +2519,8 @@ function saveGeneratedPlanDishesToMemory(meals){
       cal: meals[i].cal,
       p: meals[i].p,
       f: meals[i].f,
-      c: meals[i].c
+      c: meals[i].c,
+      items: meals[i].items
     });
   }
 }
@@ -2037,14 +2530,15 @@ function generateSmartLocalPlan(mode){
   var meals = buildSmartMathematicalMeals(mode || "full");
   S.aiPlan = meals;
   S.aiConsumed = {};
+  editingAiIdx = null;
   saveGeneratedPlanDishesToMemory(meals);
   renderAiPlan();
   save();
   var rawIngr = document.getElementById("aiIngredients").value.trim();
   var st = document.getElementById("aiStatus");
   st.textContent = rawIngr
-    ? "✅ Roteiro montado usando EXCLUSIVAMENTE seus ingredientes (" + rawIngr + ") e salvo em Pratos Feitos!"
-    : "⚡ Roteiro calculado instantaneamente e salvo na memória de Pratos Feitos!";
+    ? "✅ Roteiro montado usando EXCLUSIVAMENTE seus ingredientes (" + rawIngr + ")! Use 🔄 Trocar PF ou ✏️ Editar em cada prato."
+    : "⚡ Roteiro calculado instantaneamente e salvo em Pratos Feitos! Use 🔄 Trocar PF ou ✏️ Editar em qualquer prato.";
   st.className = "st-bar st-ok";
   notify("⚡ Roteiro gerado e salvo nos Pratos Feitos!");
 }
@@ -2121,14 +2615,14 @@ async function askGeminiDiet(mode){
   var exactNames = parsedUserList.map(function(x){ return x.name.split("/")[0].trim(); }).join(", ");
 
   var ingrPrompt = userIngr
-    ? ("REGRA ESTRITA E ABSOLUTA: Você deve montar as refeições usando APENAS E EXCLUSIVAMENTE estes alimentos informados pelo usuário: [" + userIngr + " (" + exactNames + ")]. É TERMINANTEMENTE PROIBIDO incluir qualquer outro alimento, verdura, fruta, queijo, bacon ou acompanhamento que NÃO tenha sido citado pelo usuário.")
-    : "Use alimentos cetogênicos comuns no Brasil (ovos, frango, patinho/carne, queijo coalho/mussarela, bacon, brócolis, abacate).";
+    ? ("REGRA ESTRITA E ABSOLUTA: Você deve montar as refeições usando APENAS E EXCLUSIVAMENTE estes alimentos informados pelo usuário: [" + userIngr + " (" + exactNames + ")]. É TERMINANTEMENTE PROIBIDO incluir qualquer outro alimento que NÃO tenha sido citado pelo usuário. Separe os itens de cada prato com ' + ' e informe o peso em gramas (ex: '150g Ovos + 50g Queijo Coalho').")
+    : "Use alimentos cetogênicos comuns no Brasil separados por ' + ' com peso em gramas (ex: '150g Ovos + 50g Queijo Coalho').";
 
   var promptText = "Planeje " + mealCountDesc + " para Dieta Cetogênica Hiperproteica somando aproximadamente: "
     + goalCal + " kcal, " + goalP + "g Proteína, " + goalF + "g Gordura e máximo " + goalC + "g Carboidrato.\n"
     + ingrPrompt + "\n"
     + "Responda SOMENTE um JSON array puro neste formato exato:\n"
-    + "[{\"slot\":\"☕ Café da Manhã\",\"title\":\"4 Ovos mexidos + 30g Queijo Coalho\",\"cal\":450,\"p\":35,\"f\":32,\"c\":2}]";
+    + "[{\"slot\":\"☕ Café da Manhã\",\"title\":\"150g Ovos + 40g Queijo Coalho\",\"cal\":357,\"p\":29.4,\"f\":25.1,\"c\":1.6}]";
 
   var b1 = document.getElementById("btnGenFull"), b2 = document.getElementById("btnGenRem");
   b1.disabled = true; b2.disabled = true;
@@ -2143,18 +2637,25 @@ async function askGeminiDiet(mode){
     var meals = JSON.parse(rawText.substring(fb, lb + 1));
     if(!Array.isArray(meals) || !meals.length) throw new Error("Vazio");
 
+    for(var m=0; m<meals.length; m++){
+      ensureDishItems(meals[m]);
+      recomputeDishTotalsFromItems(meals[m]);
+    }
+
     S.aiPlan = meals;
     S.aiConsumed = {};
+    editingAiIdx = null;
     saveGeneratedPlanDishesToMemory(meals);
     renderAiPlan();
     save();
-    st.textContent = "✨ Roteiro gerado pela IA (" + resObj.model + ") e salvo na memória de Pratos Feitos!";
+    st.textContent = "✨ Roteiro gerado pela IA (" + resObj.model + ") com itens independentes e salvo em Pratos Feitos!";
     st.className = "st-bar st-ok";
     notify("✨ Roteiro IA gerado e salvo nos Pratos Feitos!");
   }catch(err){
     var fallbackMeals = buildSmartMathematicalMeals(mode);
     S.aiPlan = fallbackMeals;
     S.aiConsumed = {};
+    editingAiIdx = null;
     saveGeneratedPlanDishesToMemory(fallbackMeals);
     renderAiPlan();
     save();
@@ -2163,6 +2664,63 @@ async function askGeminiDiet(mode){
     notify("⚡ Roteiro calculado e salvo nos Pratos Feitos!");
   }
   b1.disabled = false; b2.disabled = false;
+}
+
+// Nova pesquisa individual do zero para 1 prato do Roteiro Planejado mantendo dentro dos limites nutricionais
+function rerollAiPlanMeal(idx){
+  if(!S.aiPlan || !S.aiPlan[idx]) return;
+  var cur = S.aiPlan[idx];
+  var otherCal = 0, otherP = 0, otherC = 0;
+  for(var i=0; i<S.aiPlan.length; i++){
+    if(i !== idx){
+      otherCal += num(S.aiPlan[i].cal, 0);
+      otherP += num(S.aiPlan[i].p, 0);
+      otherC += num(S.aiPlan[i].c, 0);
+    }
+  }
+  var budgetCal = Math.max(S.targets.cal - otherCal, 220);
+  var budgetP = Math.max(S.targets.p - otherP, 22);
+  var budgetC = Math.max(S.targets.c - otherC, 2);
+
+  var freshDish = buildSingleSlotSmartDish(cur.slot, budgetCal, budgetP, budgetC, cur.title);
+  S.aiPlan[idx] = freshDish;
+
+  // Se já estava marcado como consumido, atualiza também no diário
+  if(S.aiConsumed && S.aiConsumed[idx]){
+    var mealId = S.aiConsumed[idx];
+    for(var m=0; m<S.meals.length; m++){
+      if(S.meals[m].id === mealId || S.meals[m].aiIdx === idx){
+        S.meals[m].title = "✨ " + freshDish.title;
+        S.meals[m].cal = freshDish.cal;
+        S.meals[m].p = freshDish.p;
+        S.meals[m].f = freshDish.f;
+        S.meals[m].c = freshDish.c;
+        S.meals[m].items = JSON.parse(JSON.stringify(freshDish.items));
+      }
+    }
+    renderMeals();
+    refreshBars();
+  }
+
+  rememberDishInIdeas({
+    slot: freshDish.slot,
+    title: freshDish.title,
+    desc: "Nova pesquisa individual de PF dentro da meta nutricional.",
+    cal: freshDish.cal,
+    p: freshDish.p,
+    f: freshDish.f,
+    c: freshDish.c,
+    items: freshDish.items
+  });
+
+  renderAiPlan();
+  save();
+  notify("🔄 Prato refeito do zero dentro da meta nutricional!");
+}
+
+function startEditAiMeal(idx){
+  editingAiIdx = (editingAiIdx === idx) ? null : idx;
+  renderAiPlan();
 }
 
 function renderAiPlan(){
@@ -2178,20 +2736,36 @@ function renderAiPlan(){
 
   var tot = { cal:0, p:0, f:0, c:0 };
   grid.innerHTML = S.aiPlan.map(function(m, idx){
+    ensureDishItems(m);
     tot.cal += num(m.cal,0); tot.p += num(m.p,0); tot.f += num(m.f,0); tot.c += num(m.c,0);
     var isDone = !!S.aiConsumed[idx];
+    var isEditing = (editingAiIdx === idx);
+
+    var breakdownHtml = renderDishBreakdownBadges(m);
+    var editHtml = isEditing ? renderIndependentEditorBox("ai", idx, m) : "";
 
     var btnHtml = isDone
-      ? '<div style="display:flex;gap:6px;align-items:center"><span class="bdg">✅ Consumido</span><button type="button" class="btn btn-x" onclick="unconsumeAiMeal('+idx+')">↩️ Desfazer</button></div>'
-      : '<div style="display:flex;gap:6px;flex-wrap:wrap"><button type="button" class="btn btn-g" style="padding:7px 11px;font-size:11.5px" onclick="consumeAiMeal('+idx+')">🍽️ Consumi Esta</button><button type="button" class="btn btn-b" style="padding:7px 10px;font-size:11px" onclick="sendSingleAiMealToSim('+idx+')">🔮 Simulador</button></div>';
+      ? '<div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">'
+        + '<span class="bdg">✅ Consumido</span>'
+        + '<button type="button" class="btn-reroll" onclick="rerollAiPlanMeal('+idx+')" title="Nova pesquisa só para este prato">🔄 Trocar PF</button>'
+        + '<button type="button" class="btn btn-ed" onclick="startEditAiMeal('+idx+')">✏️ Itens</button>'
+        + '<button type="button" class="btn btn-x" onclick="unconsumeAiMeal('+idx+')">↩️</button>'
+        + '</div>'
+      : '<div style="display:flex;gap:5px;flex-wrap:wrap">'
+        + '<button type="button" class="btn btn-g" style="padding:6px 10px;font-size:11px" onclick="consumeAiMeal('+idx+')">🍽️ Consumi</button>'
+        + '<button type="button" class="btn-reroll" onclick="rerollAiPlanMeal('+idx+')" title="Nova pesquisa do zero só para este prato mantendo a meta">🔄 Trocar PF</button>'
+        + '<button type="button" class="btn btn-ed" onclick="startEditAiMeal('+idx+')">✏️ Editar Itens</button>'
+        + '<button type="button" class="btn btn-b" style="padding:6px 9px;font-size:11px" onclick="sendSingleAiMealToSim('+idx+')">🔮 Sim</button>'
+        + '</div>';
 
     var cardBorder = isDone ? "border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.06)" : "border-color:rgba(168,85,247,.3)";
 
     return '<div style="background:var(--card-solid);border:1px solid;border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;' + cardBorder + '">'
       + '<div>'
       + '<span class="bdg bdg-ai" style="font-size:10px">' + m.slot + '</span>'
-      + '<div style="font-size:12.5px;font-weight:700;color:#fff;margin-top:5px;' + (isDone ? "text-decoration:line-through;color:var(--mut)" : "") + '">' + m.title + '</div>'
-      + '<div style="font-size:11px;color:var(--mut);margin-top:4px">'
+      + '<div style="font-size:12.5px;font-weight:700;color:var(--txt);margin-top:5px;' + (isDone ? "text-decoration:line-through;color:var(--mut)" : "") + '">' + m.title + '</div>'
+      + breakdownHtml
+      + '<div style="font-size:11px;color:var(--mut);margin-top:5px">'
       + '🔥 <strong style="color:#fb923c">' + m.cal + ' kcal</strong> | '
       + '🥩 <strong style="color:#38bdf8">' + m.p + 'g P</strong> | '
       + '🥑 ' + m.f + 'g G | '
@@ -2199,10 +2773,11 @@ function renderAiPlan(){
       + '</div>'
       + '</div>'
       + '<div style="display:flex;justify-content:flex-end;margin-top:4px">' + btnHtml + '</div>'
+      + editHtml
       + '</div>';
   }).join("");
 
-  document.getElementById("aiTotalsBadge").textContent = "Roteiro: " + tot.cal + " kcal | " + Math.round(tot.p) + "g P | " + Math.round(tot.c*10)/10 + "g C";
+  document.getElementById("aiTotalsBadge").textContent = "Roteiro: " + Math.round(tot.cal) + " kcal | " + Math.round(tot.p) + "g P | " + Math.round(tot.c*10)/10 + "g C";
   box.className = "";
   btnClr.className = "btn btn-dk";
 }
@@ -2210,6 +2785,7 @@ function renderAiPlan(){
 function consumeAiMeal(idx){
   var m = S.aiPlan[idx];
   if(!m || S.aiConsumed[idx]) return;
+  ensureDishItems(m);
   var mealId = Date.now() + Math.random();
   S.aiConsumed[idx] = mealId;
   S.meals.push({
@@ -2217,10 +2793,12 @@ function consumeAiMeal(idx){
     aiIdx: idx,
     slot: m.slot,
     title: "✨ " + m.title,
+    grams: m.grams,
     cal: Math.round(num(m.cal,0)),
     p: Math.round(num(m.p,0)*10)/10,
     f: Math.round(num(m.f,0)*10)/10,
-    c: Math.round(num(m.c,0)*10)/10
+    c: Math.round(num(m.c,0)*10)/10,
+    items: JSON.parse(JSON.stringify(m.items))
   });
   rememberDishInIdeas(m);
   renderMeals(); refreshBars(); renderAiPlan(); save();
@@ -2230,14 +2808,17 @@ function consumeAiMeal(idx){
 function sendSingleAiMealToSim(idx){
   var m = S.aiPlan[idx];
   if(!m) return;
-  S.simMeals.push({
+  ensureDishItems(m);
+  getActiveSimList().push({
     id: Date.now() + Math.random(),
     slot: m.slot,
     title: m.title,
+    grams: m.grams,
     cal: Math.round(num(m.cal,0)),
     p: Math.round(num(m.p,0)*10)/10,
     f: Math.round(num(m.f,0)*10)/10,
     c: Math.round(num(m.c,0)*10)/10,
+    items: JSON.parse(JSON.stringify(m.items)),
     checked: false
   });
   renderSimMeals(); save();
@@ -2251,16 +2832,20 @@ function sendAiPlanToSimulator(){
     saveGeneratedPlanDishesToMemory(meals);
     renderAiPlan();
   }
+  var targetList = getActiveSimList();
   for(var i=0; i<S.aiPlan.length; i++){
     var m = S.aiPlan[i];
-    S.simMeals.push({
+    ensureDishItems(m);
+    targetList.push({
       id: Date.now() + Math.random() + i,
       slot: m.slot,
       title: m.title,
+      grams: m.grams,
       cal: Math.round(num(m.cal,0)),
       p: Math.round(num(m.p,0)*10)/10,
       f: Math.round(num(m.f,0)*10)/10,
       c: Math.round(num(m.c,0)*10)/10,
+      items: JSON.parse(JSON.stringify(m.items)),
       checked: false
     });
   }
@@ -2280,6 +2865,7 @@ function unconsumeAiMeal(idx){
 function clearAiPlan(){
   S.aiPlan = [];
   S.aiConsumed = {};
+  editingAiIdx = null;
   renderAiPlan();
   save();
 }
@@ -2340,7 +2926,7 @@ function renderSuggestions(items){
   var g = num(document.getElementById("mGrams").value,100), mult = g/100;
   box.innerHTML = items.slice(0,8).map(function(f, idx){
     var bdg = (f.src==="WEB") ? '<span class="bdg bdg-b">🌐 Web BR</span>' : (f.src==="MEM" ? '<span class="bdg bdg-ai">🧠 Memória</span>' : '<span class="bdg bdg-o">🇧🇷 Base BR</span>');
-    return '<div class="sug-it" onclick="pickCachedFood('+idx+')"><div><strong style="color:#fff">'+f.name+'</strong><br><small style="color:#9ca3af">Para '+g+'g/ml: 🔥 '+Math.round(f.cal*mult)+' kcal | 🥩 '+(Math.round(f.p*mult*10)/10)+'g P | 🥑 '+(Math.round(f.f*mult*10)/10)+'g G | 🥦 '+(Math.round(f.c*mult*10)/10)+'g C</small></div>'+bdg+'</div>';
+    return '<div class="sug-it" onclick="pickCachedFood('+idx+')"><div><strong style="color:var(--txt)">'+f.name+'</strong><br><small style="color:var(--mut)">Para '+g+'g/ml: 🔥 '+Math.round(f.cal*mult)+' kcal | 🥩 '+(Math.round(f.p*mult*10)/10)+'g P | 🥑 '+(Math.round(f.f*mult*10)/10)+'g G | 🥦 '+(Math.round(f.c*mult*10)/10)+'g C</small></div>'+bdg+'</div>';
   }).join("");
   box.className = "sug-box";
 }
@@ -2364,7 +2950,8 @@ function pickCachedFood(idx){
     cal: Math.round(f.cal * g / 100),
     p: Math.round(f.p * g / 100 * 10) / 10,
     f: Math.round(f.f * g / 100 * 10) / 10,
-    c: Math.round(f.c * g / 100 * 10) / 10
+    c: Math.round(f.c * g / 100 * 10) / 10,
+    items: [createSubItemFromFood(f, g)]
   });
   setSt("✅ Autopreenchido e salvo em Pratos Feitos: "+f.name+" ("+g+"g/ml).", "ok");
 }
@@ -2474,7 +3061,8 @@ function searchWeb(){
         cal: Math.round(combined[0].cal * g / 100),
         p: Math.round(combined[0].p * g / 100 * 10) / 10,
         f: Math.round(combined[0].f * g / 100 * 10) / 10,
-        c: Math.round(combined[0].c * g / 100 * 10) / 10
+        c: Math.round(combined[0].c * g / 100 * 10) / 10,
+        items: [createSubItemFromFood(combined[0], g)]
       });
       setSt("✅ Encontrado no catálogo BR e salvo em Pratos Feitos: '"+combined[0].name+"'.", "ok");
     })
@@ -2508,7 +3096,9 @@ function getManualFormMealData(){
   if(!name) name = "Alimento Manual";
   var cal = calRaw!=="" ? Math.round(num(calRaw,0)) : Math.round((p*4)+(f*9)+(c*4));
   var fullTitle = name.indexOf("(") !== -1 && name.indexOf("g") !== -1 ? name : (name + " (" + g + "g/ml)");
-  return { slot:slot, name:name, grams:g, title:fullTitle, cal:cal, p:p, f:f, c:c };
+  var mealObj = { slot:slot, name:name, grams:g, title:fullTitle, cal:cal, p:p, f:f, c:c };
+  ensureDishItems(mealObj);
+  return mealObj;
 }
 
 function resetManualForm(){
@@ -2525,8 +3115,8 @@ function resetManualForm(){
 
 function addManual(){
   var d = getManualFormMealData();
-  S.meals.push({ id:Date.now()+Math.random(), slot:d.slot, title:d.title, grams:d.grams, cal:d.cal, p:d.p, f:d.f, c:d.c });
-  rememberDishInIdeas({ slot:d.slot, title:d.title, cal:d.cal, p:d.p, f:d.f, c:d.c });
+  S.meals.push({ id:Date.now()+Math.random(), slot:d.slot, title:d.title, grams:d.grams, cal:d.cal, p:d.p, f:d.f, c:d.c, items:d.items });
+  rememberDishInIdeas({ slot:d.slot, title:d.title, cal:d.cal, p:d.p, f:d.f, c:d.c, items:d.items });
   resetManualForm();
   setSt("✅ '"+d.title+"' somado no diário e salvo em Pratos Feitos!","ok");
   renderMeals(); refreshBars(); save();
@@ -2534,6 +3124,7 @@ function addManual(){
 }
 
 function pushToSimScope(scope, mealObj){
+  ensureDishItems(mealObj);
   var targetScope = scope || S.simScope || "today";
   if(targetScope === "tomorrow"){
     if(!Array.isArray(S.simTomorrowMeals)) S.simTomorrowMeals = [];
@@ -2547,8 +3138,8 @@ function pushToSimScope(scope, mealObj){
 function addManualToSimulator(scope){
   var targetScope = scope || "today";
   var d = getManualFormMealData();
-  pushToSimScope(targetScope, { id:Date.now()+Math.random(), slot:d.slot, title:d.title, grams:d.grams, cal:d.cal, p:d.p, f:d.f, c:d.c, checked:false });
-  rememberDishInIdeas({ slot:d.slot, title:d.title, cal:d.cal, p:d.p, f:d.f, c:d.c });
+  pushToSimScope(targetScope, { id:Date.now()+Math.random(), slot:d.slot, title:d.title, grams:d.grams, cal:d.cal, p:d.p, f:d.f, c:d.c, items:d.items, checked:false });
+  rememberDishInIdeas({ slot:d.slot, title:d.title, cal:d.cal, p:d.p, f:d.f, c:d.c, items:d.items });
   resetManualForm();
   S.simScope = targetScope;
   renderSimMeals(); save();
@@ -2564,8 +3155,9 @@ function addFromDb(){
   var it = DB[idx], m = g/100;
   var cal = Math.round(it.cal*m), p = Math.round(it.p*m*10)/10, f = Math.round(it.f*m*10)/10, c = Math.round(it.c*m*10)/10;
   var title = it.name+" ("+g+"g/ml)";
-  S.meals.push({ id:Date.now()+Math.random(), slot:slot, title:title, grams:g, cal:cal, p:p, f:f, c:c });
-  rememberDishInIdeas({ slot:slot, title:title, cal:cal, p:p, f:f, c:c });
+  var sub = createSubItemFromFood(it, g);
+  S.meals.push({ id:Date.now()+Math.random(), slot:slot, title:title, grams:g, cal:cal, p:p, f:f, c:c, items:[sub] });
+  rememberDishInIdeas({ slot:slot, title:title, cal:cal, p:p, f:f, c:c, items:[sub] });
   renderMeals(); refreshBars(); save();
   notify("🔥 +" + cal + " kcal | +" + p + "g Proteína!");
 }
@@ -2577,21 +3169,24 @@ function addFromDbToSim(){
   var it = DB[idx], m = g/100;
   var cal = Math.round(it.cal*m), p = Math.round(it.p*m*10)/10, f = Math.round(it.f*m*10)/10, c = Math.round(it.c*m*10)/10;
   var title = it.name+" ("+g+"g/ml)";
-  getActiveSimList().push({ id:Date.now()+Math.random(), slot:slot, title:title, grams:g, cal:cal, p:p, f:f, c:c, checked:false });
-  rememberDishInIdeas({ slot:slot, title:title, cal:cal, p:p, f:f, c:c });
+  var sub = createSubItemFromFood(it, g);
+  getActiveSimList().push({ id:Date.now()+Math.random(), slot:slot, title:title, grams:g, cal:cal, p:p, f:f, c:c, items:[sub], checked:false });
+  rememberDishInIdeas({ slot:slot, title:title, cal:cal, p:p, f:f, c:c, items:[sub] });
   renderSimMeals(); save();
   notify("🔮 Enviado para o Simulador!");
 }
 
 function addIdea(idx){
   var id = IDEAS[idx]; if(!id) return;
-  S.meals.push({ id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c });
+  var mObj = { id:Date.now()+Math.random(), slot:id.slot, title:id.title, cal:id.cal, p:id.p, f:id.f, c:id.c };
+  ensureDishItems(mObj);
+  S.meals.push(mObj);
   renderMeals(); refreshBars(); save();
   notify("✅ Prato adicionado: +" + id.p + "g Proteína!");
 }
 
 // ============================================================================
-// EDIÇÃO DE REFEIÇÕES LANÇADAS NO DIÁRIO (SEM PRECISAR APAGAR)
+// EDITOR INDEPENDENTE POR ITEM (FUNCIONA NO DIÁRIO, SIMULADOR HOJE/AMANHÃ E ROTEIRO IA)
 // ============================================================================
 function extractGramsFromTitle(title, fallbackGrams){
   if(fallbackGrams && fallbackGrams > 0) return fallbackGrams;
@@ -2599,59 +3194,288 @@ function extractGramsFromTitle(title, fallbackGrams){
   return m ? num(m[1], 100) : 100;
 }
 
+function findTargetDishByContext(ctxType, keyId){
+  if(ctxType === "diary"){
+    for(var i=0; i<S.meals.length; i++) if(S.meals[i].id === keyId) return S.meals[i];
+  } else if(ctxType === "sim"){
+    var list = getActiveSimList();
+    for(var j=0; j<list.length; j++) if(list[j].id === keyId) return list[j];
+  } else if(ctxType === "ai"){
+    if(S.aiPlan && S.aiPlan[keyId]) return S.aiPlan[keyId];
+  }
+  return null;
+}
+
+function syncLinkedRecordsAfterEdit(ctxType, dish){
+  if(!dish) return;
+  if(ctxType === "sim" && dish.checked){
+    for(var i=0; i<S.meals.length; i++){
+      if(S.meals[i].simId === dish.id){
+        S.meals[i].slot = dish.slot;
+        S.meals[i].title = dish.title;
+        S.meals[i].grams = dish.grams;
+        S.meals[i].cal = dish.cal;
+        S.meals[i].p = dish.p;
+        S.meals[i].f = dish.f;
+        S.meals[i].c = dish.c;
+        S.meals[i].items = JSON.parse(JSON.stringify(dish.items));
+      }
+    }
+  } else if(ctxType === "ai"){
+    var idx = editingAiIdx;
+    if(idx !== null && S.aiConsumed && S.aiConsumed[idx]){
+      var mealId = S.aiConsumed[idx];
+      for(var m=0; m<S.meals.length; m++){
+        if(S.meals[m].id === mealId || S.meals[m].aiIdx === idx){
+          S.meals[m].slot = dish.slot;
+          S.meals[m].title = "✨ " + dish.title;
+          S.meals[m].grams = dish.grams;
+          S.meals[m].cal = dish.cal;
+          S.meals[m].p = dish.p;
+          S.meals[m].f = dish.f;
+          S.meals[m].c = dish.c;
+          S.meals[m].items = JSON.parse(JSON.stringify(dish.items));
+        }
+      }
+    }
+  }
+}
+
+// Altera a grama de APENAS UM item específico do Prato Feito (sem afetar os demais itens do prato!)
+function changeSubItemGrams(ctxType, keyId, itemIdx, newGramsVal){
+  var dish = findTargetDishByContext(ctxType, keyId);
+  if(!dish) return;
+  ensureDishItems(dish);
+  if(!dish.items[itemIdx]) return;
+
+  var g = Math.max(Math.round(num(newGramsVal, 50)), 5);
+  dish.items[itemIdx].grams = g;
+  recomputeDishTotalsFromItems(dish);
+  syncLinkedRecordsAfterEdit(ctxType, dish);
+
+  // Atualiza os campos visuais imediatamente sem perder foco do input se foi digitado
+  var macEl = document.getElementById("subMac_" + ctxType + "_" + keyId + "_" + itemIdx);
+  var it = dish.items[itemIdx];
+  if(macEl){
+    macEl.innerHTML = '🔥 <strong style="color:var(--org)">' + it.cal + ' kcal</strong> | 🥩 <strong style="color:var(--blu)">' + it.p + 'g P</strong> | 🥑 ' + it.f + 'g G | 🥦 <strong style="color:var(--grn)">' + it.c + 'g C</strong>';
+  }
+  var tInp = document.getElementById("edTitle_" + ctxType + "_" + keyId);
+  if(tInp) tInp.value = dish.title;
+  var pInp = document.getElementById("edP_" + ctxType + "_" + keyId);
+  var fInp = document.getElementById("edF_" + ctxType + "_" + keyId);
+  var cInp = document.getElementById("edC_" + ctxType + "_" + keyId);
+  var calInp = document.getElementById("edCal_" + ctxType + "_" + keyId);
+  if(pInp) pInp.value = dish.p;
+  if(fInp) fInp.value = dish.f;
+  if(cInp) cInp.value = dish.c;
+  if(calInp) calInp.value = dish.cal;
+
+  refreshBars();
+  refreshSimBars();
+  save();
+}
+
+function stepSubItemGrams(ctxType, keyId, itemIdx, delta){
+  var dish = findTargetDishByContext(ctxType, keyId);
+  if(!dish) return;
+  ensureDishItems(dish);
+  if(!dish.items[itemIdx]) return;
+  var nextG = Math.max(5, Math.round(num(dish.items[itemIdx].grams, 100) + delta));
+  var gInp = document.getElementById("subG_" + ctxType + "_" + keyId + "_" + itemIdx);
+  if(gInp) gInp.value = nextG;
+  changeSubItemGrams(ctxType, keyId, itemIdx, nextG);
+  if(ctxType === "diary") renderMeals();
+  else if(ctxType === "sim") renderSimMeals();
+  else if(ctxType === "ai") renderAiPlan();
+}
+
+// Troca APENAS UM item específico dentro do Prato Feito mantendo a mesma meta nutricional daquele item!
+function swapSingleSubItem(ctxType, keyId, itemIdx){
+  var dish = findTargetDishByContext(ctxType, keyId);
+  if(!dish) return;
+  ensureDishItems(dish);
+  var curIt = dish.items[itemIdx];
+  if(!curIt) return;
+
+  var rawIngr = document.getElementById("aiIngredients") ? document.getElementById("aiIngredients").value.trim() : "";
+  var pool = parseUserIngredientsList(rawIngr);
+  if(pool.length <= 1){
+    pool = DB.filter(function(x){ return x.c <= 6 && (x.p >= 12 || x.f >= 12); });
+  }
+  var curNorm = norm(curIt.name);
+  var candidates = pool.filter(function(x){ return norm(x.name).indexOf(curNorm) === -1 && curNorm.indexOf(norm(x.name.split("/")[0])) === -1; });
+  if(!candidates.length) candidates = pool;
+
+  var pick = candidates[(rerollCounter++) % candidates.length];
+  var targetP = Math.max(curIt.p, 8);
+  var targetCal = Math.max(curIt.cal, 80);
+  var newG = pick.p >= 10
+    ? Math.round(((targetP / pick.p) * 100) / 10) * 10
+    : Math.round(((targetCal / Math.max(pick.cal, 50)) * 100) / 10) * 10;
+  newG = Math.max(Math.min(newG, 350), 30);
+
+  dish.items[itemIdx] = createSubItemFromFood(pick, newG);
+  recomputeDishTotalsFromItems(dish);
+  syncLinkedRecordsAfterEdit(ctxType, dish);
+
+  if(ctxType === "diary") renderMeals();
+  else if(ctxType === "sim") renderSimMeals();
+  else if(ctxType === "ai") renderAiPlan();
+  refreshBars();
+  refreshSimBars();
+  save();
+  notify("🔄 Item trocado por " + formatSubItemLabel(dish.items[itemIdx]) + "!");
+}
+
+function removeSubItemFromDish(ctxType, keyId, itemIdx){
+  var dish = findTargetDishByContext(ctxType, keyId);
+  if(!dish) return;
+  ensureDishItems(dish);
+  if(dish.items.length <= 1){
+    notify("⚠️ O prato precisa ter pelo menos 1 item! Use o botão ✕ do card para remover o prato inteiro.");
+    return;
+  }
+  dish.items.splice(itemIdx, 1);
+  recomputeDishTotalsFromItems(dish);
+  syncLinkedRecordsAfterEdit(ctxType, dish);
+  if(ctxType === "diary") renderMeals();
+  else if(ctxType === "sim") renderSimMeals();
+  else if(ctxType === "ai") renderAiPlan();
+  refreshBars();
+  refreshSimBars();
+  save();
+  notify("🗑️ Item removido do prato!");
+}
+
+function addExtraSubItemToDish(ctxType, keyId){
+  var dish = findTargetDishByContext(ctxType, keyId);
+  if(!dish) return;
+  ensureDishItems(dish);
+  var nameInp = document.getElementById("addSubName_" + ctxType + "_" + keyId);
+  var gInp = document.getElementById("addSubG_" + ctxType + "_" + keyId);
+  var q = nameInp ? nameInp.value.trim() : "";
+  var g = gInp ? Math.max(num(gInp.value, 50), 5) : 50;
+  if(!q){
+    notify("⚠️ Digite o nome do alimento para adicionar ao prato (ex: Queijo coalho, Ovo, Bacon)!");
+    return;
+  }
+  var matches = findFoods(q);
+  var newSub = matches.length > 0
+    ? createSubItemFromFood(matches[0], g)
+    : createSubItemFromFood({ name: q, cal: 200, p: 20, f: 12, c: 1.5 }, g);
+
+  dish.items.push(newSub);
+  recomputeDishTotalsFromItems(dish);
+  syncLinkedRecordsAfterEdit(ctxType, dish);
+
+  if(ctxType === "diary") renderMeals();
+  else if(ctxType === "sim") renderSimMeals();
+  else if(ctxType === "ai") renderAiPlan();
+  refreshBars();
+  refreshSimBars();
+  save();
+  notify("➕ " + formatSubItemLabel(newSub) + " adicionado ao prato!");
+}
+
+function saveIndependentDishEdit(ctxType, keyId){
+  var dish = findTargetDishByContext(ctxType, keyId);
+  if(!dish) return;
+  var slotEl = document.getElementById("edSlot_" + ctxType + "_" + keyId);
+  var titleEl = document.getElementById("edTitle_" + ctxType + "_" + keyId);
+  var pEl = document.getElementById("edP_" + ctxType + "_" + keyId);
+  var fEl = document.getElementById("edF_" + ctxType + "_" + keyId);
+  var cEl = document.getElementById("edC_" + ctxType + "_" + keyId);
+  var calEl = document.getElementById("edCal_" + ctxType + "_" + keyId);
+
+  if(slotEl) dish.slot = slotEl.value;
+  if(titleEl && titleEl.value.trim()) dish.title = titleEl.value.trim();
+  if(pEl) dish.p = Math.round(num(pEl.value, dish.p) * 10) / 10;
+  if(fEl) dish.f = Math.round(num(fEl.value, dish.f) * 10) / 10;
+  if(cEl) dish.c = Math.round(num(cEl.value, dish.c) * 10) / 10;
+  if(calEl) dish.cal = Math.round(num(calEl.value, dish.cal));
+
+  syncLinkedRecordsAfterEdit(ctxType, dish);
+  rememberDishInIdeas({ slot:dish.slot, title:dish.title, cal:dish.cal, p:dish.p, f:dish.f, c:dish.c, items:dish.items });
+
+  if(ctxType === "diary"){ editingMealId = null; renderMeals(); }
+  else if(ctxType === "sim"){ editingSimId = null; renderSimMeals(); }
+  else if(ctxType === "ai"){ editingAiIdx = null; renderAiPlan(); }
+
+  refreshBars();
+  refreshSimBars();
+  save();
+  notify("💾 Prato salvo com edições independentes!");
+}
+
+function cancelIndependentDishEdit(ctxType){
+  if(ctxType === "diary"){ editingMealId = null; renderMeals(); }
+  else if(ctxType === "sim"){ editingSimId = null; renderSimMeals(); }
+  else if(ctxType === "ai"){ editingAiIdx = null; renderAiPlan(); }
+}
+
+function renderIndependentEditorBox(ctxType, keyId, dish){
+  var items = ensureDishItems(dish);
+  var slotsList = ["☕ Café da Manhã","🍽️ Almoço","🥤 Lanche / Pós-Treino","🌙 Jantar"];
+  var slotOpts = slotsList.map(function(sl){
+    return '<option ' + (sl === dish.slot ? 'selected' : '') + '>' + sl + '</option>';
+  }).join("");
+  var safeTitle = String(dish.title || "").replace(/"/g, "&quot;");
+
+  var subRowsHtml = items.map(function(it, idx){
+    return '<div class="pf-sub-row">'
+      + '<div class="pf-sub-top">'
+      + '<div class="pf-sub-name">🍴 Item ' + (idx + 1) + ': <span style="color:var(--blu)">' + it.name + '</span></div>'
+      + '<div class="pf-sub-controls">'
+      + '<button type="button" class="q-chip" onclick="stepSubItemGrams(\'' + ctxType + '\',' + keyId + ',' + idx + ',-15)">-15g</button>'
+      + '<input type="number" id="subG_' + ctxType + '_' + keyId + '_' + idx + '" value="' + it.grams + '" min="5" step="5" style="width:74px;text-align:center;padding:5px 6px;font-weight:800" oninput="changeSubItemGrams(\'' + ctxType + '\',' + keyId + ',' + idx + ',this.value)">'
+      + '<span style="font-size:11px;font-weight:800;color:var(--mut)">g</span>'
+      + '<button type="button" class="q-chip" onclick="stepSubItemGrams(\'' + ctxType + '\',' + keyId + ',' + idx + ',15)">+15g</button>'
+      + '<button type="button" class="btn-reroll" style="padding:4px 8px;font-size:10.5px" onclick="swapSingleSubItem(\'' + ctxType + '\',' + keyId + ',' + idx + ')" title="Trocar somente este alimento por outro mantendo a meta">🔄 Trocar item</button>'
+      + (items.length > 1 ? '<button type="button" class="btn btn-x" style="padding:4px 7px;font-size:10.5px" onclick="removeSubItemFromDish(\'' + ctxType + '\',' + keyId + ',' + idx + ')" title="Remover apenas este item">✕</button>' : '')
+      + '</div>'
+      + '</div>'
+      + '<div class="pf-sub-macros" id="subMac_' + ctxType + '_' + keyId + '_' + idx + '">'
+      + '<span>Nutrientes só deste item: 🔥 <strong style="color:var(--org)">' + it.cal + ' kcal</strong> | 🥩 <strong style="color:var(--blu)">' + it.p + 'g P</strong> | 🥑 ' + it.f + 'g G | 🥦 <strong style="color:var(--grn)">' + it.c + 'g C</strong></span>'
+      + '</div>'
+      + '</div>';
+  }).join("");
+
+  return '<div class="m-edit-box">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">'
+    + '<span style="font-size:11.5px;font-weight:800;color:var(--blu)">⚖️ Edição Independente por Item (Alterar as gramas de 1 item recalcula SÓ aquele item!):</span>'
+    + '<span class="bdg bdg-b" style="font-size:10px">' + items.length + (items.length === 1 ? ' Item no Prato' : ' Itens Independentes') + '</span>'
+    + '</div>'
+    + '<div class="pf-items-list">' + subRowsHtml + '</div>'
+    + '<div style="background:var(--inp);border:1px dashed var(--bd-hl);border-radius:10px;padding:8px 10px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center">'
+    + '<span style="font-size:11px;font-weight:800;color:var(--grn)">➕ Adicionar +1 Alimento ao Prato:</span>'
+    + '<input type="text" id="addSubName_' + ctxType + '_' + keyId + '" placeholder="Ex: Queijo coalho, Ovo, Abacate..." style="flex:1;min-width:130px;padding:6px 9px;font-size:11.5px">'
+    + '<input type="number" id="addSubG_' + ctxType + '_' + keyId + '" value="50" min="5" step="5" style="width:68px;padding:6px;font-size:11.5px;text-align:center">'
+    + '<span style="font-size:11px;color:var(--mut)">g</span>'
+    + '<button type="button" class="btn btn-b" style="padding:6px 10px;font-size:11px" onclick="addExtraSubItemToDish(\'' + ctxType + '\',' + keyId + ')">+ Incluir Item</button>'
+    + '</div>'
+    + '<div class="g2">'
+    + '<div><label class="lbl">Refeição</label><select id="edSlot_' + ctxType + '_' + keyId + '">' + slotOpts + '</select></div>'
+    + '<div><label class="lbl">Título Consolidado do Prato</label><input type="text" id="edTitle_' + ctxType + '_' + keyId + '" value="' + safeTitle + '"></div>'
+    + '<div><label class="lbl">🥩 Proteína Total do Prato (g)</label><input type="number" id="edP_' + ctxType + '_' + keyId + '" step="0.1" value="' + dish.p + '"></div>'
+    + '<div><label class="lbl">🥑 Gordura Total do Prato (g)</label><input type="number" id="edF_' + ctxType + '_' + keyId + '" step="0.1" value="' + dish.f + '"></div>'
+    + '<div><label class="lbl">🥦 Carbo Total do Prato (g)</label><input type="number" id="edC_' + ctxType + '_' + keyId + '" step="0.1" value="' + dish.c + '"></div>'
+    + '<div><label class="lbl">🔥 Calorias Totais do Prato (kcal)</label><input type="number" id="edCal_' + ctxType + '_' + keyId + '" step="1" value="' + dish.cal + '"></div>'
+    + '<div class="full" style="display:flex;gap:8px;margin-top:4px">'
+    + '<button type="button" class="btn btn-g" style="flex:1" onclick="saveIndependentDishEdit(\'' + ctxType + '\',' + keyId + ')">💾 Concluir & Salvar Prato</button>'
+    + '<button type="button" class="btn btn-dk" onclick="cancelIndependentDishEdit(\'' + ctxType + '\')">Fechar</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
 function startEditMeal(id){
-  editingMealId = id;
+  editingMealId = (editingMealId === id) ? null : id;
   renderMeals();
 }
 
 function cancelEditMeal(){
   editingMealId = null;
   renderMeals();
-}
-
-function onEditMealGramsInput(id, oldGrams, baseCal, baseP, baseF, baseC){
-  var newG = num(document.getElementById("edG_"+id).value, oldGrams);
-  if(oldGrams <= 0 || newG <= 0) return;
-  var ratio = newG / oldGrams;
-  document.getElementById("edCal_"+id).value = Math.round(baseCal * ratio);
-  document.getElementById("edP_"+id).value = Math.round(baseP * ratio * 10) / 10;
-  document.getElementById("edF_"+id).value = Math.round(baseF * ratio * 10) / 10;
-  document.getElementById("edC_"+id).value = Math.round(baseC * ratio * 10) / 10;
-
-  var titleInp = document.getElementById("edTitle_"+id);
-  if(titleInp){
-    titleInp.value = titleInp.value.replace(/(\d+(?:[.,]\d+)?)\s*(g\/ml|g|ml)\b/i, newG + "$2");
-  }
-}
-
-function saveEditMeal(id){
-  for(var i=0; i<S.meals.length; i++){
-    if(S.meals[i].id === id){
-      var newSlot = document.getElementById("edSlot_"+id).value;
-      var newTitle = document.getElementById("edTitle_"+id).value.trim() || S.meals[i].title;
-      var newG = num(document.getElementById("edG_"+id).value, 100);
-      var newP = Math.round(num(document.getElementById("edP_"+id).value, 0) * 10) / 10;
-      var newF = Math.round(num(document.getElementById("edF_"+id).value, 0) * 10) / 10;
-      var newC = Math.round(num(document.getElementById("edC_"+id).value, 0) * 10) / 10;
-      var newCal = Math.round(num(document.getElementById("edCal_"+id).value, (newP*4)+(newF*9)+(newC*4)));
-
-      S.meals[i].slot = newSlot;
-      S.meals[i].title = newTitle;
-      S.meals[i].grams = newG;
-      S.meals[i].p = newP;
-      S.meals[i].f = newF;
-      S.meals[i].c = newC;
-      S.meals[i].cal = newCal;
-
-      rememberDishInIdeas({ slot:newSlot, title:newTitle, cal:newCal, p:newP, f:newF, c:newC });
-      break;
-    }
-  }
-  editingMealId = null;
-  renderMeals();
-  refreshBars();
-  save();
-  notify("✏️ Refeição atualizada com sucesso!");
 }
 
 function uncheckSimIdEverywhere(simId){
@@ -2691,47 +3515,25 @@ function clearMeals(){
 function renderMeals(){
   var box = document.getElementById("mealList");
   if(!S.meals.length){
-    box.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:12px;margin-top:8px">Nenhuma refeição lançada hoje. Fotografe seu prato acima, use o roteiro IA, o Simulador ou pesquise!</div>';
+    box.innerHTML = '<div style="text-align:center;padding:16px;font-size:12px;color:var(--mut);border:1px dashed var(--bd);border-radius:12px;margin-top:8px">Nenhuma refeição lançada hoje. Use a busca rápida acima, o Scanner IA ou o Simulador!</div>';
     return;
   }
-  var slotsList = ["☕ Café da Manhã","🍽️ Almoço","🥤 Lanche / Pós-Treino","🌙 Jantar"];
   box.innerHTML = S.meals.map(function(m){
+    ensureDishItems(m);
     var isEditing = (editingMealId === m.id);
-    var curG = extractGramsFromTitle(m.title, m.grams);
-    var safeTitle = String(m.title || "").replace(/"/g, "&quot;");
-
-    var editHtml = "";
-    if(isEditing){
-      var slotOpts = slotsList.map(function(sl){
-        return '<option ' + (sl === m.slot ? 'selected' : '') + '>' + sl + '</option>';
-      }).join("");
-      editHtml = '<div class="m-edit-box">'
-        + '<div style="font-size:11.5px;font-weight:800;color:#38bdf8;margin-bottom:8px">✏️ Editando Refeição (Altere o peso p/ recalcular ou edite os macros):</div>'
-        + '<div class="g2">'
-        + '<div><label class="lbl">Refeição</label><select id="edSlot_'+m.id+'">'+slotOpts+'</select></div>'
-        + '<div><label class="lbl">Peso / Qtd (g ou ml)</label><input type="number" id="edG_'+m.id+'" value="'+curG+'" min="1" step="5" oninput="onEditMealGramsInput('+m.id+','+curG+','+m.cal+','+m.p+','+m.f+','+m.c+')"></div>'
-        + '<div class="full"><label class="lbl">Nome / Descrição</label><input type="text" id="edTitle_'+m.id+'" value="'+safeTitle+'"></div>'
-        + '<div><label class="lbl">🥩 Proteínas (g)</label><input type="number" id="edP_'+m.id+'" step="0.1" value="'+m.p+'"></div>'
-        + '<div><label class="lbl">🥑 Gorduras (g)</label><input type="number" id="edF_'+m.id+'" step="0.1" value="'+m.f+'"></div>'
-        + '<div><label class="lbl">🥦 Carboidratos (g)</label><input type="number" id="edC_'+m.id+'" step="0.1" value="'+m.c+'"></div>'
-        + '<div><label class="lbl">🔥 Calorias (kcal)</label><input type="number" id="edCal_'+m.id+'" step="1" value="'+m.cal+'"></div>'
-        + '<div class="full" style="display:flex;gap:8px;margin-top:4px">'
-        + '<button type="button" class="btn btn-g" style="flex:1" onclick="saveEditMeal('+m.id+')">💾 Salvar Alterações</button>'
-        + '<button type="button" class="btn btn-dk" onclick="cancelEditMeal()">Cancelar</button>'
-        + '</div>'
-        + '</div>'
-        + '</div>';
-    }
+    var breakdownHtml = renderDishBreakdownBadges(m);
+    var editHtml = isEditing ? renderIndependentEditorBox("diary", m.id, m) : "";
 
     return '<div class="m-it">'
       + '<div class="m-it-row">'
-      + '<div>'
+      + '<div style="flex:1;min-width:200px">'
       + '<span class="bdg bdg-o" style="font-size:10px">'+m.slot+'</span>'
-      + '<div style="font-size:12.5px;font-weight:700;color:#fff;margin-top:4px">'+m.title+'</div>'
-      + '<div style="font-size:11px;color:var(--mut);margin-top:2px">🔥 <strong style="color:#fb923c">'+m.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:#38bdf8">'+m.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+m.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:#10b981">'+m.c+'g C</strong></div>'
+      + '<div style="font-size:12.5px;font-weight:700;color:var(--txt);margin-top:4px">'+m.title+'</div>'
+      + breakdownHtml
+      + '<div style="font-size:11px;color:var(--mut);margin-top:4px">🔥 <strong style="color:#fb923c">'+m.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:#38bdf8">'+m.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+m.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:#10b981">'+m.c+'g C</strong></div>'
       + '</div>'
       + '<div style="display:flex;gap:6px;align-items:center">'
-      + '<button type="button" class="btn btn-ed" onclick="startEditMeal('+m.id+')">✏️ Editar</button>'
+      + '<button type="button" class="btn btn-ed" onclick="startEditMeal('+m.id+')">✏️ Editar Itens</button>'
       + '<button type="button" class="btn btn-x" onclick="delMeal('+m.id+')">✕</button>'
       + '</div>'
       + '</div>'
@@ -2741,7 +3543,7 @@ function renderMeals(){
 }
 
 // ============================================================================
-// ABA SIMULADOR DUPLO: HOJE (COM OU SEM LANÇADOS) VS. AMANHÃ (SEMPRE DO ZERO)
+// ABA SIMULADOR DUPLO: HOJE VS. AMANHÃ + BOTÃO TROCAR PF ESPECÍFICO DO ZERO
 // ============================================================================
 function getActiveSimList(){
   if(S.simScope === "tomorrow"){
@@ -2846,8 +3648,7 @@ function addSimMealManual(){
   var cal = calRaw !== "" ? Math.round(num(calRaw, 0)) : Math.round((p*4)+(f*9)+(c*4));
   var fullTitle = name.indexOf("(") !== -1 && name.indexOf("g") !== -1 ? name : (name + " (" + g + "g/ml)");
 
-  var list = getActiveSimList();
-  list.push({
+  var smObj = {
     id: Date.now() + Math.random(),
     slot: slot,
     title: fullTitle,
@@ -2857,9 +3658,13 @@ function addSimMealManual(){
     f: f,
     c: c,
     checked: false
-  });
+  };
+  ensureDishItems(smObj);
 
-  rememberDishInIdeas({ slot:slot, title:fullTitle, cal:cal, p:p, f:f, c:c });
+  var list = getActiveSimList();
+  list.push(smObj);
+
+  rememberDishInIdeas({ slot:slot, title:fullTitle, cal:cal, p:p, f:f, c:c, items:smObj.items });
 
   S.simCurBase = null;
   document.getElementById("simName").value = "";
@@ -2875,8 +3680,6 @@ function addSimMealManual(){
 }
 
 function generateSimFromIngredients(){
-  // Se estiver no Simulador de Amanhã, SEMPRE gera o dia inteiro do zero ("full"), ignorando os lançamentos de hoje!
-  // Se estiver no Simulador de Hoje e "Somar com lançados" estiver ativo (e houver refeições hoje), gera o restante ("remaining")!
   var calcMode = "full";
   if(S.simScope === "today" && S.simIncludeToday && S.meals.length > 0){
     calcMode = "remaining";
@@ -2884,14 +3687,17 @@ function generateSimFromIngredients(){
   var meals = buildSmartMathematicalMeals(calcMode);
   var list = getActiveSimList();
   for(var i=0; i<meals.length; i++){
+    ensureDishItems(meals[i]);
     list.push({
       id: Date.now() + Math.random() + i,
       slot: meals[i].slot,
       title: meals[i].title,
+      grams: meals[i].grams,
       cal: meals[i].cal,
       p: meals[i].p,
       f: meals[i].f,
       c: meals[i].c,
+      items: JSON.parse(JSON.stringify(meals[i].items)),
       checked: false
     });
   }
@@ -2899,8 +3705,85 @@ function generateSimFromIngredients(){
   renderSimMeals();
   save();
   notify(S.simScope === "tomorrow"
-    ? "🌙 Dia de Amanhã simulado 100% do zero! Dê ✅ Check quando quiser lançar."
-    : "☀️ Simulação de Hoje gerada! Dê ✅ Check quando quiser lançar.");
+    ? "🌙 Dia de Amanhã simulado 100% do zero! Use 🔄 Trocar PF em qualquer prato se quiser variar."
+    : "☀️ Simulação de Hoje gerada! Use 🔄 Trocar PF ou dê ✅ Check quando quiser lançar.");
+}
+
+// BOTÃO TROCAR PF SIMULADO DO ZERO ESPECÍFICO (NOVA PESQUISA SÓ PARA AQUELE PRATO MANTENDO OS LIMITES NUTRICIONAIS)
+function rerollSimMeal(id){
+  var list = getActiveSimList();
+  var targetIdx = -1;
+  for(var i=0; i<list.length; i++){
+    if(list[i].id === id){ targetIdx = i; break; }
+  }
+  if(targetIdx === -1) return;
+
+  var cur = list[targetIdx];
+  var isTomorrow = (S.simScope === "tomorrow");
+
+  // Soma todos os OUTROS pratos da simulação (+ lançados de hoje se aplicável) para manter estritamente dentro dos limites nutricionais
+  var otherCal = 0, otherP = 0, otherC = 0;
+  var simIds = {};
+  for(var k=0; k<list.length; k++) simIds[list[k].id] = true;
+
+  if(!isTomorrow && S.simIncludeToday){
+    for(var m=0; m<S.meals.length; m++){
+      if(!S.meals[m].simId || !simIds[S.meals[m].simId]){
+        otherCal += num(S.meals[m].cal, 0);
+        otherP += num(S.meals[m].p, 0);
+        otherC += num(S.meals[m].c, 0);
+      }
+    }
+  }
+
+  for(var j=0; j<list.length; j++){
+    if(j !== targetIdx){
+      otherCal += num(list[j].cal, 0);
+      otherP += num(list[j].p, 0);
+      otherC += num(list[j].c, 0);
+    }
+  }
+
+  var budgetCal = S.targets.cal - otherCal;
+  var budgetP = S.targets.p - otherP;
+  var budgetC = Math.max(S.targets.c - otherC, 2);
+
+  // Se houver poucos itens na lista e a sobra do dia for muito alta p/ 1 refeição só, usa a meta proporcional daquela refeição
+  if(list.length <= 2 && budgetCal > S.targets.cal * 0.55){
+    budgetCal = Math.max(cur.cal || Math.round(S.targets.cal * 0.30), 280);
+    budgetP = Math.max(cur.p || Math.round(S.targets.p * 0.30), 30);
+  } else {
+    budgetCal = Math.max(budgetCal, 200);
+    budgetP = Math.max(budgetP, 22);
+  }
+
+  var freshDish = buildSingleSlotSmartDish(cur.slot, budgetCal, budgetP, budgetC, cur.title);
+  cur.title = freshDish.title;
+  cur.grams = freshDish.grams;
+  cur.cal = freshDish.cal;
+  cur.p = freshDish.p;
+  cur.f = freshDish.f;
+  cur.c = freshDish.c;
+  cur.items = JSON.parse(JSON.stringify(freshDish.items));
+
+  syncLinkedRecordsAfterEdit("sim", cur);
+
+  rememberDishInIdeas({
+    slot: cur.slot,
+    title: cur.title,
+    desc: "Nova pesquisa individual do zero dentro da meta nutricional.",
+    cal: cur.cal,
+    p: cur.p,
+    f: cur.f,
+    c: cur.c,
+    items: cur.items
+  });
+
+  renderSimMeals();
+  renderMeals();
+  refreshBars();
+  save();
+  notify("🔄 Nova pesquisa feita do zero p/ " + cur.slot + ": " + cur.title + "!");
 }
 
 function toggleCheckSimMeal(id){
@@ -2908,6 +3791,7 @@ function toggleCheckSimMeal(id){
   for(var i=0; i<list.length; i++){
     var sm = list[i];
     if(sm.id === id){
+      ensureDishItems(sm);
       if(!sm.checked){
         sm.checked = true;
         S.meals.push({
@@ -2920,7 +3804,8 @@ function toggleCheckSimMeal(id){
           cal: sm.cal,
           p: sm.p,
           f: sm.f,
-          c: sm.c
+          c: sm.c,
+          items: JSON.parse(JSON.stringify(sm.items))
         });
         notify("✅ Check! Refeição lançada no Diário Oficial!");
       } else {
@@ -2943,6 +3828,7 @@ function checkAllSimMeals(){
   var added = 0;
   for(var i=0; i<list.length; i++){
     var sm = list[i];
+    ensureDishItems(sm);
     if(!sm.checked){
       sm.checked = true;
       S.meals.push({
@@ -2955,7 +3841,8 @@ function checkAllSimMeals(){
         cal: sm.cal,
         p: sm.p,
         f: sm.f,
-        c: sm.c
+        c: sm.c,
+        items: JSON.parse(JSON.stringify(sm.items))
       });
       added++;
     }
@@ -2987,64 +3874,13 @@ function clearSimMeals(){
 }
 
 function startEditSimMeal(id){
-  editingSimId = id;
+  editingSimId = (editingSimId === id) ? null : id;
   renderSimMeals();
 }
 
 function cancelEditSimMeal(){
   editingSimId = null;
   renderSimMeals();
-}
-
-function onEditSimGramsInput(id, oldGrams, baseCal, baseP, baseF, baseC){
-  var newG = num(document.getElementById("edSimG_"+id).value, oldGrams);
-  if(oldGrams <= 0 || newG <= 0) return;
-  var ratio = newG / oldGrams;
-  document.getElementById("edSimCal_"+id).value = Math.round(baseCal * ratio);
-  document.getElementById("edSimP_"+id).value = Math.round(baseP * ratio * 10) / 10;
-  document.getElementById("edSimF_"+id).value = Math.round(baseF * ratio * 10) / 10;
-  document.getElementById("edSimC_"+id).value = Math.round(baseC * ratio * 10) / 10;
-  var tInp = document.getElementById("edSimTitle_"+id);
-  if(tInp){
-    tInp.value = tInp.value.replace(/(\d+(?:[.,]\d+)?)\s*(g\/ml|g|ml)/i, newG + "$2");
-  }
-}
-
-function saveEditSimMeal(id){
-  var list = getActiveSimList();
-  for(var i=0; i<list.length; i++){
-    if(list[i].id === id){
-      var sm = list[i];
-      sm.slot = document.getElementById("edSimSlot_"+id).value;
-      sm.title = document.getElementById("edSimTitle_"+id).value.trim() || sm.title;
-      sm.grams = num(document.getElementById("edSimG_"+id).value, 100);
-      sm.p = Math.round(num(document.getElementById("edSimP_"+id).value, 0) * 10) / 10;
-      sm.f = Math.round(num(document.getElementById("edSimF_"+id).value, 0) * 10) / 10;
-      sm.c = Math.round(num(document.getElementById("edSimC_"+id).value, 0) * 10) / 10;
-      sm.cal = Math.round(num(document.getElementById("edSimCal_"+id).value, (sm.p*4)+(sm.f*9)+(sm.c*4)));
-
-      if(sm.checked){
-        for(var j=0; j<S.meals.length; j++){
-          if(S.meals[j].simId === sm.id){
-            S.meals[j].slot = sm.slot;
-            S.meals[j].title = sm.title;
-            S.meals[j].grams = sm.grams;
-            S.meals[j].p = sm.p;
-            S.meals[j].f = sm.f;
-            S.meals[j].c = sm.c;
-            S.meals[j].cal = sm.cal;
-          }
-        }
-      }
-      break;
-    }
-  }
-  editingSimId = null;
-  renderSimMeals();
-  renderMeals();
-  refreshBars();
-  save();
-  notify("✏️ Item do Simulador atualizado!");
 }
 
 function delSimMeal(id){
@@ -3060,7 +3896,6 @@ function refreshSimBars(){
   var list = getActiveSimList();
   var tot = { cal:0, p:0, f:0, c:0 }, checkedCount = 0;
 
-  // Calcula quanto já foi lançado no Diário de Hoje (excluindo itens que vieram desta lista do simulador para não duplicar)
   var simIds = {};
   for(var k=0; k<list.length; k++) simIds[list[k].id] = true;
 
@@ -3077,8 +3912,6 @@ function refreshSimBars(){
   var alrLbl = document.getElementById("simAlreadyCalLbl");
   if(alrLbl) alrLbl.textContent = Math.round(baseToday.cal) + " kcal";
 
-  // Se for HOJE e a opção "Somar com lançados" estiver marcada, parte da base de hoje;
-  // Se for AMANHÃ, parte SEMPRE de ZERO (0 kcal, 0g P, 0g G, 0g C)!
   if(!isTomorrow && S.simIncludeToday){
     tot.cal += baseToday.cal;
     tot.p += baseToday.p;
@@ -3160,51 +3993,31 @@ function renderSimMeals(){
       + '</div>';
     return;
   }
-  var slotsList = ["☕ Café da Manhã","🍽️ Almoço","🥤 Lanche / Pós-Treino","🌙 Jantar"];
   box.innerHTML = list.map(function(sm){
+    ensureDishItems(sm);
     var isEditing = (editingSimId === sm.id);
-    var curG = extractGramsFromTitle(sm.title, sm.grams);
-    var safeTitle = String(sm.title || "").replace(/"/g, "&quot;");
     var borderCol = sm.checked ? "var(--grn)" : (isTomorrow ? "var(--pur)" : "var(--blu)");
 
     var checkBtn = sm.checked
-      ? '<button type="button" class="btn btn-g" style="padding:7px 11px;font-size:11.5px" onclick="toggleCheckSimMeal('+sm.id+')">✅ Lançado (Desfazer)</button>'
-      : '<button type="button" class="btn btn-dk" style="padding:7px 11px;font-size:11.5px;border-color:var(--grn);color:var(--grn)" onclick="toggleCheckSimMeal('+sm.id+')">⬜ Check (Lançar)</button>';
+      ? '<button type="button" class="btn btn-g" style="padding:7px 10px;font-size:11px" onclick="toggleCheckSimMeal('+sm.id+')">✅ Lançado (Desfazer)</button>'
+      : '<button type="button" class="btn btn-dk" style="padding:7px 10px;font-size:11px;border-color:var(--grn);color:var(--grn)" onclick="toggleCheckSimMeal('+sm.id+')">⬜ Check (Lançar)</button>';
 
-    var editHtml = "";
-    if(isEditing){
-      var slotOpts = slotsList.map(function(sl){
-        return '<option ' + (sl === sm.slot ? 'selected' : '') + '>' + sl + '</option>';
-      }).join("");
-      editHtml = '<div class="m-edit-box">'
-        + '<div style="font-size:11.5px;font-weight:800;color:var(--blu);margin-bottom:8px">✏️ Editando Refeição do Simulador:</div>'
-        + '<div class="g2">'
-        + '<div><label class="lbl">Refeição</label><select id="edSimSlot_'+sm.id+'">'+slotOpts+'</select></div>'
-        + '<div><label class="lbl">Peso / Qtd (g ou ml)</label><input type="number" id="edSimG_'+sm.id+'" value="'+curG+'" min="1" step="5" oninput="onEditSimGramsInput('+sm.id+','+curG+','+sm.cal+','+sm.p+','+sm.f+','+sm.c+')"></div>'
-        + '<div class="full"><label class="lbl">Nome / Descrição</label><input type="text" id="edSimTitle_'+sm.id+'" value="'+safeTitle+'"></div>'
-        + '<div><label class="lbl">🥩 Proteínas (g)</label><input type="number" id="edSimP_'+sm.id+'" step="0.1" value="'+sm.p+'"></div>'
-        + '<div><label class="lbl">🥑 Gorduras (g)</label><input type="number" id="edSimF_'+sm.id+'" step="0.1" value="'+sm.f+'"></div>'
-        + '<div><label class="lbl">🥦 Carboidratos (g)</label><input type="number" id="edSimC_'+sm.id+'" step="0.1" value="'+sm.c+'"></div>'
-        + '<div><label class="lbl">🔥 Calorias (kcal)</label><input type="number" id="edSimCal_'+sm.id+'" step="1" value="'+sm.cal+'"></div>'
-        + '<div class="full" style="display:flex;gap:8px;margin-top:4px">'
-        + '<button type="button" class="btn btn-g" style="flex:1" onclick="saveEditSimMeal('+sm.id+')">💾 Salvar no Simulador</button>'
-        + '<button type="button" class="btn btn-dk" onclick="cancelEditSimMeal()">Cancelar</button>'
-        + '</div>'
-        + '</div>'
-        + '</div>';
-    }
+    var breakdownHtml = renderDishBreakdownBadges(sm);
+    var editHtml = isEditing ? renderIndependentEditorBox("sim", sm.id, sm) : "";
 
     return '<div class="m-it" style="border-left-color:'+borderCol+'">'
       + '<div class="m-it-row">'
-      + '<div>'
+      + '<div style="flex:1;min-width:210px">'
       + '<span class="bdg '+(isTomorrow ? 'bdg-ai' : 'bdg-b')+'" style="font-size:10px">'+(isTomorrow ? '🌙 Amanhã • ' : '☀️ Hoje • ')+sm.slot+'</span> '
       + (sm.checked ? '<span class="bdg" style="font-size:10px">✅ No Diário</span>' : '<span class="bdg bdg-w" style="font-size:10px">⏳ Só Simulado</span>')
       + '<div style="font-size:12.5px;font-weight:700;color:var(--txt);margin-top:4px;'+(sm.checked ? 'text-decoration:line-through;opacity:0.65' : '')+'">'+sm.title+'</div>'
-      + '<div style="font-size:11px;color:var(--mut);margin-top:2px">🔥 <strong style="color:var(--org)">'+sm.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:var(--blu)">'+sm.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+sm.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:var(--grn)">'+sm.c+'g C</strong></div>'
+      + breakdownHtml
+      + '<div style="font-size:11px;color:var(--mut);margin-top:4px">🔥 <strong style="color:var(--org)">'+sm.cal+' kcal</strong> &nbsp;•&nbsp; 🥩 <strong style="color:var(--blu)">'+sm.p+'g P</strong> &nbsp;•&nbsp; 🥑 '+sm.f+'g G &nbsp;•&nbsp; 🥦 <strong style="color:var(--grn)">'+sm.c+'g C</strong></div>'
       + '</div>'
-      + '<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">'
+      + '<div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap">'
       + checkBtn
-      + '<button type="button" class="btn btn-ed" onclick="startEditSimMeal('+sm.id+')">✏️ Editar</button>'
+      + '<button type="button" class="btn-reroll" onclick="rerollSimMeal('+sm.id+')" title="Fazer nova pesquisa do zero somente para este prato mantendo dentro dos limites nutricionais">🔄 Trocar PF</button>'
+      + '<button type="button" class="btn btn-ed" onclick="startEditSimMeal('+sm.id+')">✏️ Editar Itens</button>'
       + '<button type="button" class="btn btn-x" onclick="delSimMeal('+sm.id+')">✕</button>'
       + '</div>'
       + '</div>'
@@ -3427,7 +4240,9 @@ function renderHist(){
   }
   if(S.geminiKey) document.getElementById("geminiKey").value = S.geminiKey;
   applyTheme();
+  applySlimMode();
   restoreElec();
+  restoreCollapsedSections();
   renderIdeasGrid();
   calcAll(); renderMeals(); renderSimMeals(); setWkMode(S.mode||"3x"); renderHist(); renderAiPlan();
   if(S.view && S.view !== "all") switchView(S.view);
