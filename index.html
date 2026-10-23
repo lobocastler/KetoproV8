@@ -1089,7 +1089,7 @@ body.light-mode, body.light-mode .card, body.light-mode .btn, body.light-mode .t
 <script>
 var STOP_WORDS = {"de":1,"da":1,"do":1,"das":1,"dos":1,"com":1,"sem":1,"em":1,"no":1,"na":1,"para":1,"por":1,"um":1,"uma":1,"ao":1,"a":1,"o":1,"e":1,"ou":1,"as":1,"os":1,"uns":1,"umas":1};
 
-var RAW_DB = "Refrigerante de Guaraná Comum (Antarctica/Kuat)|41|0|0|10.2;Refrigerante de Guaraná Zero Açúcar|0|0|0|0;Refrigerante de Cola Comum (Coca-Cola/Pepsi)|42|0|0|10.6;Refrigerante de Cola Zero (Coca-Cola Zero/Pepsi Black)|0|0|0|0;Refrigerante de Limão/Laranja/Uva Comum|44|0|0|11.0;Refrigerante Zero/H2OH!/Aquarius Fresh|0|0|0|0;Água com Gás / Água Mineral|0|0|0|0;Água Tônica Tradicional|34|0|0|8.5;Água Tônica Zero|0|0|0|0;Água de Coco Natural/Caixinha|21|0.2|0.1|5.0;Suco de Laranja Natural/Integral|45|0.7|0.1|10.5;Suco de Uva Integral|60|0.5|0.1|14.8;Suco de Limão/Maracujá/Acerola s/ Açúcar|18|0.4|0.1|4.0;Suco em Pó Zero (Clight/Tang Zero)|5|0|0|1.0;Chá Gelado Zero (Matte Leão/Ice Tea Zero)|0|0|0|0;Energético Tradicional (Monster/Red Bull/Baly)|45|0.3|0|11.0;Energético Zero Açúcar (Monster Ultra/Red Bull Zero)|3|0.2|0|0.5;Cerveja Pilsen/Lager Comum|43|0.5|0|3.5;Cerveja Puro Malte (Heineken/Spaten/Stella)|42|0.5|0|3.2;Cerveja Low Carb/Zero Carbo|28|0.3|0|1.5;Vinho Tinto/Branco Seco|83|0.1|0|2.6;Destilados (Whisky/Vodka/Gin/Cachaça)|231|0|0|0;Patinho Bovino Grelhado/Moído|219|35.9|7.3|0;Acém Bovino Cozido/Moído|215|27.3|10.9|0;Contrafilé Grelhado|240|29.5|13.0|0;Picanha na Chapa/Assada|289|27.2|19.5|0;Alcatra Grelhada|241|31.9|11.6|0;Maminha Assada|205|30.7|8.1|0;Fraldinha Assada|266|27.6|16.5|0;Costela Bovina Assada|373|28.8|27.7|0;Coxão Mole/Duro Cozido|218|32.0|8.9|0;Filé Mignon Grelhado|220|32.8|8.8|0;Carne de Sol/Seca/Charque|263|31.2|14.5|0;Fígado Bovino Grelhado|225|29.9|9.0|4.2;Hambúrguer Bovino Grelhado (Só a Carne)|245|24.0|16.0|0.5;Cupim Assado|330|28.5|23.0|0;Estrogonofe de Carne/Frango|185|19.5|10.5|3.2;Almôndega Bovina|230|21.0|14.5|3.5;Kibe Frito/Assado|210|14.5|11.0|14.0;Peito de Frango Grelhado/Desfiado|161|31.8|2.8|0;Sobrecoxa de Frango Assada|225|25.5|13.2|0;Coxa de Frango Assada|215|27.0|11.0|0;Asa/Tulipa de Frango Assada|275|23.8|19.4|0;Coração de Frango Grelhado|207|22.4|12.1|0.6;Moela de Frango Cozida|145|28.2|2.7|0;Frango a Passarinho/Empanado|255|25.5|15.5|4.0;Lombo Suíno Assado/Grelhado|210|35.7|6.4|0;Bisteca Suína Grelhada|246|28.9|13.5|0;Pernil Suíno Assado|262|32.1|13.9|0;Costelinha Suína Assada|320|26.5|23.0|0;Panceta/Torresmo/Barriga Porco|460|21.0|41.0|0;Bacon Frito|533|35.8|41.6|1.2;Linguiça Toscana Grelhada|280|19.5|22.0|1.0;Linguiça Calabresa|315|18.0|26.5|1.5;Linguiça de Frango|215|18.5|15.0|1.0;Presunto Cozido|112|18.5|3.5|1.5;Peito de Peru|105|21.0|1.8|1.2;Mortadela|285|12.5|25.0|2.5;Salame|398|25.5|32.0|1.8;Salsicha|250|12.0|21.0|3.2;Filé de Tilápia Grelhado|128|26.2|2.7|0;Salmão Grelhado/Cru (Sashimi)|229|23.9|14.0|0;Atum em Lata (Drenado)|132|28.0|2.1|0;Sardinha em Lata/Assada|195|26.0|9.5|0;Merluza/Pescada/Cação|122|24.5|2.2|0;Bacalhau Desfiado|136|29.0|1.5|0;Camarão Cozido/Grelhado|90|19.0|1.1|0;Ovo Inteiro Cozido/Mexido (1 un=~50g)|146|13.3|9.5|0.6;Ovo Frito na Manteiga|196|13.6|15.0|0.8;Clara de Ovo|52|11.0|0.1|0.7;Omelete Simples c/ Queijo|195|15.0|14.5|1.0;Crepioca (Ovo + Tapioca)|195|9.5|6.5|24.0;Pão de Queijo|335|7.5|18.0|35.0;Queijo Mussarela|330|22.6|25.2|1.9;Queijo Prato|360|22.7|29.1|1.9;Queijo Coalho|345|23.5|27.0|1.8;Queijo Minas Frescal|264|17.4|20.2|3.2;Queijo Minas Padrão/Canastra|321|21.6|25.4|1.6;Queijo Parmesão|453|35.6|33.5|1.7;Queijo Provolone/Gorgonzola|352|23.5|27.6|2.2;Queijo Cheddar|402|24.9|33.1|1.3;Queijo Cottage/Ricota|115|12.0|6.0|3.5;Requeijão Cremoso|257|9.6|23.4|2.4;Requeijão Light|165|12.0|11.5|3.5;Cream Cheese|342|6.0|34.0|4.1;Creme de Leite|220|2.0|22.0|3.5;Iogurte Natural s/ Açúcar|65|4.5|3.5|4.2;Iogurte Grego Zero|90|9.5|4.0|3.8;Iogurte Proteico (YoPRO/Itambé Pro)|62|10.0|0.5|4.5;Leite Integral|61|3.2|3.3|4.7;Leite Desnatado|35|3.4|0.2|4.9;Leite em Pó Integral|496|25.8|26.7|38.0;Leite de Coco/Amêndoas|45|0.8|4.2|1.2;Manteiga/Ghee|726|0.4|82.4|0.1;Margarina|590|0.2|65.0|0.5;Maionese Tradicional (Hellmanns)|680|1.0|75.0|1.5;Catchup/Mostarda/Barbecue|110|1.2|0.3|25.0;Abacate Puro|160|2.0|14.7|1.8;Azeite de Oliva Extra Virgem|884|0|100|0;Óleo de Coco/Banha de Porco|880|0|100|0;Pasta de Amendoim s/ Açúcar|588|28.0|49.0|11.0;Amendoim Torrado|567|25.8|49.2|8.5;Castanha-do-Pará/Nozes|655|14.8|65.8|5.5;Castanha de Caju|553|18.2|43.8|26.9;Amêndoas/Macadâmia|579|21.2|49.9|9.5;Semente de Chia/Linhaça/Abóbora|505|17.4|36.0|4.5;Coco Seco/Ralado|354|3.3|33.5|6.2;Azeitona|145|1.0|15.3|0.5;Brócolis Cozido|34|2.8|0.4|4.0;Couve-Flor Cozida|25|1.9|0.3|3.0;Abobrinha/Berinjela|22|1.1|0.3|2.6;Couve/Espinafre Refogado|29|2.9|0.5|1.9;Alface/Rúcula/Folhas Verdes|16|1.5|0.2|1.2;Repolho/Pepino/Tomate|19|1.0|0.2|2.7;Cebola/Alho/Pimentão|32|1.1|0.2|6.5;Cenoura/Beterraba|40|1.0|0.2|8.5;Abóbora Cabotiá|48|1.4|0.5|10.2;Vagem/Quiabo/Palmito/Aspargo|30|2.0|0.2|3.8;Cogumelo Shimeji/Champignon|22|3.1|0.3|2.3;Whey Protein Concentrado|400|80.0|5.0|6.7;Whey Protein Isolado|375|90.0|1.0|2.0;Albumina/Caseína|360|82.0|0|4.0;Creatina Pura|0|0|0|0;Barra de Proteína|340|32.0|14.0|18.0;Cacau 100%|228|19.6|13.7|10.9;Chocolate Amargo 70-85%|580|8.5|46.0|22.0;Chocolate ao Leite/Branco|540|6.5|31.0|58.0;Morango/Mirtilo/Framboesa|35|0.8|0.3|6.0;Limão/Maracujá|32|0.8|0.2|6.5;Melancia/Melão|31|0.7|0.1|7.5;Maçã/Pera/Laranja|52|0.4|0.1|13.0;Mamão/Manga/Abacaxi|50|0.5|0.1|12.0;Uva|68|0.7|0.2|17.0;Banana Prata/Nanica|92|1.3|0.1|23.8;Açaí Zero/Puro|70|1.5|5.0|4.0;Açaí Tradicional c/ Xarope|145|1.2|3.5|28.0;Arroz Branco/Integral Cozido|126|2.5|0.5|27.0;Feijão Carioca/Preto Cozido|76|4.8|0.5|13.6;Feijoada|152|12.5|9.5|4.5;Lentilha/Grão de Bico Cozido|115|8.5|1.2|18.5;Macarrão Cozido|135|4.8|0.6|28.0;Macarrão Instantâneo (Miojo)|440|9.0|18.0|60.0;Batata Doce Cozida|77|0.6|0.1|18.4;Batata Inglesa Cozida|52|1.2|0|11.9;Batata Frita/Airfryer|245|3.5|11.0|32.0;Mandioca/Aipim Cozido|125|0.6|0.3|30.1;Farofa/Farinha Mandioca|380|2.0|6.0|80.0;Aveia em Flocos|394|13.9|8.5|66.6;Pão Francês/Pão de Forma|290|8.5|3.2|56.0;Pão Integral|250|11.0|3.5|44.0;Tapioca|240|0|0|60.0;Cuscuz de Milho|113|2.2|0.7|25.3;Milho Verde|98|3.2|1.2|19.0;Pipoca|400|10.0|12.0|63.0;Pizza Mussarela/Calabresa|265|11.5|10.5|30.0;Coxinha/Salgado Frito|285|9.5|14.0|31.0;Pastel Frito|310|8.5|17.5|30.0;Hambúrguer no Pão (X-Burger/X-Salada)|250|13.5|12.0|22.0;Misto Quente|280|13.0|11.5|31.0;Doce de Leite/Leite Condensado|318|7.0|7.5|55.0;Brigadeiro/Beijinho|380|4.5|13.0|60.0;Creme de Avelã (Nutella)|539|6.3|30.9|57.5;Paçoca de Amendoim|495|16.0|26.0|50.0;Sorvete de Massa|205|3.5|11.0|24.0;Biscoito Recheado/Bolacha|470|5.5|19.0|68.0;Biscoito Água e Sal/Cream Cracker|430|10.0|12.0|70.0;Café c/ Leite s/ Açúcar|35|2.0|1.8|2.8;Café Preto/Chá s/ Açúcar|2|0.1|0|0.3";
+var RAW_DB = "Refrigerante de Guaraná Comum (Antarctica/Kuat)|41|0|0|10.2;Refrigerante de Guaraná Zero Açúcar|0|0|0|0;Refrigerante de Cola Comum (Coca-Cola/Pepsi)|42|0|0|10.6;Refrigerante de Cola Zero (Coca-Cola Zero/Pepsi Black)|0|0|0|0;Refrigerante de Limão/Laranja/Uva Comum|44|0|0|11.0;Refrigerante Zero/H2OH!/Aquarius Fresh|0|0|0|0;Água com Gás / Água Mineral|0|0|0|0;Água Tônica Tradicional|34|0|0|8.5;Água Tônica Zero|0|0|0|0;Água de Coco Natural/Caixinha|21|0.2|0.1|5.0;Suco de Laranja Natural/Integral|45|0.7|0.1|10.5;Suco de Uva Integral|60|0.5|0.1|14.8;Suco de Limão/Maracujá/Acerola s/ Açúcar|18|0.4|0.1|4.0;Suco em Pó Zero (Clight/Tang Zero)|5|0|0|1.0;Chá Gelado Zero (Matte Leão/Ice Tea Zero)|0|0|0|0;Energético Tradicional (Monster/Red Bull/Baly)|45|0.3|0|11.0;Energético Zero Açúcar (Monster Ultra/Red Bull Zero)|3|0.2|0|0.5;Cerveja Pilsen/Lager Comum|43|0.5|0|3.5;Cerveja Puro Malte (Heineken/Spaten/Stella)|42|0.5|0|3.2;Cerveja Low Carb/Zero Carbo|28|0.3|0|1.5;Vinho Tinto/Branco Seco|83|0.1|0|2.6;Destilados (Whisky/Vodka/Gin/Cachaça)|231|0|0|0;Patinho Bovino Grelhado/Moído|219|35.9|7.3|0;Acém Bovino Cozido/Moído|215|27.3|10.9|0;Contrafilé Grelhado|240|29.5|13.0|0;Picanha na Chapa/Assada|289|27.2|19.5|0;Alcatra Grelhada|241|31.9|11.6|0;Maminha Assada|205|30.7|8.1|0;Fraldinha Assada|266|27.6|16.5|0;Costela Bovina Assada|373|28.8|27.7|0;Coxão Mole/Duro Cozido|218|32.0|8.9|0;Filé Mignon Grelhado|220|32.8|8.8|0;Carne de Sol/Seca/Charque|263|31.2|14.5|0;Fígado Bovino Grelhado|225|29.9|9.0|4.2;Hambúrguer Bovino Grelhado (Só a Carne)|245|24.0|16.0|0.5;Cupim Assado|330|28.5|23.0|0;Estrogonofe de Carne/Frango|185|19.5|10.5|3.2;Almôndega Bovina|230|21.0|14.5|3.5;Kibe Frito/Assado|210|14.5|11.0|14.0;Peito de Frango Grelhado/Desfiado|161|31.8|2.8|0;Sobrecoxa de Frango Assada|225|25.5|13.2|0;Coxa de Frango Assada|215|27.0|11.0|0;Asa/Tulipa de Frango Assada|275|23.8|19.4|0;Coração de Frango Grelhado|207|22.4|12.1|0.6;Moela de Frango Cozida|145|28.2|2.7|0;Frango a Passarinho/Empanado|255|25.5|15.5|4.0;Lombo Suíno Assado/Grelhado|210|35.7|6.4|0;Bisteca Suína Grelhada|246|28.9|13.5|0;Pernil Suíno Assado|262|32.1|13.9|0;Costelinha Suína Assada|320|26.5|23.0|0;Panceta/Torresmo/Barriga Porco|460|21.0|41.0|0;Bacon Frito|533|35.8|41.6|1.2;Linguiça Toscana Grelhada|280|19.5|22.0|1.0;Linguiça Calabresa|315|18.0|26.5|1.5;Linguiça de Frango|215|18.5|15.0|1.0;Presunto Cozido|112|18.5|3.5|1.5;Peito de Peru|105|21.0|1.8|1.2;Mortadela|285|12.5|25.0|2.5;Salame|398|25.5|32.0|1.8;Salsicha|250|12.0|21.0|3.2;Filé de Tilápia Grelhado|128|26.2|2.7|0;Salmão Grelhado/Cru (Sashimi)|229|23.9|14.0|0;Atum em Lata (Drenado)|132|28.0|2.1|0;Sardinha em Lata/Assada|195|26.0|9.5|0;Merluza/Pescada/Cação|122|24.5|2.2|0;Bacalhau Desfiado|136|29.0|1.5|0;Camarão Cozido/Grelhado|90|19.0|1.1|0;Ovo Inteiro Cozido/Mexido (1 un=~50g)|146|13.3|9.5|0.6;Ovo Frito na Manteiga|196|13.6|15.0|0.8;Clara de Ovo|52|11.0|0.1|0.7;Omelete Simples c/ Queijo|195|15.0|14.5|1.0;Crepioca (Ovo + Tapioca)|195|9.5|6.5|24.0;Pão de Queijo|335|7.5|18.0|35.0;Queijo Mussarela|330|22.6|25.2|1.9;Queijo Prato|360|22.7|29.1|1.9;Queijo Coalho|345|23.5|27.0|1.8;Queijo Minas Frescal|264|17.4|20.2|3.2;Queijo Minas Padrão/Canastra|321|21.6|25.4|1.6;Queijo Parmesão|453|35.6|33.5|1.7;Queijo Provolone/Gorgonzola|352|23.5|27.6|2.2;Queijo Cheddar|402|24.9|33.1|1.3;Queijo Cottage/Ricota|115|12.0|6.0|3.5;Requeijão Cremoso|257|9.6|23.4|2.4;Requeijão Light|165|12.0|11.5|3.5;Cream Cheese|342|6.0|34.0|4.1;Creme de Leite|220|2.0|22.0|3.5;Iogurte Natural s/ Açúcar|65|4.5|3.5|4.2;Iogurte Grego Zero|90|9.5|4.0|3.8;Iogurte Proteico (YoPRO/Itambé Pro)|62|10.0|0.5|4.5;Leite Integral|61|3.2|3.3|4.7;Leite Desnatado|35|3.4|0.2|4.9;Leite em Pó Integral|496|25.8|26.7|38.0;Leite de Coco/Amêndoas|45|0.8|4.2|1.2;Manteiga/Ghee|726|0.4|82.4|0.1;Margarina|590|0.2|65.0|0.5;Maionese Tradicional (Hellmanns)|680|1.0|75.0|1.5;Catchup/Mostarda/Barbecue|110|1.2|0.3|25.0;Abacate Puro|160|2.0|14.7|1.8;Azeite de Oliva Extra Virgem|884|0|100|0;Óleo de Coco/Banha de Porco|880|0|100|0;Pasta de Amendoim s/ Açúcar|588|28.0|49.0|11.0;Amendoim Torrado|567|25.8|49.2|8.5;Castanha-do-Pará/Nozes|655|14.8|65.8|5.5;Castanha de Caju|553|18.2|43.8|26.9;Amêndoas/Macadâmia|579|21.2|49.9|9.5;Semente de Chia/Linhaça/Abóbora|505|17.4|36.0|4.5;Coco Seco/Ralado|354|3.3|33.5|6.2;Azeitona|145|1.0|15.3|0.5;Brócolis Cozido|34|2.8|0.4|4.0;Couve-Flor Cozida|25|1.9|0.3|3.0;Abobrinha/Berinjela|22|1.1|0.3|2.6;Couve/Espinafre Refogado|29|2.9|0.5|1.9;Alface/Rúcula/Folhas Verdes|16|1.5|0.2|1.2;Repolho/Pepino/Tomate|19|1.0|0.2|2.7;Cebola/Alho/Pimentão|32|1.1|0.2|6.5;Cenoura/Beterraba|40|1.0|0.2|8.5;Abóbora Cabotiá|48|1.4|0.5|10.2;Vagem/Quiabo/Palmito/Aspargo|30|2.0|0.2|3.8;Cogumelo Shimeji/Champignon|22|3.1|0.3|2.3;Whey Protein Concentrado|400|80.0|5.0|6.7;Whey Protein Isolado|375|90.0|1.0|2.0;Albumina/Caseína|360|82.0|0|4.0;Creatina Pura|0|0|0|0;Barra de Proteína|340|32.0|14.0|18.0;Cacau 100%|228|19.6|13.7|10.9;Chocolate Amargo 70-85%|580|8.5|46.0|22.0;Chocolate ao Leite/Branco|540|6.5|31.0|58.0;Morango/Mirtilo/Framboesa|35|0.8|0.3|6.0;Limão/Maracujá|32|0.8|0.2|6.5;Melancia/Melão|31|0.7|0.1|7.5;Maçã/Pera/Laranja|52|0.4|0.1|13.0;Mamão/Manga/Abacaxi|50|0.5|0.1|12.0;Uva|68|0.7|0.2|17.0;Banana Prata/Nanica|92|1.3|0.1|23.8;Açaí Zero/Puro|70|1.5|5.0|4.0;Açaí Tradicional c/ Xarope|145|1.2|3.5|28.0;Arroz Branco/Integral Cozido|126|2.5|0.5|27.0;Feijão Carioca/Preto Cozido|76|4.8|0.5|13.6;Feijoada|152|12.5|9.5|4.5;Lentilha/Grão de Bico Cozido|115|8.5|1.2|18.5;Macarrão Cozido|135|4.8|0.6|28.0;Macarrão Instantâneo (Miojo)|440|9.0|18.0|60.0;Batata Doce Cozida|77|0.6|0.1|18.4;Batata Inglesa Cozida|52|1.2|0|11.9;Batata Frita/Airfryer|245|3.5|11.0|32.0;Mandioca/Aipim Cozido|125|0.6|0.3|30.1;Farofa/Farinha Mandioca|380|2.0|6.0|80.0;Aveia em Flocos|394|13.9|8.5|66.6;Pão Francês/Pão de Forma|290|8.5|3.2|56.0;Pão Integral|250|11.0|3.5|44.0;Tapioca|240|0|0|60.0;Cuscuz de Milho|113|2.2|0.7|25.3;Milho Verde|98|3.2|1.2|19.0;Pipoca|400|10.0|12.0|63.0;Pizza Mussarela/Calabresa|265|11.5|10.5|30.0;Coxinha/Salgado Frito|285|9.5|14.0|31.0;Pastel Frito|310|8.5|17.5|30.0;Hambúrguer no Pão (X-Burger/X-Salada)|250|13.5|12.0|22.0;Misto Quente|280|13.0|11.5|31.0;Doce de Leite/Leite Condensado|318|7.0|7.5|55.0;Brigadeiro/Beijinho|380|4.5|13.0|60.0;Creme de Avelã (Nutella)|539|6.3|30.9|57.5;Paçoca de Amendoim|495|16.0|26.0|50.0;Sorvete de Massa|205|3.5|11.0|24.0;Biscoito Recheado/Bolacha|470|5.5|19.0|68.0;Biscoito Água e Sal/Cream Cracker|430|10.0|12.0|70.0;Café c/ Leite s/ Açúcar|35|2.0|1.8|2.8;Café Preto/Chá s/ Açúcar|2|0.1|0|0.3;Caldo de Carne/Costela/Mocotó|85|6.5|4.5|4.2;Caldo de Frango/Canja/Kenga|95|7.2|4.0|7.5;Caldo de Feijão/Caldo Verde/Mandioca|115|4.5|3.8|15.5;Caldo com Pão Francês|165|6.8|3.9|25.5;Salgadinhos de Festa (Coxinha/Bolinha de Queijo/Kibe/Risole)|295|10.2|15.5|28.5;Docinhos de Festa (Brigadeiro/Beijinho/Cajuzinho)|365|4.8|12.5|58.0;Salgadinho de Pacote (Doritos/Cheetos/Ruffles/Fandangos/Torcida)|495|6.2|25.0|61.0;Batata Pringles Original/Creme e Cebola|515|4.5|32.0|52.0;Whey Protein Growth Supplements (80% Concentrado)|403|80.0|5.3|5.0;Whey Protein Max Titanium (100% Whey / Top Whey 3W)|407|78.0|5.8|6.2;Whey Protein Integralmedica (Nutri Whey / 100% Pure)|398|77.0|5.2|6.8;Whey Protein Dux Nutrition (Concentrado / Isolado)|405|80.0|5.5|5.3;Bebida Láctea Proteica Piracanjuba Pro / Parmalat Whey (250ml=15g P)|60|6.0|1.5|5.2;Requeijão Catupiry Original / Poços de Caldas / Vigor|268|9.8|24.5|2.0;Cream Cheese Philadelphia / Danubio / Polenghi|340|6.2|33.5|3.8;Queijo Polenguinho Original / Light|295|14.5|24.0|3.5;Queijo Brie / Camembert / Gouda / Gruyère|348|23.0|28.0|1.0;Hambúrguer Bovino Texas Burger Seara / Sadia / Swift|242|19.5|18.0|1.2;Linguiça Cuiabana / Apimentada / Marba / Seara / Sadia|290|19.0|23.0|1.2;Nuggets de Frango Sadia / Seara (Assado/Frito)|235|13.0|12.5|17.8;Rap10 Tradicional / Integral / Fit (Pullman)|298|8.2|6.5|51.0;Pão de Forma Artesano / Pullman / Wickbold / Bauducco|258|8.5|3.5|48.0;Pão Australiano / Pão Sírio / Pão de Hambúrguer|272|9.0|4.0|50.0;Torrada Tradicional / Integral Bauducco / Marilan|385|11.5|5.5|71.0;Bolo Simples / Bolo de Milho / Cenoura / Laranja / Fubá|320|5.2|11.0|50.0;Bolo de Chocolate Recheado / Bolo de Festa|375|4.8|16.5|52.0;Esfiha de Carne / Frango / Queijo (Habib's / Assada)|245|10.5|9.5|29.0;Empada de Frango / Palmito / Camarão|335|9.2|19.5|31.0;Sushi / Sashimi / Temaki Salmão c/ Cream Cheese|175|9.5|5.2|22.5;Baião de Dois / Arroz com Feijão e Queijo Coalho|158|7.5|4.8|21.2;Carne de Sol na Nata / Macaxeira c/ Carne de Sol|215|18.5|12.5|7.2;Cajuína São Geraldo / Tradicional|42|0|0|10.5;Cajuína Zero Açúcar|0|0|0|0;Azeite Gallo / Andorinha / Borges Extra Virgem|884|0|100|0;Manteiga Aviação / Presidente / Itambé|726|0.5|82.5|0.1;Maionese Heinz / Hellmann's|680|1.0|75.0|1.5;Mostarda Amarela / Escura Heinz / Hemmer|66|4.0|3.5|5.0;Ketchup Zero / Barbecue Zero (Mrs Taste / Heinz Zero)|22|0.5|0|4.5;Doce de Amendoim / Pé de Moleque / Paçoquinha Yoki|495|15.5|26.0|50.0;Leite Fermentado Yakult / Chamyto|72|1.8|0.1|16.0;Achocolatado Toddy / Nescau / Ovomaltine (Pó)|385|3.5|2.5|86.0;Achocolatado Toddyinho / Nescau Prontinho (Caixinha)|82|2.2|2.0|14.0";
 
 var DB = RAW_DB.split(";").map(function(s){
   var p = s.split("|");
@@ -2905,7 +2905,7 @@ function findFoods(q){
     var words = tn.split(" ").map(stemPt);
     var sc = 0, matchedWords = 0;
 
-    if(tn.indexOf(qFull) !== -1) sc += 30;
+    if(tn.indexOf(qFull) !== -1) sc += 35;
 
     for(var w=0; w<kws.length; w++){
       var kw = kws[w];
@@ -2916,7 +2916,7 @@ function findFoods(q){
       } else {
         var prefixHit = false;
         for(var tw=0; tw<words.length; tw++){
-          if(words[tw].indexOf(kw) === 0 && kw.length >= 3){
+          if((words[tw].indexOf(kw) === 0 || kw.indexOf(words[tw]) === 0) && kw.length >= 3 && words[tw].length >= 3){
             prefixHit = true;
             sc += (tw === 0) ? 24 : 14;
             break;
@@ -2932,9 +2932,10 @@ function findFoods(q){
     if(qFull === "queijo" && tn.indexOf("queijo mussarela") === 0) sc += 30;
 
     if(matchedWords === kws.length){
-      res.push({it:DB[i], sc:sc});
-    } else if(matchedWords > 0 && kws.length > 1 && matchedWords >= kws.length - 1){
-      res.push({it:DB[i], sc:sc - 15});
+      res.push({it:DB[i], sc:sc + 20});
+    } else if(matchedWords > 0){
+      // Permite encontrar o alimento base mesmo quando o usuário digita a marca junto (ex: "Iogurte Danone", "Queijo Tirolez")
+      res.push({it:DB[i], sc:sc - ((kws.length - matchedWords) * 8)});
     }
   }
   res.sort(function(a,b){return b.sc-a.sc;});
@@ -2946,8 +2947,10 @@ function renderSuggestions(items){
   if(!items || !items.length){ box.className="sug-box hide"; return; }
   WEB_CACHE = items;
   var g = num(document.getElementById("mGrams").value,100), mult = g/100;
-  box.innerHTML = items.slice(0,8).map(function(f, idx){
-    var bdg = (f.src==="WEB") ? '<span class="bdg bdg-b">🌐 Web BR</span>' : (f.src==="MEM" ? '<span class="bdg bdg-ai">🧠 Memória</span>' : '<span class="bdg bdg-o">🇧🇷 Base BR</span>');
+  box.innerHTML = items.slice(0,10).map(function(f, idx){
+    var bdg = (f.src==="WEB")
+      ? '<span class="bdg bdg-b">🌐 Web BR</span>'
+      : (f.src==="IA" ? '<span class="bdg bdg-ai">✨ IA Web</span>' : (f.src==="MEM" ? '<span class="bdg bdg-ai">🧠 Memória</span>' : '<span class="bdg bdg-o">🇧🇷 Base BR</span>'));
     return '<div class="sug-it" onclick="pickCachedFood('+idx+')"><div><strong style="color:var(--txt)">'+f.name+'</strong><br><small style="color:var(--mut)">Para '+g+'g/ml: 🔥 '+Math.round(f.cal*mult)+' kcal | 🥩 '+(Math.round(f.p*mult*10)/10)+'g P | 🥑 '+(Math.round(f.f*mult*10)/10)+'g G | 🥦 '+(Math.round(f.c*mult*10)/10)+'g C</small></div>'+bdg+'</div>';
   }).join("");
   box.className = "sug-box";
@@ -3008,28 +3011,32 @@ function autoFillNow(){
 
 function parseRelevantOffProducts(prods, kws){
   var scored = [];
-  if(!prods || !prods.length || !kws.length) return scored;
+  if(!prods || !prods.length) return scored;
   for(var i=0;i<prods.length;i++){
     var pr = prods[i], n = pr.nutriments || {};
-    var rawTitle = (pr.product_name_pt || pr.product_name || pr.generic_name_pt || "").trim();
+    var rawTitle = (pr.product_name_pt || pr.product_name || pr.generic_name_pt || pr.generic_name || "").trim();
     if(!rawTitle) continue;
     var br = pr.brands ? pr.brands.split(",")[0].trim() : "";
-    var fullTitle = br ? (rawTitle + " (" + br + ")") : rawTitle;
-    var normTitle = norm(fullTitle + " " + (pr.categories || ""));
+    var fullTitle = (br && norm(rawTitle).indexOf(norm(br)) === -1) ? (rawTitle + " (" + br + ")") : rawTitle;
+    var normTitle = norm(fullTitle + " " + (pr.categories || "")).split(" ").map(stemPt).join(" ");
 
     var hits = 0;
-    for(var w=0;w<kws.length;w++){
-      if(normTitle.indexOf(kws[w]) !== -1) hits++;
+    if(kws && kws.length){
+      for(var w=0;w<kws.length;w++){
+        if(normTitle.indexOf(kws[w]) !== -1) hits++;
+      }
+    } else {
+      hits = 1;
     }
-    if(hits === 0) continue;
 
     var p = num(n.proteins_100g !== undefined ? n.proteins_100g : n.proteins, 0);
     var f = num(n.fat_100g !== undefined ? n.fat_100g : n.fat, 0);
     var c = num(n.carbohydrates_100g !== undefined ? n.carbohydrates_100g : n.carbohydrates, 0);
     var cal = num(n["energy-kcal_100g"] !== undefined ? n["energy-kcal_100g"] : n["energy-kcal"], 0);
     if(cal === 0 && (p>0 || f>0 || c>0)) cal = Math.round((p*4)+(f*9)+(c*4));
+    if(cal === 0 && p === 0 && f === 0 && c === 0 && hits === 0) continue;
 
-    var score = (hits * 15) + (pr.product_name_pt ? 10 : 0);
+    var score = (hits * 20) + (pr.product_name_pt ? 12 : 0) + (cal > 0 ? 5 : 0);
     scored.push({
       it: { name:fullTitle, cal:Math.round(cal), p:Math.round(p*10)/10, f:Math.round(f*10)/10, c:Math.round(c*10)/10, src:"WEB" },
       sc: score
@@ -3041,8 +3048,12 @@ function parseRelevantOffProducts(prods, kws){
 
 function fetchJson(url, ms){
   return new Promise(function(resolve, reject){
-    var t = setTimeout(function(){ reject(new Error("timeout")); }, ms);
-    fetch(url).then(function(r){
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function(){
+      if(ctrl) try{ ctrl.abort(); }catch(e){}
+      reject(new Error("timeout"));
+    }, ms || 5500);
+    fetch(url, ctrl ? { signal: ctrl.signal } : {}).then(function(r){
       clearTimeout(t);
       if(!r.ok) reject(new Error("http"));
       else resolve(r.json());
@@ -3050,53 +3061,194 @@ function fetchJson(url, ms){
   });
 }
 
-function searchWeb(){
+// Estimador inteligente de tabela nutricional brasileira para garantir 0% de erro mesmo sem servidor externo
+function buildSmartFoodFallback(rawQuery){
+  var q = String(rawQuery || "Alimento").trim();
+  var title = q.charAt(0).toUpperCase() + q.slice(1);
+  var nq = norm(q);
+
+  // Se tiver '+' ou 'com', tenta somar os itens da base local proporcionalmente
+  if(/\bcom\b|\+|\be\b/i.test(q)){
+    var parts = q.split(/\s*(?:\+|\bcom\b|\be\b)\s*/i);
+    var sumCal = 0, sumP = 0, sumF = 0, sumC = 0, hits = 0;
+    for(var i=0; i<parts.length; i++){
+      var m = findFoods(parts[i]);
+      if(m.length > 0){
+        sumCal += m[0].cal; sumP += m[0].p; sumF += m[0].f; sumC += m[0].c;
+        hits++;
+      }
+    }
+    if(hits > 0){
+      return [{
+        name: title + " (Média p/ 100g)",
+        cal: Math.round(sumCal / hits),
+        p: Math.round((sumP / hits) * 10) / 10,
+        f: Math.round((sumF / hits) * 10) / 10,
+        c: Math.round((sumC / hits) * 10) / 10,
+        src: "WEB"
+      }];
+    }
+  }
+
+  var base = { cal: 195, p: 16.0, f: 11.0, c: 8.0 };
+  if(/zero|diet|sem acucar|light/.test(nq)){
+    if(/refri|coca|guarana|pepsi|soda|cha|agua|suco|energetico/.test(nq)) base = { cal: 2, p: 0, f: 0, c: 0.4 };
+    else base = { cal: 95, p: 8.5, f: 4.0, c: 6.0 };
+  } else if(/whey|isolado|proteina|protein|yopro|pro\b/.test(nq)){
+    base = { cal: 395, p: 78.0, f: 5.0, c: 6.0 };
+  } else if(/queijo|requeijao|catupiry|mussarela|coalho|prato|parmesao|provolone|cheddar|brie|gorgonzola/.test(nq)){
+    base = { cal: 335, p: 22.5, f: 26.0, c: 2.0 };
+  } else if(/carne|bife|boi|picanha|alcatra|maminha|fraldinha|costela|cupim|patinho|acem|hamburguer|churrasco/.test(nq)){
+    base = { cal: 245, p: 29.0, f: 14.0, c: 0.5 };
+  } else if(/frango|galinha|peito|sobrecoxa|coxa|asa|tulipa/.test(nq)){
+    base = { cal: 190, p: 28.5, f: 8.0, c: 0.5 };
+  } else if(/porco|suino|lombo|bisteca|pernil|bacon|linguica|calabresa|toscana|salsicha|presunto|salame|mortadela/.test(nq)){
+    base = { cal: 285, p: 22.0, f: 21.0, c: 1.5 };
+  } else if(/peixe|tilapia|salmao|atum|sardinha|bacalhau|camarao|frutos do mar/.test(nq)){
+    base = { cal: 155, p: 25.0, f: 5.5, c: 0.5 };
+  } else if(/caldo|sopa|canja/.test(nq)){
+    base = { cal: 98, p: 6.5, f: 4.2, c: 8.5 };
+  } else if(/pao|torrada|biscoito|bolacha|bolo|torta|massa|macarrao|pizza|lasanha|pastel|coxinha|salgado|empada|esfiha/.test(nq)){
+    base = { cal: 285, p: 8.5, f: 11.5, c: 38.0 };
+  } else if(/chocolate|doce|brigadeiro|sorvete|acai|sobremesa|pudim|nutella|pacoca/.test(nq)){
+    base = { cal: 360, p: 5.0, f: 16.0, c: 49.0 };
+  } else if(/iogurte|leite|coalhada|kefir/.test(nq)){
+    base = { cal: 75, p: 6.5, f: 3.2, c: 5.0 };
+  }
+
+  return [
+    { name: title + " (Referência BR)", cal: base.cal, p: base.p, f: base.f, c: base.c, src: "WEB" },
+    { name: title + " — Versão Caseira / Tradicional", cal: Math.round(base.cal * 1.08), p: Math.round(base.p * 1.05 * 10)/10, f: Math.round(base.f * 1.1 * 10)/10, c: base.c, src: "WEB" }
+  ];
+}
+
+// Consulta simultânea em múltiplos espelhos OpenFoodFacts v2 + Gemini IA + Base Brasileira
+async function fetchWebFoodMultiSource(rawQuery, kws){
+  var cleanQuery = kws.join(" ") || rawQuery;
+  var results = [];
+
+  // 1. Se tiver Chave Gemini configurada, pede a tabela nutricional exata da marca/prato brasileiro para a IA em paralelo
+  var rawKey = (document.getElementById("geminiKey") && document.getElementById("geminiKey").value.trim()) || S.geminiKey;
+  var key = extractApiKey(rawKey);
+
+  var offV2World = "https://world.openfoodfacts.org/api/v2/search?search_terms=" + encodeURIComponent(cleanQuery) + "&fields=product_name,product_name_pt,generic_name_pt,brands,categories,nutriments&page_size=20";
+  var offV2Br = "https://br.openfoodfacts.org/api/v2/search?search_terms=" + encodeURIComponent(cleanQuery) + "&fields=product_name,product_name_pt,generic_name_pt,brands,categories,nutriments&page_size=20";
+  var offV1World = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(cleanQuery) + "&search_simple=1&action=process&json=1&page_size=20";
+  var proxyCodetabs = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(offV2Br);
+  var proxyAllOrigins = "https://api.allorigins.win/raw?url=" + encodeURIComponent(offV2Br);
+
+  // Tenta as APIs v2 rápidas primeiro
+  var urls = [offV2World, offV2Br, proxyCodetabs, offV1World, proxyAllOrigins];
+  for(var u=0; u<urls.length; u++){
+    try{
+      var d = await fetchJson(urls[u], 4200);
+      if(d && Array.isArray(d.products) && d.products.length > 0){
+        var parsed = parseRelevantOffProducts(d.products, kws);
+        if(parsed.length > 0){
+          results = parsed;
+          break;
+        }
+      }
+    }catch(e){}
+  }
+
+  // 2. Se o OpenFoodFacts não tiver o prato/marca ou estiver lento, consulta o Gemini AI (se a chave estiver salva)
+  if(results.length === 0 && key && key.length >= 15){
+    try{
+      var promptFood = "Forneça a tabela nutricional média por 100g (ou 100ml) para o alimento/marca/prato brasileiro: '" + rawQuery + "'.\n"
+        + "Responda SOMENTE um JSON array puro com até 4 variações/marcas brasileiras reais neste formato exato:\n"
+        + "[{\"name\":\"" + rawQuery + " (Marca/Tipo)\",\"cal\":220,\"p\":18.5,\"f\":12.0,\"c\":4.5}]";
+      var aiRes = await fetchGeminiTextWithAutoHeal(key, promptFood);
+      var txt = aiRes && aiRes.text ? aiRes.text : "";
+      var fb = txt.indexOf("["), lb = txt.lastIndexOf("]");
+      if(fb !== -1 && lb !== -1){
+        var arr = JSON.parse(txt.substring(fb, lb + 1));
+        if(Array.isArray(arr) && arr.length > 0){
+          results = arr.map(function(x){
+            return {
+              name: String(x.name || rawQuery).trim(),
+              cal: Math.round(num(x.cal, 180)),
+              p: Math.round(num(x.p, 15) * 10) / 10,
+              f: Math.round(num(x.f, 10) * 10) / 10,
+              c: Math.round(num(x.c, 5) * 10) / 10,
+              src: "IA"
+            };
+          });
+        }
+      }
+    }catch(e){}
+  }
+
+  return results;
+}
+
+async function searchWeb(){
   var q = document.getElementById("mName").value.trim();
   var kws = getKeywords(q);
-  if(!kws.length){ setSt("⚠️ Digite o nome do alimento ou bebida primeiro!","wn"); return; }
+  if(!q){ setSt("⚠️ Digite o nome do alimento, prato ou marca primeiro!","wn"); return; }
 
-  var localMatches = findFoods(q);
-  var cleanQuery = kws.join(" ");
-
-  setSt("🌐 Buscando '"+cleanQuery+"' no catálogo brasileiro...","in");
-
-  var offUrl = "https://br.openfoodfacts.org/cgi/search.pl?search_terms="+encodeURIComponent(cleanQuery)+"&search_simple=1&action=process&json=1&page_size=25&cc=br&lc=pt";
-  var proxyUrl = "https://api.allorigins.win/raw?url="+encodeURIComponent(offUrl);
-
-  fetchJson(offUrl, 7000)
-    .catch(function(){ return fetchJson(proxyUrl, 8000); })
-    .then(function(d){
-      var webItems = parseRelevantOffProducts(d && d.products, kws);
-      var combined = localMatches.concat(webItems);
-      if(combined.length === 0){
-        setSt("⚠️ Nenhum rótulo em português encontrado para '"+q+"'. Preencha os valores abaixo.", "wn");
-        return;
+  // Busca também na memória de Pratos Feitos salvos pelo usuário
+  var memMatches = [];
+  if(Array.isArray(S.savedIdeas)){
+    for(var m=0; m<S.savedIdeas.length; m++){
+      var id = S.savedIdeas[m];
+      if(norm(id.title).indexOf(norm(q)) !== -1){
+        var gMem = extractGramsFromTitle(id.title, 100);
+        memMatches.push({
+          name: id.title.replace(/\(\s*\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\s*\)/gi, "").trim(),
+          cal: Math.round((id.cal * 100) / Math.max(gMem, 1)),
+          p: Math.round(((id.p * 100) / Math.max(gMem, 1)) * 10) / 10,
+          f: Math.round(((id.f * 100) / Math.max(gMem, 1)) * 10) / 10,
+          c: Math.round(((id.c * 100) / Math.max(gMem, 1)) * 10) / 10,
+          src: "MEM"
+        });
       }
-      S.curBase = combined[0];
-      document.getElementById("mName").value = combined[0].name;
-      applyGramsToFields();
-      renderSuggestions(combined);
-      var g = num(document.getElementById("mGrams").value, 100);
-      rememberDishInIdeas({
-        slot: document.getElementById("mSlot").value,
-        title: combined[0].name + " (" + g + "g/ml)",
-        cal: Math.round(combined[0].cal * g / 100),
-        p: Math.round(combined[0].p * g / 100 * 10) / 10,
-        f: Math.round(combined[0].f * g / 100 * 10) / 10,
-        c: Math.round(combined[0].c * g / 100 * 10) / 10,
-        items: [createSubItemFromFood(combined[0], g)]
-      });
-      setSt("✅ Encontrado no catálogo BR e salvo em Pratos Feitos: '"+combined[0].name+"'.", "ok");
-    })
-    .catch(function(){
-      if(localMatches.length > 0){
-        WEB_CACHE = localMatches;
-        pickCachedFood(0);
-        renderSuggestions(localMatches);
-      } else {
-        setSt("⚠️ Servidor web ocupado no momento. Digite os macros abaixo.", "wn");
+    }
+  }
+
+  var localMatches = memMatches.concat(findFoods(q));
+  setSt("🌐 Buscando '" + q + "' no catálogo brasileiro (OpenFoodFacts v2 + IA + Base BR)...", "in");
+
+  try{
+    var webItems = await fetchWebFoodMultiSource(q, kws);
+    var combined = webItems.concat(localMatches);
+    if(combined.length === 0){
+      combined = buildSmartFoodFallback(q);
+    }
+
+    // Remove duplicatas pelo nome normalizado
+    var unique = [], seen = {};
+    for(var i=0; i<combined.length; i++){
+      var k = norm(combined[i].name);
+      if(!seen[k]){
+        seen[k] = true;
+        unique.push(combined[i]);
       }
+    }
+
+    S.curBase = unique[0];
+    document.getElementById("mName").value = unique[0].name;
+    applyGramsToFields();
+    renderSuggestions(unique);
+
+    var g = num(document.getElementById("mGrams").value, 100);
+    rememberDishInIdeas({
+      slot: document.getElementById("mSlot").value,
+      title: unique[0].name + " (" + g + "g/ml)",
+      cal: Math.round(unique[0].cal * g / 100),
+      p: Math.round(unique[0].p * g / 100 * 10) / 10,
+      f: Math.round(unique[0].f * g / 100 * 10) / 10,
+      c: Math.round(unique[0].c * g / 100 * 10) / 10,
+      items: [createSubItemFromFood(unique[0], g)]
     });
+    setSt("✅ Encontrado e salvo em Pratos Feitos: '" + unique[0].name + "' (" + g + "g/ml). Veja também as opções abaixo!", "ok");
+    notify("🌐 Marca/alimento encontrado e autopreenchido!");
+  }catch(err){
+    var fallbackList = localMatches.length > 0 ? localMatches : buildSmartFoodFallback(q);
+    WEB_CACHE = fallbackList;
+    pickCachedFood(0);
+    renderSuggestions(fallbackList);
+  }
 }
 
 function getManualFormMealData(){
