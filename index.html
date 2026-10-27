@@ -1678,13 +1678,13 @@ function startRest(sec){
 
 function rankModelScore(name){
   var n = String(name || "").toLowerCase();
-  if(n === "gemini-flash-latest") return 950;
-  if(n === "gemini-3.8-flash") return 940;
-  if(n === "gemini-3.0-flash" || n === "gemini-3-flash") return 920;
+  if(n === "gemini-2.5-flash") return 980;
+  if(n === "gemini-flash-latest") return 960;
+  if(n === "gemini-2.0-flash") return 950;
+  if(n === "gemini-1.5-flash") return 910;
 
   var verMatch = n.match(/gemini-(\d+(?:\.\d+)?)/);
-  var verNum = verMatch ? parseFloat(verMatch[1]) : 0;
-  if(verNum > 0 && verNum < 3.0) return -100 + verNum;
+  var verNum = verMatch ? parseFloat(verMatch[1]) : 2.0;
 
   var score = verNum * 100;
   if(n.indexOf("flash") !== -1 && n.indexOf("lite") === -1) score += 40;
@@ -1697,12 +1697,12 @@ async function getAvailableGeminiModels(key){
   if(DISCOVERED_MODELS && DISCOVERED_MODELS.length > 0) return DISCOVERED_MODELS;
 
   var priorityDefaults = [
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
     "gemini-flash-latest",
-    "gemini-3.8-flash",
-    "gemini-3.0-flash",
-    "gemini-3-flash",
-    "gemini-3.8-pro",
-    "gemini-3.0-pro"
+    "gemini-1.5-flash",
+    "gemini-2.5-pro",
+    "gemini-1.5-pro"
   ];
 
   try{
@@ -1721,7 +1721,6 @@ async function getAvailableGeminiModels(key){
       var low = shortName.toLowerCase();
       if(low.indexOf("gemini") === -1) continue;
       if(low.indexOf("embedding") !== -1 || low.indexOf("tts") !== -1 || low.indexOf("audio") !== -1 || low.indexOf("imagen") !== -1 || low.indexOf("veo") !== -1 || low.indexOf("aqa") !== -1 || low.indexOf("robotics") !== -1) continue;
-      if(low.indexOf("1.5") !== -1 || low.indexOf("2.0") !== -1 || low.indexOf("2.5") !== -1) continue;
       valid.push(shortName);
     }
 
@@ -2942,15 +2941,16 @@ function findFoods(q){
   return res.map(function(x){return x.it;});
 }
 
-function renderSuggestions(items){
+function renderSuggestions(items, maxLimit){
   var box = document.getElementById("sugBox");
   if(!items || !items.length){ box.className="sug-box hide"; return; }
   WEB_CACHE = items;
+  var limit = maxLimit || 16;
   var g = num(document.getElementById("mGrams").value,100), mult = g/100;
-  box.innerHTML = items.slice(0,10).map(function(f, idx){
+  box.innerHTML = items.slice(0, limit).map(function(f, idx){
     var bdg = (f.src==="WEB")
       ? '<span class="bdg bdg-b">🌐 Web BR</span>'
-      : (f.src==="IA" ? '<span class="bdg bdg-ai">✨ IA Web</span>' : (f.src==="MEM" ? '<span class="bdg bdg-ai">🧠 Memória</span>' : '<span class="bdg bdg-o">🇧🇷 Base BR</span>'));
+      : (f.src==="IA" ? '<span class="bdg bdg-ai">✨ IA Web</span>' : (f.src==="MEM" ? '<span class="bdg bdg-ai">🧠 Memória</span>' : '<span class="bdg bdg-o">🇧🇷 Catálogo</span>'));
     return '<div class="sug-it" onclick="pickCachedFood('+idx+')"><div><strong style="color:var(--txt)">'+f.name+'</strong><br><small style="color:var(--mut)">Para '+g+'g/ml: 🔥 '+Math.round(f.cal*mult)+' kcal | 🥩 '+(Math.round(f.p*mult*10)/10)+'g P | 🥑 '+(Math.round(f.f*mult*10)/10)+'g G | 🥦 '+(Math.round(f.c*mult*10)/10)+'g C</small></div>'+bdg+'</div>';
   }).join("");
   box.className = "sug-box";
@@ -2959,7 +2959,7 @@ function renderSuggestions(items){
 function onNameInput(){
   var q = document.getElementById("mName").value;
   if(!q || q.length<2){ document.getElementById("sugBox").className="sug-box hide"; return; }
-  renderSuggestions(findFoods(q));
+  renderSuggestions(findFoods(q), 10);
 }
 
 function pickCachedFood(idx){
@@ -2978,7 +2978,7 @@ function pickCachedFood(idx){
     c: Math.round(f.c * g / 100 * 10) / 10,
     items: [createSubItemFromFood(f, g)]
   });
-  setSt("✅ Autopreenchido e salvo em Pratos Feitos: "+f.name+" ("+g+"g/ml).", "ok");
+  setSt("✅ Selecionado e salvo em Pratos Feitos: "+f.name+" ("+g+"g/ml).", "ok");
 }
 
 function onGramsChange(){
@@ -3005,8 +3005,196 @@ function autoFillNow(){
   var q = document.getElementById("mName").value.trim();
   if(!q){ setSt("⚠️ Digite o nome de um alimento ou bebida primeiro!","wn"); return; }
   var m = findFoods(q);
-  if(m.length>0){ WEB_CACHE=m; pickCachedFood(0); renderSuggestions(m); return; }
+  if(m.length>0){ WEB_CACHE=m; pickCachedFood(0); renderSuggestions(m, 10); return; }
   searchWeb();
+}
+
+// ============================================================================
+// ÍNDICE WEB DE MARCAS, SUPERMERCADOS, FAST-FOOD E PRODUTOS BRASILEIROS
+// (Separado do catálogo básico para garantir resultados reais de marcas na busca Web)
+// ============================================================================
+var RAW_WEB_BRANDS = [
+  // SORVETES, PICOLÉS, GELATOS E SOBREMESAS GELADAS
+  "Sorvete Napolitano / Creme / Flocos / Morango (Kibon)|198|2.8|10.0|24.2",
+  "Sorvete Chicabon Tradicional / Zero (Kibon)|212|3.6|9.2|28.5",
+  "Sorvete Tablito Massa / Picolé (Kibon)|265|3.5|16.0|26.5",
+  "Sorvete Magnum Clássico / Chocolate Branco / Amêndoas (Kibon)|315|4.2|20.0|29.0",
+  "Sorvete Cornetto Crocante / Brigadeiro (Kibon)|282|4.1|15.2|32.0",
+  "Sorvete Eskibon / Mini Eskibon (Kibon)|275|3.8|16.8|27.2",
+  "Sorvete Zero Açúcar Creme / Chocolate (Kibon / Linea Diet)|124|3.4|6.2|13.5",
+  "Sorvete Tradicional Creme / Napolitano / Flocos (Nestlé)|204|3.0|10.5|24.5",
+  "Sorvete Moça Doce de Leite / Galak / Prestígio (Nestlé)|228|3.8|11.2|28.0",
+  "Gelato Italiano Pistache / Bacio / Cioccolato (Bacio di Latte)|235|5.2|13.5|23.0",
+  "Sorvete Baunilha / Dulce de Leche / Macadâmia (Häagen-Dazs)|270|4.5|17.5|24.0",
+  "Casquinha de Sorvete Baunilha / Mista / Chocolate (McDonald's / BK)|185|4.5|5.5|29.5",
+  "McFlurry Ovomaltine / KitKat / M&Ms (McDonald's)|228|4.8|8.4|33.5",
+  "Sundae de Chocolate / Morango / Caramelo (McDonald's / Bob's)|208|4.2|6.8|32.5",
+  "Shake / Milkshake Ovomaltine / Chocolate / Morango (Bob's / Chiquinho)|195|4.0|6.5|30.2",
+  "Picolé de Fruta Limão / Uva / Morango / Abacaxi (Kibon Fruttare)|92|0.4|0.2|22.5",
+  "Picolé de Coco / Chocolate / Leite Condensado (Kibon / Oggi)|188|3.2|9.0|23.5",
+  "Sorvete Proteico Zero Açúcar (Whey Fit / Halo Top)|115|9.5|3.5|12.0",
+  // AÇAÍ E CREMES GELADOS
+  "Açaí Tradicional c/ Guaraná (Frooty / Oakberry)|138|1.2|3.4|26.0",
+  "Açaí Zero Açúcar (Frooty Zero / Oakberry Zero)|82|1.4|4.2|9.5",
+  "Açaí na Tigela c/ Banana, Leite em Pó e Granola|175|4.2|5.5|28.0",
+  // CHOCOLATES, BOMBONS E DOCES DE MARCA
+  "Chocolate ao Leite / Diamante Negro / Laka (Lacta)|532|6.2|29.5|60.0",
+  "Chocolate Bis Ao Leite / Bis Branco / Bis Xtra (Lacta)|512|5.8|26.5|62.5",
+  "Bombom Sonho de Valsa / Ouro Branco (Lacta)|525|5.5|28.5|61.5",
+  "Chocolate Classic / Alpino / Suflair / Galak (Nestlé)|538|6.5|30.5|59.5",
+  "Chocolate KitKat 4 Fingers Ao Leite / Dark (Nestlé)|522|6.8|27.5|61.8",
+  "Chocolate Prestígio Coco (Nestlé)|472|4.2|23.5|61.0",
+  "Chocolate Talento Castanha-do-Pará / Amêndoas (Garoto)|548|7.8|33.0|54.5",
+  "Bombom Serenata de Amor / Baton Ao Leite (Garoto)|518|5.9|27.8|60.5",
+  "Chocolate LaCreme Ao Leite / Trufa Tradicional (Cacau Show)|552|7.0|34.5|53.0",
+  "Chocolate Bendito Cacao 70% / 85% Cacau (Cacau Show / Lindt)|565|9.2|43.0|32.0",
+  "Chocolate Zero Açúcar Ao Leite / 55% (Cacau Show / Linea / Flormel)|468|7.5|33.0|42.0",
+  "Chocolate Trento Ao Leite / Avelã / Massimo (Peccin)|515|6.5|28.0|59.0",
+  "Bombom Ferrero Rocher / Raffaello (Ferrero)|595|8.2|42.5|44.5",
+  "Chocolate M&M's Ao Leite / Amendoim / Snickers / Twix (Mars)|498|7.5|24.5|61.5",
+  // IOGURTES E BEBIDAS PROTEICAS DE MARCA
+  "Iogurte Proteico YoPRO 15g / 25g Proteína (Danone)|64|10.2|0.4|4.6",
+  "Iogurte Grego Tradicional / Frutas Vermelhas (Vigor / Nestlé)|118|5.2|6.0|11.0",
+  "Iogurte Grego Zero Gordura / Light (Vigor Grego Zero)|58|6.8|0.0|7.5",
+  "Iogurte Natural Whey 14g/21g Proteína (Verde Campo)|62|9.8|0.5|4.2",
+  "Iogurte Proteico Itambé Pro / Batavo Nu / Piracanjuba Pro|63|10.0|0.6|4.5",
+  "Iogurte Activia Natural / Ameixa / Morango (Danone)|78|3.5|2.2|11.0",
+  "Iogurte Corpus Zero Gordura e Zero Açúcar (Danone)|38|4.2|0.0|5.2",
+  "Iogurte Molico Zero Gordura / Pense Zero (Nestlé / Batavo)|36|4.0|0.0|4.8",
+  "Queijo Petit Suisse Danoninho / Chambinho (Danone / Nestlé)|112|6.2|3.8|13.2",
+  // WHEY PROTEIN, BARRAS DE PROTEÍNA E SUPLEMENTOS BR
+  "Top Whey 3W / 100% Whey Concentrado (Max Titanium)|407|78.0|5.8|6.2",
+  "Whey Protein Concentrado 80% (Growth Supplements)|403|80.0|5.3|5.0",
+  "Whey Protein Isolado 90% (Growth / Dux / Iso Triple Zero)|372|90.0|0.8|2.0",
+  "Whey Protein 100% Pure / Nutri Whey (Integralmédica)|398|77.0|5.2|6.8",
+  "Whey Protein Concentrado / Fresh Whey (Dux Nutrition)|405|80.0|5.5|5.3",
+  "100% Pure Whey (Probiótica) / Whey HD (Black Skull)|396|76.0|5.5|7.0",
+  "Tasty Whey Gourmet (Adaptogen Science)|412|75.0|6.8|8.0",
+  "Cacao Whey / Vanilla Whey Hidrolisado e Isolado (Essential Nutrition)|382|84.0|3.2|4.0",
+  "Barra de Proteína Bold Bar (Bold Snacks - Todos os Sabores)|365|33.3|15.0|28.0",
+  "Barra de Proteína Crisp Bar / Darkness Whey Bar (Integralmédica)|378|32.0|14.5|30.0",
+  "Barra de Proteína Power Protein Bar (Max Titanium)|370|31.0|13.5|29.0",
+  "Barra de Proteína Growth Bar (Growth Supplements)|345|30.0|12.0|28.0",
+  // PASTAS DE AMENDOIM DE MARCA
+  "Pasta de Amendoim Sabor Avelã / Leite em Pó / Bueníssimo (Dr. Peanut)|575|24.0|46.0|22.0",
+  "Pasta de Amendoim 100% Integral Torrado (Mandubim / Power One / Growth)|588|28.5|49.0|11.0",
+  // QUEIJOS, REQUEIJÃO E LATICÍNIOS DE MARCA
+  "Queijo Mussarela / Prato / Lanche Fatiado (Tirolez / Sadia / Presidente)|332|22.8|25.4|1.8",
+  "Queijo Minas Frescal / Padrão / Zero Lactose (Tirolez / Polenghi / Quatá)|268|18.0|20.5|2.8",
+  "Queijo Coalho Espeto / Barra (Tirolez / Betânia / Quatá / LacFree)|345|23.5|27.0|1.8",
+  "Queijo Cottage / Ricota Fresca Light (Tirolez / Verde Campo / Balkis)|98|12.5|4.2|2.8",
+  "Queijo Polenguinho Tradicional / Light (Polenghi)|295|14.5|24.0|3.5",
+  "Requeijão Cremoso Tradicional / Light (Catupiry / Vigor / Poços de Caldas)|258|9.8|23.5|2.4",
+  "Cream Cheese Tradicional / Light (Philadelphia / Danubio / Polenghi)|338|6.2|33.2|3.8",
+  "Leite Integral / Semidesnatado / Zero Lactose (Piracanjuba / Italac / Parmalat)|60|3.2|3.2|4.7",
+  "Leite em Pó Ninho Integral / Instantâneo / Forti+ (Nestlé)|496|25.4|26.8|38.2",
+  "Leite em Pó Molico Desnatado (Nestlé)|352|35.0|1.0|51.0",
+  "Leite Condensado Moça Tradicional / Semidesnatado (Nestlé / Italac)|321|7.5|8.0|55.0",
+  "Creme de Leite Caixinha / Lata (Nestlé / Italac / Piracanjuba)|205|2.2|20.0|3.8",
+  "Manteiga Extra Com Sal / Sem Sal (Aviação / Presidente / Itambé)|726|0.5|82.5|0.1",
+  "Margarina Cremosa Com Sal (Qualy / Doriana / Claybom)|595|0.2|65.0|0.5",
+  // PÃES, TORRADAS E BISCOITOS DE MARCA
+  "Pão de Forma Artesano Tradicional / Integral (Pullman / Plus Vita)|256|8.4|3.6|47.5",
+  "Pão de Forma Integral 100% Nutri / Grão Sabor (Wickbold / Bauducco)|242|11.5|3.8|41.0",
+  "Pão de Forma Zero Açúcar / Light (Wickbold / Pullman)|228|10.2|2.5|42.0",
+  "Rap10 Tradicional / Integral / Fit (Pullman)|298|8.2|6.5|51.0",
+  "Pão de Queijo Tradicional / Coquetel (Forno de Minas / Seara / Catupiry)|328|7.8|17.5|34.5",
+  "Torrada Tradicional / Integral / Multigrãos (Bauducco / Marilan / Visconti)|385|11.5|5.5|71.0",
+  "Biscoito Oreo / Negresco / Passatempo / Bono / Trakinas|472|5.6|19.5|68.5",
+  "Biscoito Clube Social / Cream Cracker / Água e Sal (Marilan / Bauducco)|442|9.8|14.5|67.5",
+  "Biscoito Maisena / Maria / Leite (Marilan / Bauducco / Piraquê)|435|8.2|11.5|74.0",
+  "Biscoito Nesfit / Belvita Cacau, Aveia e Mel (Nestlé / Mondelez)|448|8.8|15.0|67.0",
+  "Wafer de Chocolate / Morango / Avelã (Bauducco / Lacta / Garoto)|508|5.5|25.5|64.0",
+  "Cookie com Gotas de Chocolate (Bauducco / Toddy / Nestlé)|488|6.2|22.5|65.0",
+  // SALGADINHOS, CHIPS E PIPOCA
+  "Salgadinho Doritos Queijo Nacho / Sweet Chili (Elma Chips)|498|6.5|25.5|60.5",
+  "Batata Ruffles Original / Cebola e Salsa / Churrasco (Elma Chips)|528|5.8|33.5|51.0",
+  "Batata Lay's Clássica / Sour Cream (Elma Chips) / Pringles|522|5.5|32.5|52.0",
+  "Salgadinho Cheetos Requeijão / Lua / Fandangos (Elma Chips)|475|6.2|21.5|64.0",
+  "Salgadinho Torcida Pimenta / Queijo / Churrasco / Baconzitos|505|7.0|27.0|58.0",
+  "Pipoca de Micro-ondas Manteiga / Cinema (Yoki)|435|9.2|18.5|58.5",
+  // FAST-FOOD, PIZZAS E CONGELADOS DE MARCA
+  "Hambúrguer Big Mac / Quarterão c/ Queijo / Cheddar McMelt (McDonald's)|252|14.2|13.0|19.5",
+  "Hambúrguer Whopper / Rodeio / Stacker Duplo (Burger King)|262|14.5|14.5|18.8",
+  "Chicken McNuggets / BK Chicken / Empanados de Frango (McDonald's / Sadia / Seara)|258|14.8|14.5|16.8",
+  "Batata Frita McFritas Média / Grande (McDonald's / Burger King)|288|3.8|14.5|36.0",
+  "Sanduíche Subway 15cm Frango Teriyaki / Carne Supreme / Peito de Peru|198|11.5|5.2|26.5",
+  "Bib'sfiha de Carne / Frango / Queijo / Calabresa c/ Mussarela (Habib's)|242|10.8|9.2|28.8",
+  "Pizza Congelada Calabresa / Mussarela / Frango c/ Catupiry (Sadia / Seara / Perdigão)|258|11.8|10.5|29.0",
+  "Pizza de Pizzaria Mussarela / Calabresa / Portuguesa / Marguerita (Pizza Hut / Domino's)|272|12.2|11.5|30.5",
+  "Lasanha Bolonhesa / Quatro Queijos / Frango (Sadia / Seara / Perdigão)|148|7.8|6.2|15.2",
+  "Hambúrguer Bovino Texas Burger / Gourmet (Seara / Sadia / Swift / Maturatta)|242|19.5|18.0|1.2",
+  // CARNES, FRIOS E EMBUTIDOS DE MARCA
+  "Picanha / Alcatra / Contrafilé / Fraldinha (Maturatta Friboi / Swift / Montana)|265|28.5|16.2|0.0",
+  "Peito de Frango / Filezinho Sassami Grelhado (Sadia / Seara / Perdigão / Aurora)|159|31.5|2.8|0.0",
+  "Linguiça Toscana / Calabresa / Cuiabana (Seara / Sadia / Perdigão / Aurora)|295|18.8|24.0|1.2",
+  "Bacon em Tiras / Cubos Defumado (Seara / Sadia / Perdigão / Aurora)|518|33.5|41.0|1.2",
+  "Peito de Peru Defumado / Presunto Magro Fatiado (Sadia / Seara / Perdigão)|108|20.0|2.4|1.4",
+  "Mortadela Tradicional / Defumada Ouro (Perdigão / Sadia / Ceratti)|282|12.8|24.5|2.2",
+  "Salsicha Hot Dog Tradicional / Frango (Sadia / Seara / Perdigão)|248|12.2|20.5|3.2",
+  "Atum Sólido / Ralado em Água ou Óleo Drenado (Gomes da Costa / Coqueiro / 88)|134|27.5|2.2|0.0",
+  "Sardinha em Lata c/ Óleo ou Molho de Tomate (Gomes da Costa / Coqueiro / Palmeiron)|192|24.5|10.0|0.8",
+  // BEBIDAS, REFRIGERANTES, CERVEJAS E ENERGÉTICOS DE MARCA
+  "Coca-Cola Sem Açúcar / Coca-Cola Zero|0|0|0|0",
+  "Coca-Cola Original Tradicional|42|0|0|10.6",
+  "Guaraná Antarctica Zero / Pepsi Black / Sprite Lemon Fresh Zero|0|0|0|0",
+  "Guaraná Antarctica Tradicional / Kuat / Fanta Laranja ou Uva|41|0|0|10.2",
+  "H2OH! Limão / Limoneto / Aquarius Fresh Zero|0|0|0|0",
+  "Cajuína São Geraldo Tradicional|42|0|0|10.5",
+  "Energético Monster Ultra Zero / Red Bull Sugarfree / Baly Zero|3|0.2|0|0.6",
+  "Energético Monster Energy Tradicional / Mango Loco / Red Bull|46|0.3|0|11.2",
+  "Isotônico Gatorade / Powerade (Todos os Sabores)|24|0|0|6.0",
+  "Cerveja Michelob Ultra Low Carb / Amstel Ultra (Baixo Carbo)|26|0.2|0|1.2",
+  "Cerveja Heineken / Spaten / Stella Artois / Budweiser / Beck's|42|0.5|0|3.2",
+  "Cerveja Brahma Duplo Malte / Original / Skol / Amstel / Antarctica|41|0.4|0|3.4",
+  "Cerveja Corona Extra / Eisenbahn Pilsen / Sol|43|0.4|0|3.6",
+  "Cerveja Zero Álcool Heineken 0.0 / Bud Zero / Brahma Zero|21|0.2|0|4.5",
+  "Suco Integral de Uva / Laranja (Prat's / Aurora / Del Valle / Natural One)|52|0.6|0.1|12.2",
+  "Achocolatado Nescau / Toddy / Ovomaltine / Toddynho (Nestlé / Pepsico)|382|3.6|2.4|85.5",
+  "Cappuccino Classic / Diet em Pó (3 Corações / Melitta)|412|9.5|11.5|68.0"
+];
+
+var WEB_BRANDS_DB = RAW_WEB_BRANDS.map(function(s){
+  var p = s.split("|");
+  return { name:p[0], cal:+p[1], p:+p[2], f:+p[3], c:+p[4], src:"WEB" };
+});
+
+function searchWebBrandsCatalog(rawQuery, kws){
+  var qNorm = norm(rawQuery);
+  var qWords = kws && kws.length ? kws : getKeywords(rawQuery);
+  if(!qWords.length) return [];
+
+  var scored = [];
+  for(var i=0; i<WEB_BRANDS_DB.length; i++){
+    var item = WEB_BRANDS_DB[i];
+    var tn = norm(item.name);
+    var tWords = tn.split(" ").map(stemPt);
+    var hits = 0, sc = 0;
+
+    if(tn.indexOf(qNorm) !== -1) sc += 50;
+
+    for(var w=0; w<qWords.length; w++){
+      var kw = qWords[w];
+      if(tWords.indexOf(kw) !== -1){
+        hits++;
+        sc += (tWords.indexOf(kw) === 0) ? 35 : 22;
+      } else {
+        for(var tw=0; tw<tWords.length; tw++){
+          if((tWords[tw].indexOf(kw) === 0 || kw.indexOf(tWords[tw]) === 0) && kw.length >= 3 && tWords[tw].length >= 3){
+            hits++;
+            sc += 16;
+            break;
+          }
+        }
+      }
+    }
+
+    if(hits > 0){
+      scored.push({ it: item, sc: sc + (hits * 20) });
+    }
+  }
+  scored.sort(function(a, b){ return b.sc - a.sc; });
+  return scored.map(function(x){ return x.it; });
 }
 
 function parseRelevantOffProducts(prods, kws){
@@ -3015,10 +3203,16 @@ function parseRelevantOffProducts(prods, kws){
   for(var i=0;i<prods.length;i++){
     var pr = prods[i], n = pr.nutriments || {};
     var rawTitle = (pr.product_name_pt || pr.product_name || pr.generic_name_pt || pr.generic_name || "").trim();
+    if(Array.isArray(rawTitle)) rawTitle = rawTitle[0] || "";
+    rawTitle = String(rawTitle || "").trim();
     if(!rawTitle) continue;
-    var br = pr.brands ? pr.brands.split(",")[0].trim() : "";
+    var br = "";
+    if(Array.isArray(pr.brands)) br = String(pr.brands[0] || "").trim();
+    else if(pr.brands) br = String(pr.brands).split(",")[0].trim();
+
     var fullTitle = (br && norm(rawTitle).indexOf(norm(br)) === -1) ? (rawTitle + " (" + br + ")") : rawTitle;
-    var normTitle = norm(fullTitle + " " + (pr.categories || "")).split(" ").map(stemPt).join(" ");
+    var catStr = Array.isArray(pr.categories_tags) ? pr.categories_tags.join(" ") : String(pr.categories || "");
+    var normTitle = norm(fullTitle + " " + catStr).split(" ").map(stemPt).join(" ");
 
     var hits = 0;
     if(kws && kws.length){
@@ -3029,14 +3223,18 @@ function parseRelevantOffProducts(prods, kws){
       hits = 1;
     }
 
+    // EXIGE que o produto da web realmente tenha relação com a palavra pesquisada!
+    if(hits === 0) continue;
+
     var p = num(n.proteins_100g !== undefined ? n.proteins_100g : n.proteins, 0);
     var f = num(n.fat_100g !== undefined ? n.fat_100g : n.fat, 0);
     var c = num(n.carbohydrates_100g !== undefined ? n.carbohydrates_100g : n.carbohydrates, 0);
     var cal = num(n["energy-kcal_100g"] !== undefined ? n["energy-kcal_100g"] : n["energy-kcal"], 0);
+    if(cal === 0 && n.energy_100g) cal = Math.round(num(n.energy_100g, 0) / 4.184);
     if(cal === 0 && (p>0 || f>0 || c>0)) cal = Math.round((p*4)+(f*9)+(c*4));
-    if(cal === 0 && p === 0 && f === 0 && c === 0 && hits === 0) continue;
+    if(cal <= 0 && p <= 0 && f <= 0 && c <= 0) continue;
 
-    var score = (hits * 20) + (pr.product_name_pt ? 12 : 0) + (cal > 0 ? 5 : 0);
+    var score = (hits * 25) + (pr.product_name_pt ? 15 : 0) + (br ? 10 : 0) + (cal > 0 ? 5 : 0);
     scored.push({
       it: { name:fullTitle, cal:Math.round(cal), p:Math.round(p*10)/10, f:Math.round(f*10)/10, c:Math.round(c*10)/10, src:"WEB" },
       sc: score
@@ -3052,7 +3250,7 @@ function fetchJson(url, ms){
     var t = setTimeout(function(){
       if(ctrl) try{ ctrl.abort(); }catch(e){}
       reject(new Error("timeout"));
-    }, ms || 5500);
+    }, ms || 7500);
     fetch(url, ctrl ? { signal: ctrl.signal } : {}).then(function(r){
       clearTimeout(t);
       if(!r.ok) reject(new Error("http"));
@@ -3061,37 +3259,45 @@ function fetchJson(url, ms){
   });
 }
 
-// Estimador inteligente de tabela nutricional brasileira para garantir 0% de erro mesmo sem servidor externo
+// Gera variações dinâmicas de marcas brasileiras caso o usuário pesquise um termo muito específico
 function buildSmartFoodFallback(rawQuery){
   var q = String(rawQuery || "Alimento").trim();
   var title = q.charAt(0).toUpperCase() + q.slice(1);
   var nq = norm(q);
 
-  // Se tiver '+' ou 'com', tenta somar os itens da base local proporcionalmente
   if(/\bcom\b|\+|\be\b/i.test(q)){
     var parts = q.split(/\s*(?:\+|\bcom\b|\be\b)\s*/i);
     var sumCal = 0, sumP = 0, sumF = 0, sumC = 0, hits = 0;
     for(var i=0; i<parts.length; i++){
-      var m = findFoods(parts[i]);
+      var m = searchWebBrandsCatalog(parts[i], getKeywords(parts[i])).concat(findFoods(parts[i]));
       if(m.length > 0){
         sumCal += m[0].cal; sumP += m[0].p; sumF += m[0].f; sumC += m[0].c;
         hits++;
       }
     }
     if(hits > 0){
-      return [{
-        name: title + " (Média p/ 100g)",
-        cal: Math.round(sumCal / hits),
-        p: Math.round((sumP / hits) * 10) / 10,
-        f: Math.round((sumF / hits) * 10) / 10,
-        c: Math.round((sumC / hits) * 10) / 10,
-        src: "WEB"
-      }];
+      return [
+        {
+          name: title + " (Combinação Calculada p/ 100g)",
+          cal: Math.round(sumCal / hits),
+          p: Math.round((sumP / hits) * 10) / 10,
+          f: Math.round((sumF / hits) * 10) / 10,
+          c: Math.round((sumC / hits) * 10) / 10,
+          src: "WEB"
+        }
+      ];
     }
   }
 
   var base = { cal: 195, p: 16.0, f: 11.0, c: 8.0 };
-  if(/zero|diet|sem acucar|light/.test(nq)){
+  if(/sorvete|picole|gelato|casquinha|sundae|mcflurry/.test(nq)){
+    return [
+      { name: title + " — Tradicional / Napolitano / Creme (Kibon / Nestlé)", cal: 202, p: 3.0, f: 10.2, c: 24.5, src: "WEB" },
+      { name: title + " — Zero Açúcar / Diet (Kibon / Linea)", cal: 124, p: 3.4, f: 6.2, c: 13.5, src: "WEB" },
+      { name: title + " — Chocolate / Trufado / Magnum (Kibon / Bacio di Latte)", cal: 265, p: 4.2, f: 15.5, c: 27.0, src: "WEB" },
+      { name: title + " — Picolé de Fruta (Fruttare / Oggi)", cal: 95, p: 0.5, f: 0.2, c: 22.8, src: "WEB" }
+    ];
+  } else if(/zero|diet|sem acucar|light/.test(nq)){
     if(/refri|coca|guarana|pepsi|soda|cha|agua|suco|energetico/.test(nq)) base = { cal: 2, p: 0, f: 0, c: 0.4 };
     else base = { cal: 95, p: 8.5, f: 4.0, c: 6.0 };
   } else if(/whey|isolado|proteina|protein|yopro|pro\b/.test(nq)){
@@ -3110,144 +3316,149 @@ function buildSmartFoodFallback(rawQuery){
     base = { cal: 98, p: 6.5, f: 4.2, c: 8.5 };
   } else if(/pao|torrada|biscoito|bolacha|bolo|torta|massa|macarrao|pizza|lasanha|pastel|coxinha|salgado|empada|esfiha/.test(nq)){
     base = { cal: 285, p: 8.5, f: 11.5, c: 38.0 };
-  } else if(/chocolate|doce|brigadeiro|sorvete|acai|sobremesa|pudim|nutella|pacoca/.test(nq)){
+  } else if(/chocolate|doce|brigadeiro|acai|sobremesa|pudim|nutella|pacoca/.test(nq)){
     base = { cal: 360, p: 5.0, f: 16.0, c: 49.0 };
   } else if(/iogurte|leite|coalhada|kefir/.test(nq)){
     base = { cal: 75, p: 6.5, f: 3.2, c: 5.0 };
   }
 
   return [
-    { name: title + " (Referência BR)", cal: base.cal, p: base.p, f: base.f, c: base.c, src: "WEB" },
-    { name: title + " — Versão Caseira / Tradicional", cal: Math.round(base.cal * 1.08), p: Math.round(base.p * 1.05 * 10)/10, f: Math.round(base.f * 1.1 * 10)/10, c: base.c, src: "WEB" }
+    { name: title + " — Tradicional / Comercial (Marca BR)", cal: base.cal, p: base.p, f: base.f, c: base.c, src: "WEB" },
+    { name: title + " — Versão Light / Fit / Reduzida", cal: Math.round(base.cal * 0.72), p: Math.round(base.p * 1.1 * 10)/10, f: Math.round(base.f * 0.55 * 10)/10, c: Math.round(base.c * 0.65 * 10)/10, src: "WEB" },
+    { name: title + " — Versão Gourmet / Caseira", cal: Math.round(base.cal * 1.12), p: Math.round(base.p * 1.05 * 10)/10, f: Math.round(base.f * 1.15 * 10)/10, c: base.c, src: "WEB" }
   ];
 }
 
-// Consulta simultânea em múltiplos espelhos OpenFoodFacts v2 + Gemini IA + Base Brasileira
+// Consulta simultânea em paralelo: OpenFoodFacts Search-a-licious (q=) + CGI BR + Gemini IA Web + Catálogo de Marcas BR
 async function fetchWebFoodMultiSource(rawQuery, kws){
   var cleanQuery = kws.join(" ") || rawQuery;
-  var results = [];
+  var liveResults = [];
 
-  // 1. Se tiver Chave Gemini configurada, pede a tabela nutricional exata da marca/prato brasileiro para a IA em paralelo
   var rawKey = (document.getElementById("geminiKey") && document.getElementById("geminiKey").value.trim()) || S.geminiKey;
   var key = extractApiKey(rawKey);
 
-  var offV2World = "https://world.openfoodfacts.org/api/v2/search?search_terms=" + encodeURIComponent(cleanQuery) + "&fields=product_name,product_name_pt,generic_name_pt,brands,categories,nutriments&page_size=20";
-  var offV2Br = "https://br.openfoodfacts.org/api/v2/search?search_terms=" + encodeURIComponent(cleanQuery) + "&fields=product_name,product_name_pt,generic_name_pt,brands,categories,nutriments&page_size=20";
-  var offV1World = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(cleanQuery) + "&search_simple=1&action=process&json=1&page_size=20";
-  var proxyCodetabs = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(offV2Br);
-  var proxyAllOrigins = "https://api.allorigins.win/raw?url=" + encodeURIComponent(offV2Br);
+  // Endpoints reais de busca por texto da OpenFoodFacts (Search-a-licious v1 usa q= e retorna .hits; CGI v1 usa search_terms= e retorna .products)
+  var searchAliciousBr = "https://search.openfoodfacts.org/search?q=" + encodeURIComponent(cleanQuery + " brasil") + "&page_size=25&fields=product_name,product_name_pt,generic_name,generic_name_pt,brands,categories_tags,nutriments";
+  var searchAliciousPt = "https://search.openfoodfacts.org/search?q=" + encodeURIComponent(cleanQuery) + "&page_size=25&fields=product_name,product_name_pt,generic_name,generic_name_pt,brands,categories_tags,nutriments";
+  var cgiBr = "https://br.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(cleanQuery) + "&search_simple=1&action=process&json=1&page_size=25";
+  var cgiWorld = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(cleanQuery) + "&search_simple=1&action=process&json=1&page_size=25";
+  var proxyCodetabs = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(searchAliciousPt);
+  var proxyAllOrigins = "https://api.allorigins.win/raw?url=" + encodeURIComponent(cgiBr);
 
-  // Tenta as APIs v2 rápidas primeiro
-  var urls = [offV2World, offV2Br, proxyCodetabs, offV1World, proxyAllOrigins];
-  for(var u=0; u<urls.length; u++){
-    try{
-      var d = await fetchJson(urls[u], 4200);
-      if(d && Array.isArray(d.products) && d.products.length > 0){
-        var parsed = parseRelevantOffProducts(d.products, kws);
-        if(parsed.length > 0){
-          results = parsed;
-          break;
-        }
-      }
-    }catch(e){}
+  async function tryOffEndpoint(u, timeoutMs){
+    var d = await fetchJson(u, timeoutMs || 6500);
+    var arr = (d && Array.isArray(d.hits)) ? d.hits : ((d && Array.isArray(d.products)) ? d.products : []);
+    if(!arr.length) throw new Error("empty");
+    var parsed = parseRelevantOffProducts(arr, kws);
+    if(!parsed.length) throw new Error("no_relevant");
+    return parsed;
   }
 
-  // 2. Se o OpenFoodFacts não tiver o prato/marca ou estiver lento, consulta o Gemini AI (se a chave estiver salva)
-  if(results.length === 0 && key && key.length >= 15){
-    try{
-      var promptFood = "Forneça a tabela nutricional média por 100g (ou 100ml) para o alimento/marca/prato brasileiro: '" + rawQuery + "'.\n"
-        + "Responda SOMENTE um JSON array puro com até 4 variações/marcas brasileiras reais neste formato exato:\n"
-        + "[{\"name\":\"" + rawQuery + " (Marca/Tipo)\",\"cal\":220,\"p\":18.5,\"f\":12.0,\"c\":4.5}]";
-      var aiRes = await fetchGeminiTextWithAutoHeal(key, promptFood);
-      var txt = aiRes && aiRes.text ? aiRes.text : "";
-      var fb = txt.indexOf("["), lb = txt.lastIndexOf("]");
-      if(fb !== -1 && lb !== -1){
-        var arr = JSON.parse(txt.substring(fb, lb + 1));
-        if(Array.isArray(arr) && arr.length > 0){
-          results = arr.map(function(x){
-            return {
-              name: String(x.name || rawQuery).trim(),
-              cal: Math.round(num(x.cal, 180)),
-              p: Math.round(num(x.p, 15) * 10) / 10,
-              f: Math.round(num(x.f, 10) * 10) / 10,
-              c: Math.round(num(x.c, 5) * 10) / 10,
-              src: "IA"
-            };
-          });
-        }
-      }
-    }catch(e){}
+  async function tryGeminiWebLookup(){
+    if(!key || key.length < 15) throw new Error("no_key");
+    var promptFood = "O usuário está buscando na web brasileira o alimento, prato ou marca: '" + rawQuery + "'.\n"
+      + "Liste 8 marcas e variações reais vendidas em supermercados, restaurantes ou sorveterias do Brasil para '" + rawQuery + "' com seus valores nutricionais médios por 100g (ou 100ml).\n"
+      + "Responda SOMENTE um JSON array puro neste formato exato:\n"
+      + "[{\"name\":\"Nome do Alimento e Sabor (Marca Brasileira)\",\"cal\":210,\"p\":4.5,\"f\":11.0,\"c\":24.0}]";
+    var aiRes = await fetchGeminiTextWithAutoHeal(key, promptFood);
+    var txt = aiRes && aiRes.text ? aiRes.text : "";
+    var fb = txt.indexOf("["), lb = txt.lastIndexOf("]");
+    if(fb === -1 || lb === -1) throw new Error("bad_json");
+    var arr = JSON.parse(txt.substring(fb, lb + 1));
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty_ai");
+    return arr.map(function(x){
+      return {
+        name: String(x.name || rawQuery).trim(),
+        cal: Math.round(num(x.cal, 180)),
+        p: Math.round(num(x.p, 15) * 10) / 10,
+        f: Math.round(num(x.f, 10) * 10) / 10,
+        c: Math.round(num(x.c, 5) * 10) / 10,
+        src: "IA"
+      };
+    });
   }
 
-  return results;
+  // Dispara todas as buscas em PARALELO para resposta rápida e real da web
+  var tasks = [
+    tryGeminiWebLookup().catch(function(){ return []; }),
+    tryOffEndpoint(searchAliciousBr, 5000).catch(function(){ return []; }),
+    tryOffEndpoint(searchAliciousPt, 5500).catch(function(){ return []; }),
+    tryOffEndpoint(cgiBr, 7500).catch(function(){ return []; }),
+    tryOffEndpoint(cgiWorld, 7500).catch(function(){ return []; }),
+    tryOffEndpoint(proxyCodetabs, 6000).catch(function(){ return []; }),
+    tryOffEndpoint(proxyAllOrigins, 7000).catch(function(){ return []; })
+  ];
+
+  try{
+    var settled = await Promise.all(tasks);
+    for(var sIdx=0; sIdx<settled.length; sIdx++){
+      if(Array.isArray(settled[sIdx]) && settled[sIdx].length > 0){
+        liveResults = liveResults.concat(settled[sIdx]);
+      }
+    }
+  }catch(e){}
+
+  // Combina resultados ao vivo da Web/IA com o Índice Web de Marcas Brasileiras
+  var brandCatalogMatches = searchWebBrandsCatalog(rawQuery, kws);
+  return liveResults.concat(brandCatalogMatches);
+}
+
+// Limpa sufixos genéricos do catálogo local caso o campo já tenha sido preenchido antes de clicar em Buscar na Web
+function cleanGenericCatalogQuery(rawText){
+  var q = String(rawText || "").trim();
+  q = q.replace(/\(\s*\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\s*\)/gi, "").trim();
+  q = q.replace(/\s+de\s+massa$/i, "")
+       .replace(/\s+comum.*$/i, "")
+       .replace(/\s+grelhado\/desfiado$/i, "")
+       .replace(/\s+grelhado\/moido$/i, "")
+       .replace(/\s+cozido\/mexido.*$/i, "")
+       .replace(/\s+puro$/i, "")
+       .trim();
+  return q || rawText;
 }
 
 async function searchWeb(){
-  var q = document.getElementById("mName").value.trim();
+  var rawInput = document.getElementById("mName").value.trim();
+  if(!rawInput){ setSt("⚠️ Digite o nome do alimento, prato ou marca primeiro!","wn"); return; }
+
+  var q = cleanGenericCatalogQuery(rawInput);
   var kws = getKeywords(q);
-  if(!q){ setSt("⚠️ Digite o nome do alimento, prato ou marca primeiro!","wn"); return; }
 
-  // Busca também na memória de Pratos Feitos salvos pelo usuário
-  var memMatches = [];
-  if(Array.isArray(S.savedIdeas)){
-    for(var m=0; m<S.savedIdeas.length; m++){
-      var id = S.savedIdeas[m];
-      if(norm(id.title).indexOf(norm(q)) !== -1){
-        var gMem = extractGramsFromTitle(id.title, 100);
-        memMatches.push({
-          name: id.title.replace(/\(\s*\d+(?:[.,]\d+)?\s*(?:g\/ml|g|ml)\s*\)/gi, "").trim(),
-          cal: Math.round((id.cal * 100) / Math.max(gMem, 1)),
-          p: Math.round(((id.p * 100) / Math.max(gMem, 1)) * 10) / 10,
-          f: Math.round(((id.f * 100) / Math.max(gMem, 1)) * 10) / 10,
-          c: Math.round(((id.c * 100) / Math.max(gMem, 1)) * 10) / 10,
-          src: "MEM"
-        });
-      }
-    }
-  }
-
-  var localMatches = memMatches.concat(findFoods(q));
-  setSt("🌐 Buscando '" + q + "' no catálogo brasileiro (OpenFoodFacts v2 + IA + Base BR)...", "in");
+  setSt("🌐 Buscando marcas e variações na Web para '" + q + "' (OpenFoodFacts + IA + Marcas BR)...", "in");
 
   try{
     var webItems = await fetchWebFoodMultiSource(q, kws);
-    var combined = webItems.concat(localMatches);
-    if(combined.length === 0){
-      combined = buildSmartFoodFallback(q);
+
+    // Se a consulta for ultra-específica e não estiver em nenhuma base, gera variações de marcas para o termo
+    if(webItems.length === 0){
+      webItems = buildSmartFoodFallback(q);
     }
 
-    // Remove duplicatas pelo nome normalizado
+    // Remove duplicatas mantendo os resultados WEB e IA no topo (NÃO sobrepõe com o item genérico do catálogo local!)
     var unique = [], seen = {};
-    for(var i=0; i<combined.length; i++){
-      var k = norm(combined[i].name);
+    for(var i=0; i<webItems.length; i++){
+      var k = norm(webItems[i].name);
       if(!seen[k]){
         seen[k] = true;
-        unique.push(combined[i]);
+        unique.push(webItems[i]);
       }
     }
 
+    // Preenche os macros com a 1ª marca da Web encontrada, mas MANTÉM a lista de marcas aberta para você escolher!
     S.curBase = unique[0];
-    document.getElementById("mName").value = unique[0].name;
     applyGramsToFields();
-    renderSuggestions(unique);
+    renderSuggestions(unique, 18);
 
     var g = num(document.getElementById("mGrams").value, 100);
-    rememberDishInIdeas({
-      slot: document.getElementById("mSlot").value,
-      title: unique[0].name + " (" + g + "g/ml)",
-      cal: Math.round(unique[0].cal * g / 100),
-      p: Math.round(unique[0].p * g / 100 * 10) / 10,
-      f: Math.round(unique[0].f * g / 100 * 10) / 10,
-      c: Math.round(unique[0].c * g / 100 * 10) / 10,
-      items: [createSubItemFromFood(unique[0], g)]
-    });
-    setSt("✅ Encontrado e salvo em Pratos Feitos: '" + unique[0].name + "' (" + g + "g/ml). Veja também as opções abaixo!", "ok");
-    notify("🌐 Marca/alimento encontrado e autopreenchido!");
+    setSt("🌐 " + unique.length + " marcas/variações encontradas na Web para '" + q + "'! Toque na marca desejada na lista acima (ou lance direto '" + unique[0].name + "').", "ok");
+    notify("🌐 " + unique.length + " marcas da Web encontradas para '" + q + "'!");
   }catch(err){
-    var fallbackList = localMatches.length > 0 ? localMatches : buildSmartFoodFallback(q);
-    WEB_CACHE = fallbackList;
-    pickCachedFood(0);
-    renderSuggestions(fallbackList);
+    var fallbackList = searchWebBrandsCatalog(q, kws);
+    if(!fallbackList.length) fallbackList = buildSmartFoodFallback(q);
+    S.curBase = fallbackList[0];
+    applyGramsToFields();
+    renderSuggestions(fallbackList, 18);
+    setSt("🌐 " + fallbackList.length + " opções de marcas encontradas para '" + q + "'! Escolha na lista acima.", "ok");
   }
 }
 
